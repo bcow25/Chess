@@ -43,4 +43,7 @@ The purpose of the game is to checkmate the opponent's king. This happens when t
 * There are not enough pieces on the board to force a checkmate (example: a king and a bishop vs. a king)
 * A player declares a draw if the same exact position is repeated three times (though not necessarily three times in a row)
 * Fifty consecutive moves have been played where neither player has moved a pawn or captured a piece
-* **Stalemate**: The position reaches a stalemate where it is one player's turn to move, but his king is NOT in check and yet he does not have another legal move. 
+* **Stalemate**: The position reaches a stalemate where it is one player's turn to move, but his king is NOT in check and yet he does not have another legal move.
+
+For more info visit: https://www.chess.com/learn-how-to-play-chess#chess-pieces-move 
+(yes we stole these stuff from chess.com)
