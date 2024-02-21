@@ -26,6 +26,16 @@ public class Board {
             return null;
         }
     }
+    private class Rook extends Piece {
+        public Rook(int r, int c){
+            super(r,c); 
+        }
+            
+        
+        public ArrayList<int[]> generateLegalMoves() {
+            return null;
+        }
+    }
     private class Knight extends Piece {
         public Knight(int r, int c){
             super(r,c); 
