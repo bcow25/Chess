@@ -40,8 +40,8 @@ public class Board {
         public Knight(int r, int c){
             super(r,c); 
         }
-        public ArrayList<Integer[]> generateLegalMoves() {
-            ArrayList<Integer[]> ans = new ArrayList<Integer[]>();
+        public ArrayList<int[]> generateLegalMoves() {
+            ArrayList<int[]> ans = new ArrayList<int[]>();
             if (row - 2 >= 0 && col - 1 >= 0)
                 ans.add(new int[]{row - 2, col - 1});
             if (row - 1 >= 0 && col - 2 >= 0)
@@ -57,7 +57,7 @@ public class Board {
             if (row + 1 <= 7 && col + 2 <= 7)
                 ans.add(new int[]{row + 1, col + 2});
             if (row + 2 <= 7 && col + 1 <= 7)
-                ans.add(new int[]{row + 2, col + 1});
+                ans.add(new int[]{row + 1, col + 2});
             return ans;
         }
     }
