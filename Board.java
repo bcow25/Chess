@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 public class Board {
     private abstract class Piece {
-        private boolean pieceColor; //true means white
-        private int row;
-        private int column;
+        protected boolean pieceColor; //true means white
+        protected int row;
+        protected int column;
         public void move(int r,int c) {
             pieces[r][c]=this;
             pieces[row][column]=null;
