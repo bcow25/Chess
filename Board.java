@@ -30,10 +30,20 @@ public class Board {
         public Rook(int r, int c){
             super(r,c); 
         }
-            
         
         public ArrayList<int[]> generateLegalMoves() {
-            return null;
+            ArrayList<int[]> ans = new ArrayList<int[]>();
+            for (int r = 0; r < 8; r++)
+            {
+                if (pieces[r][col] == null)
+                    ans.add(new int[] {r, col});
+            }
+            for (int c = 0; c < 8; c++)
+            {
+                if (pieces[row][c] == null)
+                    ans.add(new int[] {row, c});
+            }
+            return ans;
         }
     }
     private class Knight extends Piece {
