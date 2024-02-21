@@ -30,8 +30,25 @@ public class Board {
         public Knight(int r, int c){
             super(r,c); 
         }
-        public ArrayList<int[]> generateLegalMoves() {
-            return null;
+        public ArrayList<Integer[]> generateLegalMoves() {
+            ArrayList<Integer[]> ans = new ArrayList<Integer[]>();
+            if (row - 2 >= 0 && col - 1 >= 0)
+                ans.add(new int[]{row - 2, col - 1});
+            if (row - 1 >= 0 && col - 2 >= 0)
+                ans.add(new int[]{row - 1, col - 2});
+            if (row + 1 <= 7 && col - 2 >= 0)
+                ans.add(new int[]{row + 1, col - 2});
+            if (row + 2 <= 7 && col - 1 >= 0)
+                ans.add(new int[]{row + 2, col - 1});
+            if (row - 2 >= 0 && col + 1 <= 7)
+                ans.add(new int[]{row - 2, col + 1});
+            if (row - 1 >= 0 && col + 2 <= 7)
+                ans.add(new int[]{row - 1, col + 2});
+            if (row + 1 <= 7 && col + 2 <= 7)
+                ans.add(new int[]{row + 1, col + 2});
+            if (row + 2 <= 7 && col + 1 <= 7)
+                ans.add(new int[]{row + 2, col + 1});
+            return ans;
         }
     }
     private class Bishop extends Piece {
