@@ -59,12 +59,12 @@ public class Board {
         }
     }
     private Piece[][] pieces;
-    private boolean inCheck;
+    private boolean inCheck() {return false;}
     private boolean whitesTurn;
-    private boolean castleWhiteLeft;
-    private boolean castleWhiteRight;
-    private boolean castleBlackLeft;
-    private boolean castleBlackRight;
+    private boolean castleWhite;
+    private boolean castleBlack;
+    private King bKing;
+    private King wKing;
     private int moves; //for tracking draws
     private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
