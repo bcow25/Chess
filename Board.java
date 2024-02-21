@@ -96,7 +96,68 @@ public class Board {
         }
     }
     private Piece[][] pieces;
-    private boolean inCheck() {return false;}
+    private boolean inCheck() {
+        King c=whitesTurn?wKing:bKing;
+        for(int i=c.row;i>=0;i--) {
+            if(pieces[i][c.col].pieceColor!=whitesTurn&&(pieces[i][c.col] instanceof Queen || pieces[i][c.col] instanceof Rook))
+               return true;
+            if(pieces[i][c.col]!=null) break;
+            
+        }
+        for(int i=c.row;i<8;i++) {
+            
+            if(pieces[i][c.col].pieceColor!=whitesTurn&&(pieces[i][c.col] instanceof Queen || pieces[i][c.col] instanceof Rook))
+               return true;
+            if(pieces[i][c.col]!=null) break;
+            
+        }
+        for(int i=c.col;i>=0;i--) {
+            if(pieces[c.row][i].pieceColor!=whitesTurn&&(pieces[c.row][i] instanceof Queen || pieces[c.row][i] instanceof Rook))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            
+        }
+        for(int i=c.col;i<8;i++) {
+            
+            if(pieces[c.row][i].pieceColor!=whitesTurn&&(pieces[c.row][i] instanceof Queen || pieces[c.row][i] instanceof Rook))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            
+        }
+        int j=c.col;
+        for(int i=c.row;i>=0&&j>=0;i--) {
+            if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            j--;
+        }
+        
+        j=c.col;
+        for(int i=c.row;i<8&&j>=0;i++) {
+            if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            j--;
+        }
+        j=c.col;
+        for(int i=c.row;i>=0&&j<8;i--) {
+            if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            j++;
+        }
+        j=c.col;
+        for(int i=c.row;i<8&&j<0;i++) {
+            if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
+               return true;
+            if(pieces[c.row][i]!=null) break;
+            j++;
+        }
+        int[][] help={{c.row-2,c.col+1},{c.row-1,c.col+2},{c.row+1,c.col+2},{c.row+2,c.col+1},{c.row-2,c.col-1},{c.row-1,c.col-2},{c.row+1,c.col-2},{c.row+2,c.col-1}};
+        for(int[] i:help)
+            if(i[0]<8&&i[0]>=0&&i[1]<8&&i[1]>=0) if(pieces[i[0]][i[1]] instanceof Knight && pieces[i[0]][i[1]].pieceColor!=whitesTurn) return true;
+        return false;
+    }
     private boolean whitesTurn;
     private boolean castleWhite;
     private boolean castleBlack;
