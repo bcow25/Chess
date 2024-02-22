@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 public class Board {
     private abstract class Piece {
-        public Piece (int r, int c){
+        public Piece (int r, int c,boolean color){
             row = r; 
             col = c;
+            pieceColor=color;
         }
         protected boolean pieceColor; //true means white
         protected int row;
@@ -16,7 +17,7 @@ public class Board {
         }
         public abstract ArrayList<int[]> generateLegalMoves();
     }
-    private class Pawn extends Piece {
+     private class Pawn extends Piece {
         private boolean firstMove;
         private boolean canGetFrenched; //en passant 
         //constructor 
@@ -95,8 +96,8 @@ public class Board {
         }
     }
     private class Rook extends Piece {
-        public Rook(int r, int c){
-            super(r,c); 
+        public Rook(int r, int c,boolean color){
+            super(r,c,color); 
         }
         
         public ArrayList<int[]> generateLegalMoves() {
@@ -129,8 +130,8 @@ public class Board {
         }
     }
     private class Knight extends Piece {
-        public Knight(int r, int c){
-            super(r,c); 
+        public Knight(int r, int c,boolean color){
+            super(r,c,color); 
         }
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
@@ -154,24 +155,24 @@ public class Board {
         }
     }
     private class Bishop extends Piece {
-        public Bishop(int r, int c){
-            super(r,c); 
+        public Bishop(int r, int c,boolean color){
+            super(r,c,color); 
         }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
         }
     }
     private class Queen extends Piece {
-        public Queen(int r, int c){
-            super(r,c); 
+        public Queen(int r, int c,boolean color){
+            super(r,c,color); 
         }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
         }
     }
     private class King extends Piece {
-        public King(int r, int c){
-            super(r,c); 
+        public King(int r, int c,boolean color){
+            super(r,c,color); 
         }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
@@ -249,6 +250,7 @@ public class Board {
     private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
+        
     }
     public Piece[][] getBoard() {return pieces;}
     /* trash
