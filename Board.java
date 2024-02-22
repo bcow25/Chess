@@ -15,8 +15,11 @@ public class Board {
             row=r;
             col=c;
         }
-        //test if a move will put your king in check
+        //test if a move will put your king in check,out of bounds, or collides with your own piece
+        //true means is a valid move
         protected boolean testMove(int r,int c) {
+            if(r<0||r>7||c<0||c>7) return false;
+            if(pieces[r][c].pieceColor==this.pieceColor) return false;
             Piece t=pieces[r][c];
             int tr=row;
             int tc=col;
@@ -24,7 +27,7 @@ public class Board {
             boolean a=inCheck();
             move(tr,tc);
             pieces[r][c]=t;
-            return a;
+            return !a;
         }
         public abstract ArrayList<int[]> generateLegalMoves();
     }
