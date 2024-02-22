@@ -15,6 +15,17 @@ public class Board {
             row=r;
             col=c;
         }
+        //test if a move will put your king in check
+        protected boolean testMove(int r,int c) {
+            Piece t=pieces[r][c];
+            int tr=row;
+            int tc=col;
+            move(r,c);
+            boolean a=inCheck();
+            move(tr,tc);
+            pieces[r][c]=t;
+            return a;
+        }
         public abstract ArrayList<int[]> generateLegalMoves();
     }
      private class Pawn extends Piece {
