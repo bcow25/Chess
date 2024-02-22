@@ -174,6 +174,11 @@ public class Board {
         public King(int r, int c,boolean color){
             super(r,c,color); 
         }
+        public void move(int r,int c) {
+            super.move(r, c);
+            if(pieceColor) castleWhite=false;
+            else castleBlack=false;
+        }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
         }
