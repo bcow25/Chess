@@ -99,7 +99,11 @@ public class Board {
         public Rook(int r, int c,boolean color){
             super(r,c,color); 
         }
-        
+        public void move(int r,int c) {
+            super.move(r, c);
+            if(pieceColor) castleWhite=false;
+            else castleBlack=false;
+        }
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
