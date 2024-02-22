@@ -101,15 +101,29 @@ public class Board {
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
-            for (int r = 0; r < 8; r++)
+            int r = row;
+            while (r >= 0 && pieces[r][col] == null)
             {
-                if (pieces[r][col] == null)
-                    ans.add(new int[] {r, col});
+                ans.add(new int[] {r, col});
+                r--;
             }
-            for (int c = 0; c < 8; c++)
+            r = row;
+            while (r <= 7 && pieces[r][col] == null)
             {
-                if (pieces[row][c] == null)
-                    ans.add(new int[] {row, c});
+                ans.add(new int[] {r, col});
+                r++;
+            }
+            int c = col;
+            while (r >= 0 && pieces[row][c] == null)
+            {
+                ans.add(new int[] {row, c});
+                c--;
+            }
+            c = col;
+            while (c <= 7 && pieces[row][c] == null)
+            {
+                ans.add(new int[] {row, c});
+                c++;
             }
             return ans;
         }
