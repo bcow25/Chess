@@ -15,23 +15,22 @@ public class Board {
             row=r;
             col=c;
         }
-        //test if a move will put your king in check,out of bounds, or collides with your own piece
-        //true means is a valid move
-        protected boolean testMove(int r,int c) {
-            if(r<0||r>7||c<0||c>7) return false;
-            if(pieces[r][c].pieceColor==this.pieceColor) return false;
-            Piece t=pieces[r][c];
-            int tr=row;
-            int tc=col;
-            move(r,c);
-            boolean a=inCheck();
-            move(tr,tc);
-            pieces[r][c]=t;
-            return !a;
-        }
         public abstract ArrayList<int[]> generateLegalMoves();
+        public void removeCheck(ArrayList<int[]> moves){ // remove all moves that puts King in check 
+            // check if put king in check 
+             for(int[] pos : moves){
+                 pieces[pos[0]][pos[1]] = new Pawn(pos[0], pos[1], pieceColor); // piece move to possible position 
+                 pieces[row][col] = null; // remove current piece
+                 if(inCheck()){ // if bad, remove move 
+                     moves.remove(pos); 
+                 }                 
+                 // put piece back 
+                 pieces[pos[0]][pos[1]] = null; 
+                 pieces[row][col] = new Pawn(row, col, pieceColor); 
+             }
+        }
     }
-     private class Pawn extends Piece {
+    private class Pawn extends Piece {
         private boolean firstMove;
         private boolean canGetFrenched; //en passant 
         //constructor 
@@ -94,17 +93,7 @@ public class Board {
                  
              }             
              
-             // check if put king in check 
-             for(int[] pos : moves){
-                 pieces[pos[0]][pos[1]] = new Pawn(pos[0], pos[1], pieceColor); // piece move to possible position 
-                 pieces[row][col] = null; // remove current piece
-                 if(inCheck()){ // if bad, remove move 
-                     moves.remove(pos); 
-                 }                 
-                 // put piece back 
-                 pieces[pos[0]][pos[1]] = null; 
-                 pieces[row][col] = new Pawn(row, col, pieceColor); 
-             }
+             removeCheck(moves); 
              
             return moves;
         }
@@ -113,37 +102,34 @@ public class Board {
         public Rook(int r, int c,boolean color){
             super(r,c,color); 
         }
-        public void move(int r,int c) {
-            super.move(r, c);
-            if(pieceColor) castleWhite=false;
-            else castleBlack=false;
-        }
+        
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
-            while (r >= 0 && pieces[r][col] == null)
+            while (r >= 0 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
                 ans.add(new int[] {r, col});
                 r--;
             }
             r = row;
-            while (r <= 7 && pieces[r][col] == null)
+            while (r <= 7 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
                 ans.add(new int[] {r, col});
                 r++;
             }
             int c = col;
-            while (r >= 0 && pieces[row][c] == null)
+            while (r >= 0 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
                 ans.add(new int[] {row, c});
                 c--;
             }
             c = col;
-            while (c <= 7 && pieces[row][c] == null)
+            while (c <= 7 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
                 ans.add(new int[] {row, c});
                 c++;
             }
+            removeCheck(ans); 
             return ans;
         }
     }
@@ -169,6 +155,7 @@ public class Board {
                 ans.add(new int[]{row + 1, col + 2});
             if (row + 2 <= 7 && col + 1 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
                 ans.add(new int[]{row + 1, col + 2});
+            removeCheck(ans); 
             return ans;
         }
     }
@@ -177,7 +164,41 @@ public class Board {
             super(r,c,color); 
         }
         public ArrayList<int[]> generateLegalMoves() {
-            return null;
+            ArrayList<int[]> ans = new ArrayList<int[]>();
+            int r = row; 
+            int c = col; 
+            
+            while(r <= 7 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r++; 
+                c++; 
+            }
+            while(r >= 0 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r--; 
+                c++; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
+                    ans.add(new int[] {r, c}); 
+                else
+                    break; 
+            }
+            while(r >= 0 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r--; 
+                c--; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
+                    ans.add(new int[] {r, c}); 
+                else
+                    break; 
+            }
+            while(r <= 7 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r++; 
+                c--; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
+                    ans.add(new int[] {r, c}); 
+                else
+                    break; 
+            }
+            
+            removeCheck(ans); 
+            return ans;
         }
     }
     private class Queen extends Piece {
@@ -191,11 +212,6 @@ public class Board {
     private class King extends Piece {
         public King(int r, int c,boolean color){
             super(r,c,color); 
-        }
-        public void move(int r,int c) {
-            super.move(r, c);
-            if(pieceColor) castleWhite=false;
-            else castleBlack=false;
         }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
