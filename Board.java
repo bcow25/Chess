@@ -15,6 +15,20 @@ public class Board {
             row=r;
             col=c;
         }
+         //test if a move will put your king in check,out of bounds, or collides with your own piece
+        //true means is a valid move
+        protected boolean testMove(int r,int c) {
+            if(r<0||r>7||c<0||c>7) return false;
+            if(pieces[r][c].pieceColor==this.pieceColor) return false;
+            Piece t=pieces[r][c];
+            int tr=row;
+            int tc=col;
+            move(r,c);
+            boolean a=inCheck();
+            move(tr,tc);
+            pieces[r][c]=t;
+            return !a;
+        }
         public abstract ArrayList<int[]> generateLegalMoves();
         public void removeCheck(ArrayList<int[]> moves){ // remove all moves that puts King in check 
             // check if put king in check 
@@ -102,6 +116,11 @@ public class Board {
         public Rook(int r, int c,boolean color){
             super(r,c,color); 
         }
+        public void move(int r,int c) {
+            super.move(r, c);
+            if(pieceColor) castleWhite=false;
+            else castleBlack=false;
+        }
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
@@ -175,26 +194,14 @@ public class Board {
             while(r >= 0 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r--; 
                 c++; 
-                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
-                    ans.add(new int[] {r, c}); 
-                else
-                    break; 
             }
             while(r >= 0 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r--; 
                 c--; 
-                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
-                    ans.add(new int[] {r, c}); 
-                else
-                    break; 
             }
             while(r <= 7 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r++; 
                 c--; 
-                if(pieces[r][c] != null && pieces[r][c].pieceColor != pieceColor)
-                    ans.add(new int[] {r, c}); 
-                else
-                    break; 
             }
             
             removeCheck(ans); 
@@ -210,8 +217,13 @@ public class Board {
         }
     }
     private class King extends Piece {
-        public King(int r, int c,boolean color){
+       public King(int r, int c,boolean color){
             super(r,c,color); 
+        }
+        public void move(int r,int c) {
+            super.move(r, c);
+            if(pieceColor) castleWhite=false;
+            else castleBlack=false;
         }
         public ArrayList<int[]> generateLegalMoves() {
             return null;
