@@ -290,6 +290,10 @@ public class Board {
         int[][] help={{c.row-2,c.col+1},{c.row-1,c.col+2},{c.row+1,c.col+2},{c.row+2,c.col+1},{c.row-2,c.col-1},{c.row-1,c.col-2},{c.row+1,c.col-2},{c.row+2,c.col-1}};
         for(int[] i:help)
             if(i[0]<8&&i[0]>=0&&i[1]<8&&i[1]>=0) if(pieces[i[0]][i[1]] instanceof Knight && pieces[i[0]][i[1]].pieceColor!=whitesTurn) return true;
+        for(int i=c.row-1;i<=c.row+1;i++)
+            for(int j=c.col-1;j<=c.col+1;j++) if(i>=0&&i<8&&j>=0&&j<8&&pieces[i][j].pieceColor!=c.pieceColor&&pieces[i][j] instanceof King) return true;
+        if(pieces[c.row+c.pieceColor?1:-1][c.col-1] instanceof Pawn&&pieces[c.row+c.pieceColor?1:-1][c.col-1].pieceColor!=c.pieceColor) return true;
+        if(pieces[c.row+c.pieceColor?1:-1][c.col+1] instanceof Pawn&&pieces[c.row+c.pieceColor?1:-1][c.col+1].pieceColor!=c.pieceColor) return true;
         return false;
     }
     private boolean whitesTurn;
