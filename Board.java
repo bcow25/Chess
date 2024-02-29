@@ -212,12 +212,21 @@ public class Board {
             super(r,c,color); 
         }
         public void move(int r,int c) {
+            if(c-col==2) pieces[r][7].move(r,5);
+            if(c-col==-2) pieces[r][0].move(r, 3);
             super.move(r, c);
             if(pieceColor) castleWhite=false;
             else castleBlack=false;
         }
         public ArrayList<int[]> generateLegalMoves() {
-            return null;
+            ArrayList<int[]> a=new ArrayList<>();
+            for(int r=row-1;r<=row+1;r++) 
+                for(int c=col-1;c<=col+1;c++)
+                if(testMove(r,c)) a.add(new int[]{r,c});
+            boolean c=pieceColor?castleWhite:castleBlack;
+            if(c&&pieces[row][col+1]==null&&pieces[row][col+2]==null&&testMove(row,col+1)&&testMove(row,col+2)&&!inCheck()) a.add(new int[]{row,col+2});
+            if(c&&pieces[row][col-1]==null&&pieces[row][col-2]==null&&pieces[row][col-3]==null&&testMove(row,col-1)&&testMove(row,col-2)&&!inCheck()) a.add(new int[]{row,col-2});
+            return a;
         }
     }
     private Piece[][] pieces;
