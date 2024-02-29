@@ -309,7 +309,22 @@ public class Board {
     private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
-        
+        whitesTurn=true;
+        castleWhite=true;
+        castleBlack=true;
+        moves=0;
+        repeatedPositions=new ArrayList<Integer>();
+        bKing=new King(0,4,false);
+        wKing=new King(7,4,true);
+        pieces=new Piece[8][8];
+        Piece[] t={new Rook(0,0,false),new Knight(0,1,false),new Bishop(0,2,false),new Queen(0,3,false),bKing,new Bishop(0,5,false),new Knight(0,6,false),new Rook(0,7,false)};
+        pieces[0]=t;
+        t=new Piece[]{new Rook(7,0,true),new Knight(7,1,true),new Bishop(7,2,true),new Queen(7,3,true),wKing,new Bishop(7,5,true),new Knight(7,6,true),new Rook(7,7,true)};
+        pieces[7]=t;
+        for(int i=0;i<8;i++) {
+            pieces[1][i]=new Pawn(1,i,false);
+            pieces[7][i]=new Pawn(6,i,true);
+        }
     }
     public Piece[][] getBoard() {return pieces;}
     /* trash
