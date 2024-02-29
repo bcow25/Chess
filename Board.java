@@ -30,19 +30,7 @@ public class Board {
             return !a;
         }
         public abstract ArrayList<int[]> generateLegalMoves();
-        public void removeCheck(ArrayList<int[]> moves){ // remove all moves that puts King in check 
-            // check if put king in check 
-             for(int[] pos : moves){
-                 pieces[pos[0]][pos[1]] = new Pawn(pos[0], pos[1], pieceColor); // piece move to possible position 
-                 pieces[row][col] = null; // remove current piece
-                 if(inCheck()){ // if bad, remove move 
-                     moves.remove(pos); 
-                 }                 
-                 // put piece back 
-                 pieces[pos[0]][pos[1]] = null; 
-                 pieces[row][col] = new Pawn(row, col, pieceColor); 
-             }
-        }
+
     }
     private class Pawn extends Piece {
         private boolean firstMove;
@@ -64,32 +52,32 @@ public class Board {
             if(firstMove){//if is Pawn's first move then can move two blocks 
                 if(pieceColor){ // if is white 
                     if(pieces[row-2][col] == null) // if 2 space ahead is unoccupied, add to moves
-                        moves.add( new int[] {row - 2, col} );                     
+                        if(testMove(row,col)) moves.add( new int[] {row - 2, col} );                     
                 } else { //color is black 
                     if(pieces[row+2][col] == null) // if 2 space ahead is unoccupied, add to moves
-                        moves.add( new int[] {row + 2, col} ); 
+                        if(testMove(row,col)) moves.add( new int[] {row + 2, col} ); 
                 }                                   
             }
              //check if pawn can move forward
              if(pieceColor){// if is white
                  if(row != 0 && pieces[row-1][col] == null) // if not on top row and space ahead is unoccupied, add to moves
-                    moves.add( new int[] {row - 1, col} ); 
+                    if(testMove(row,col)) moves.add( new int[] {row - 1, col} ); 
              } else { //color is black 
                  if(row != 7 && pieces[row+1][col] == null) // if not on botton row and space ahead is unoccupied, add to moves
-                    moves.add( new int[] {row + 1, col} ); 
+                    if(testMove(row,col)) moves.add( new int[] {row + 1, col} ); 
              }
              
              // check if can capture 
              if (pieceColor && row != 0){ // if is white
                  if(col != 7 && pieces[row-1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
-                     moves.add(new int[] {row -1, col +1}); 
+                     if(testMove(row,col)) moves.add(new int[] {row -1, col +1}); 
                  if (col != 0 && pieces[row-1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
-                     moves.add(new int[] {row -1, col - 1}); 
+                     if(testMove(row,col)) moves.add(new int[] {row -1, col - 1}); 
              } else if (row != 7){ //piece is black
                  if(col != 7 && pieces[row+1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
-                     moves.add(new int[] {row +1, col +1}); 
+                     if(testMove(row,col)) moves.add(new int[] {row +1, col +1}); 
                  if (col != 7 && pieces[row+1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
-                     moves.add(new int[] {row +1, col - 1}); 
+                     if(testMove(row,col)) moves.add(new int[] {row +1, col - 1}); 
              }
              
              //en Passent
@@ -97,17 +85,16 @@ public class Board {
                  if(col != 7 && pieces[row][col + 1] instanceof Pawn ){ // check right
                      Pawn pwn = (Pawn)  pieces[row][col + 1]; 
                      if(pwn.getCanGetFrenched()) 
-                         moves.add(new int[] {row, col + 1});                      
+                         if(testMove(row,col)) moves.add(new int[] {row, col + 1});                      
                  } 
                  if (col != 0 && pieces[row][col - 1] instanceof Pawn){ // check left
                      Pawn pwn = (Pawn)  pieces[row][col - 1]; 
                      if(pwn.getCanGetFrenched())
-                        moves.add(new int[] {row, col - 1}); 
+                        if(testMove(row,col)) moves.add(new int[] {row, col - 1}); 
                  }
                  
              }             
              
-             removeCheck(moves); 
              
             return moves;
         }
@@ -127,28 +114,27 @@ public class Board {
             int r = row;
             while (r >= 0 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
-                ans.add(new int[] {r, col});
+                if(testMove(r,col))ans.add(new int[] {r, col});
                 r--;
             }
             r = row;
             while (r <= 7 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
             {
-                ans.add(new int[] {r, col});
+                if(testMove(r,col))ans.add(new int[] {r, col});
                 r++;
             }
             int c = col;
-            while (r >= 0 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
+            while (c >= 0 && (pieces[row][c] == null || pieces[row][c].pieceColor != pieceColor ))
             {
-                ans.add(new int[] {row, c});
+                if(testMove(row,col)) ans.add(new int[] {row, c});
                 c--;
             }
             c = col;
-            while (c <= 7 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
+            while (c <= 7 && (pieces[row][c] == null || pieces[row][c].pieceColor != pieceColor ))
             {
-                ans.add(new int[] {row, c});
+                if(testMove(row,col)) ans.add(new int[] {row, c});
                 c++;
             }
-            removeCheck(ans); 
             return ans;
         }
     }
@@ -159,22 +145,21 @@ public class Board {
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             if (row - 2 >= 0 && col - 1 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row - 2, col - 1});
+                if(testMove(row,col))ans.add(new int[]{row - 2, col - 1});
             if (row - 1 >= 0 && col - 2 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row - 1, col - 2});
+                if(testMove(row,col))ans.add(new int[]{row - 1, col - 2});
             if (row + 1 <= 7 && col - 2 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row + 1, col - 2});
+                if(testMove(row,col))ans.add(new int[]{row + 1, col - 2});
             if (row + 2 <= 7 && col - 1 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row + 2, col - 1});
+                if(testMove(row,col))ans.add(new int[]{row + 2, col - 1});
             if (row - 2 >= 0 && col + 1 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row - 2, col + 1});
+                if(testMove(row,col))ans.add(new int[]{row - 2, col + 1});
             if (row - 1 >= 0 && col + 2 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row - 1, col + 2});
+                if(testMove(row,col))ans.add(new int[]{row - 1, col + 2});
             if (row + 1 <= 7 && col + 2 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row + 1, col + 2});
+                if(testMove(row,col))ans.add(new int[]{row + 1, col + 2});
             if (row + 2 <= 7 && col + 1 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                ans.add(new int[]{row + 1, col + 2});
-            removeCheck(ans); 
+                if(testMove(row,col)) ans.add(new int[]{row + 1, col + 2});
             return ans;
         }
     }
@@ -190,21 +175,27 @@ public class Board {
             while(r <= 7 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r++; 
                 c++; 
+                if(testMove(r,c))
+                    ans.add(new int[]{r,c}); 
+                
             }
             while(r >= 0 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r--; 
                 c++; 
+                if(testMove(r,c))
+                    ans.add(new int[]{r,c}); 
             }
             while(r >= 0 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r--; 
                 c--; 
+                if(testMove(r,c))
+                    ans.add(new int[]{r,c}); 
             }
             while(r <= 7 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
                 r++; 
                 c--; 
+                if(testMove(r,c)) ans.add(new int[]{r,c}); 
             }
-            
-            removeCheck(ans); 
             return ans;
         }
     }
@@ -291,9 +282,13 @@ public class Board {
         for(int[] i:help)
             if(i[0]<8&&i[0]>=0&&i[1]<8&&i[1]>=0) if(pieces[i[0]][i[1]] instanceof Knight && pieces[i[0]][i[1]].pieceColor!=whitesTurn) return true;
         for(int i=c.row-1;i<=c.row+1;i++)
-            for(int j=c.col-1;j<=c.col+1;j++) if(i>=0&&i<8&&j>=0&&j<8&&pieces[i][j].pieceColor!=c.pieceColor&&pieces[i][j] instanceof King) return true;
-        if(pieces[c.row+c.pieceColor?1:-1][c.col-1] instanceof Pawn&&pieces[c.row+c.pieceColor?1:-1][c.col-1].pieceColor!=c.pieceColor) return true;
-        if(pieces[c.row+c.pieceColor?1:-1][c.col+1] instanceof Pawn&&pieces[c.row+c.pieceColor?1:-1][c.col+1].pieceColor!=c.pieceColor) return true;
+            for(int k=c.col-1;k<=c.col+1;k++) 
+                if(i>=0&&i<8&&k>=0&&j<8&&pieces[i][k].pieceColor!=c.pieceColor&&pieces[i][k] instanceof King) 
+                    return true;
+        if(pieces[c.row+(c.pieceColor?1:-1)][c.col-1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col-1].pieceColor!=c.pieceColor) 
+            return true;
+        if(pieces[c.row+(c.pieceColor?1:-1)][c.col+1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col+1].pieceColor!=c.pieceColor) 
+            return true;
         return false;
     }
     private boolean whitesTurn;
