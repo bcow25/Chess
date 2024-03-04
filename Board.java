@@ -42,7 +42,7 @@ public class Board {
             firstMove = true; 
             canGetFrenched = false; 
         }
-        public String getName(){return "pawn";}
+        public String getName(){return "pawn:" + pieceColor;}
         
         public void setFirstMove(boolean bool){ firstMove = bool; }
         public void setCanGetFrenched(boolean bool){ canGetFrenched = bool; }
@@ -111,7 +111,7 @@ public class Board {
             else castleBlack=false;
         }
         
-        public String getName(){return "rook"; }
+        public String getName(){return "rook:" + pieceColor;}
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
@@ -146,7 +146,7 @@ public class Board {
         public Knight(int r, int c,boolean color){
             super(r,c,color); 
         }
-        public String getName(){ return "knight"; }
+        public String getName(){ return "knight:" + pieceColor;}
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
@@ -173,7 +173,7 @@ public class Board {
         public Bishop(int r, int c,boolean color){
             super(r,c,color); 
         }
-        public String getName (){return "bishop";}
+        public String getName (){return "bishop:" + pieceColor;}
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row; 
@@ -211,7 +211,7 @@ public class Board {
             super(r,c,color); 
         }
         
-        public String getName(){ return "queen"; }
+        public String getName(){ return "queen:" + pieceColor; }
         
         // returns an arrayList of possible capture moves to male generate legal move more readable 
         // see how queen capture in README
@@ -266,7 +266,7 @@ public class Board {
             super(r,c,color); 
         }
        
-       public String getName (){ return "king"; }
+       public String getName (){ return "king:" + pieceColor; }
         public void move(int r,int c) {
             if(c-col==2) pieces[r][7].move(r,5);
             if(c-col==-2) pieces[r][0].move(r, 3);
@@ -379,7 +379,7 @@ public class Board {
         pieces[7]=t;
         for(int i=0;i<8;i++) {
             pieces[1][i]=new Pawn(1,i,false);
-            pieces[7][i]=new Pawn(6,i,true);
+            pieces[6][i]=new Pawn(6,i,true);
         }
     }
     public Piece[][] getBoard() {return pieces;}
