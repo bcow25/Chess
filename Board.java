@@ -208,24 +208,46 @@ public class Board {
          public ArrayList<int[]> generateCaptureMoves() {
              ArrayList <int[]> ans = new ArrayList<>(); 
             if(row > 1){
-                if (pieces[row-1][col] != null && testMove(row-2, col)) ans.add(new int[]{row-2, col}); 
-                if(col > 1 && pieces[row-1][col-1] != null && testMove(row-2, col-2)) ans.add(new int[]{row-2, col-2}); 
-                if(col < 6 && pieces[row-1][col+1] != null && testMove(row-2, col+2)) ans.add(new int[]{row-2, col+2}); 
+                if (pieces[row-1][col].pieceColor != pieceColor && pieces[row-2][col] == null && testMove(row-2, col)) ans.add(new int[]{row-2, col}); 
+                if(col > 1 && pieces[row-1][col-1].pieceColor != pieceColor && pieces[row-2][col-2] == null && testMove(row-2, col-2)) ans.add(new int[]{row-2, col-2}); 
+                if(col < 6 && pieces[row-1][col+1].pieceColor != pieceColor && pieces[row-2][col+2] == null && testMove(row-2, col+2)) ans.add(new int[]{row-2, col+2}); 
             }
             
             if(row < 6){
-                if (pieces[row+1][col] != null && testMove(row+2, col)) ans.add(new int[]{row+2, col}); 
-                if(col > 1 && pieces[row+1][col-1] != null && testMove(row+2, col-2)) ans.add(new int[]{row+2, col-2}); 
-                if(col < 6 && pieces[row+1 ][col+1] != null && testMove(row+1, col+1)) ans.add(new int[]{row+1, col+1}); 
+                if (pieces[row+1][col].pieceColor != pieceColor && pieces[row+2][col] == null && testMove(row+2, col)) ans.add(new int[]{row+2, col}); 
+                if(col > 1 && pieces[row+1][col-1].pieceColor != pieceColor && pieces[row+2][col-2] == null && testMove(row+2, col-2)) ans.add(new int[]{row+2, col-2}); 
+                if(col < 6 && pieces[row+1 ][col+1].pieceColor != pieceColor && pieces[row+2][col+2] == null && testMove(row+1, col+1)) ans.add(new int[]{row+2, col+2}); 
             }
             
-            if (col != 0 && testMove(row, col-1)) ans.add(new int[]{row, col-1}); 
-            if (col != 7 && testMove(row, col+1)) ans.add(new int[]{row, col+1}); 
+            if (col != 0 && pieces[row][col-2] == null && testMove(row, col-1)) ans.add(new int[]{row, col-2}); 
+            if (col != 7 && pieces[row][col+2] == null && testMove(row, col+1)) ans.add(new int[]{row, col+2}); 
             
             return ans;
         }
+        
         public ArrayList<int[]> generateLegalMoves() {
-            public ArrayList <int[]> ans = generateCaptureMoves(); 
+            boolean canMove = false; 
+            ArrayList <int[]> ans = generateCaptureMoves(); //add list of capture moves to ans 
+            for(int r = row; r <= 7; r ++){
+                if(pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if(canMove && pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
+            }
+            canMove = false; 
+            for(int r = row; r >= 0; r --){
+                if(pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if(canMove && pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
+            }
+            
+             canMove = false; 
+            for(int c = col; c >= 0; c --){
+                if(pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if(canMove && pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
+            }
+            canMove = false; 
+            for(int c = row; c <= 7; c ++){
+                if(pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if(canMove && pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
+            }
             return ans;
         }
     }
