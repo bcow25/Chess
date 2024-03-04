@@ -9,7 +9,7 @@ The player with the white pieces always moves first. Therefore, players generall
  The king is the most important piece, but is one of the weakest. The king can only move one square in any direction - up, down, to the sides, and diagonally.
  The king may never move himself into check (where he could be captured). When the king is attacked by another piece this is called "check".
  ### Queen
- The queen is the most powerful piece. She can move in any one straight direction - forward, backward, sideways, or diagonally - as far as possible as long as she does not move through any of her own pieces.
+ The Queen captures by jumping over a piece. It move by __(insert creative idea) __
  And, like with all pieces, if the queen captures an opponent's piece her move is over. 
  ### Rook 
  The rook may move as far as it wants, but only forward, backward, and to the sides.

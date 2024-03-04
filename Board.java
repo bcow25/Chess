@@ -203,8 +203,30 @@ public class Board {
         public Queen(int r, int c,boolean color){
             super(r,c,color); 
         }
+        // returns an arrayList of possible capture moves to male generate legal move more readable 
+        // see how queen capture in README
+         public ArrayList<int[]> generateCaptureMoves() {
+             ArrayList <int[]> ans = new ArrayList<>(); 
+            if(row > 1){
+                if (pieces[row-1][col] != null && testMove(row-2, col)) ans.add(new int[]{row-2, col}); 
+                if(col > 1 && pieces[row-1][col-1] != null && testMove(row-2, col-2)) ans.add(new int[]{row-2, col-2}); 
+                if(col < 6 && pieces[row-1][col+1] != null && testMove(row-2, col+2)) ans.add(new int[]{row-2, col+2}); 
+            }
+            
+            if(row < 6){
+                if (pieces[row+1][col] != null && testMove(row+2, col)) ans.add(new int[]{row+2, col}); 
+                if(col > 1 && pieces[row+1][col-1] != null && testMove(row+2, col-2)) ans.add(new int[]{row+2, col-2}); 
+                if(col < 6 && pieces[row+1 ][col+1] != null && testMove(row+1, col+1)) ans.add(new int[]{row+1, col+1}); 
+            }
+            
+            if (col != 0 && testMove(row, col-1)) ans.add(new int[]{row, col-1}); 
+            if (col != 7 && testMove(row, col+1)) ans.add(new int[]{row, col+1}); 
+            
+            return ans;
+        }
         public ArrayList<int[]> generateLegalMoves() {
-            return null;
+            public ArrayList <int[]> ans = generateCaptureMoves(); 
+            return ans;
         }
     }
     private class King extends Piece {
