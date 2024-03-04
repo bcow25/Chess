@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Board {
-    private abstract class Piece {
+    public abstract class Piece {
         public Piece (int r, int c,boolean color){
             row = r; 
             col = c;
@@ -30,6 +30,7 @@ public class Board {
             return !a;
         }
         public abstract ArrayList<int[]> generateLegalMoves();
+        public abstract String getName(); 
 
     }
     private class Pawn extends Piece {
@@ -41,6 +42,7 @@ public class Board {
             firstMove = true; 
             canGetFrenched = false; 
         }
+        public String getName(){return "pawn";}
         
         public void setFirstMove(boolean bool){ firstMove = bool; }
         public void setCanGetFrenched(boolean bool){ canGetFrenched = bool; }
@@ -109,6 +111,8 @@ public class Board {
             else castleBlack=false;
         }
         
+        public String getName(){return "rook"; }
+        
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
@@ -142,6 +146,8 @@ public class Board {
         public Knight(int r, int c,boolean color){
             super(r,c,color); 
         }
+        public String getName(){ return "knight"; }
+        
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             if (row - 2 >= 0 && col - 1 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
@@ -167,6 +173,7 @@ public class Board {
         public Bishop(int r, int c,boolean color){
             super(r,c,color); 
         }
+        public String getName (){return "bishop";}
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row; 
@@ -203,6 +210,9 @@ public class Board {
         public Queen(int r, int c,boolean color){
             super(r,c,color); 
         }
+        
+        public String getName(){ return "queen"; }
+        
         // returns an arrayList of possible capture moves to male generate legal move more readable 
         // see how queen capture in README
          public ArrayList<int[]> generateCaptureMoves() {
@@ -255,6 +265,8 @@ public class Board {
        public King(int r, int c,boolean color){
             super(r,c,color); 
         }
+       
+       public String getName (){ return "king"; }
         public void move(int r,int c) {
             if(c-col==2) pieces[r][7].move(r,5);
             if(c-col==-2) pieces[r][0].move(r, 3);
