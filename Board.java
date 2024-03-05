@@ -71,14 +71,14 @@ public class Board {
              
              // check if can capture 
              if (pieceColor && row != 0){ // if is white
-                 if(col != 7 && pieces[row-1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
+                 if(col != 7 &&  pieces[row-1][col+1] != null && pieces[row-1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
                      if(testMove(row,col)) moves.add(new int[] {row -1, col +1}); 
-                 if (col != 0 && pieces[row-1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
+                 if (col != 0 && pieces[row-1][col-1] != null && pieces[row-1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
                      if(testMove(row,col)) moves.add(new int[] {row -1, col - 1}); 
              } else if (row != 7){ //piece is black
-                 if(col != 7 && pieces[row+1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
+                 if(col != 7 && pieces[row+1][col+1] != null && pieces[row+1][col+1].pieceColor != pieceColor) // if there's a piece diagonally left to be captured, add to legal moves  
                      if(testMove(row,col)) moves.add(new int[] {row +1, col +1}); 
-                 if (col != 7 && pieces[row+1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
+                 if (col != 7 && pieces[row+1][col-1] != null && pieces[row+1][col-1].pieceColor != pieceColor) // if there's a piece diagonally right to be captured, add to legal moves  
                      if(testMove(row,col)) moves.add(new int[] {row +1, col - 1}); 
              }
              
