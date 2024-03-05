@@ -101,71 +101,144 @@ public class Board {
             return moves;
         }
     }
+    /**
+     * ROOK:
+     * can move vertically or horizontally as long as it's not blocked by other pieces
+     */
     private class Rook extends Piece {
-        public Rook(int r, int c,boolean color){
-            super(r,c,color); 
-        }
-        public void move(int r,int c) {
-            super.move(r, c);
-            if(pieceColor) castleWhite=false;
-            else castleBlack=false;
+        //constructor
+        public Rook(int r, int c, boolean color){
+            super(r, c, color); 
         }
         
-        public String getName(){return "rook:" + pieceColor;}
+        //moves to pieces[r][c]
+        public void move(int r, int c) {
+            super.move(r, c);
+            if (pieceColor)
+                castleWhite = false;
+            else 
+                castleBlack = false;
+        }
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
-            while (r >= 0 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
-            {
-                if(testMove(r,col))ans.add(new int[] {r, col});
+            while (r >= 0 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ))) { //checking squares left of current position
+                if (testMove(r, col))
+                    ans.add(new int[] {r, col} );
                 r--;
             }
             r = row;
-            while (r <= 7 && (pieces[r][col] == null || pieces[r][col].pieceColor != pieceColor ))
-            {
-                if(testMove(r,col))ans.add(new int[] {r, col});
+            while (r <= 7 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ) )) { //checking squares right of current position
+                if (testMove(r,col))
+                    ans.add(new int[] {r, col} );
                 r++;
             }
             int c = col;
-            while (c >= 0 && (pieces[row][c] == null || pieces[row][c].pieceColor != pieceColor ))
-            {
-                if(testMove(row,col)) ans.add(new int[] {row, c});
+            while (c >= 0 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares above current position
+                if (testMove(row,col)) 
+                    ans.add(new int[] {row, c} );
                 c--;
             }
             c = col;
-            while (c <= 7 && (pieces[row][c] == null || pieces[row][c].pieceColor != pieceColor ))
-            {
-                if(testMove(row,col)) ans.add(new int[] {row, c});
+            while (c <= 7 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares below current position
+                if (testMove(row,col)) 
+                    ans.add(new int[] {row, c} );
                 c++;
             }
             return ans;
         }
     }
+    
+    /**
+     * KNIGHT:
+     * moves in an L-shape
+     * can jump over other pieces (can only capture what it lands on, not what it jumps over)
+     */
     private class Knight extends Piece {
+        //constructor
         public Knight(int r, int c,boolean color){
             super(r,c,color); 
         }
-        public String getName(){ return "knight:" + pieceColor;}
         
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
-            if (row - 2 >= 0 && col - 1 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row - 2, col - 1});
-            if (row - 1 >= 0 && col - 2 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row - 1, col - 2});
-            if (row + 1 <= 7 && col - 2 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row + 1, col - 2});
-            if (row + 2 <= 7 && col - 1 >= 0 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row + 2, col - 1});
-            if (row - 2 >= 0 && col + 1 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row - 2, col + 1});
-            if (row - 1 >= 0 && col + 2 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row - 1, col + 2});
-            if (row + 1 <= 7 && col + 2 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col))ans.add(new int[]{row + 1, col + 2});
-            if (row + 2 <= 7 && col + 1 <= 7 && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)
-                if(testMove(row,col)) ans.add(new int[]{row + 1, col + 2});
+            if (row - 2 >= 0 && col - 1 >= 0)
+                if (pieces[row - 2][col - 1] == null || (pieces[row - 2][col - 1] != null && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)) //2 up, 1 left
+                    if(testMove(row,col))
+                        ans.add(new int[]{row - 2, col - 1});
+            if (row - 1 >= 0 && col - 2 >= 0)
+                if (pieces[row - 1][col - 2] == null || (pieces[row - 1][col - 2] == null && pieces[row - 1][col - 2].pieceColor != pieces[row][col].pieceColor)) // 1 up, 2 left
+                    if(testMove(row,col))
+                        ans.add(new int[]{row - 1, col - 2});
+            if (row + 1 >= 0 && col - 2 >= 0)
+                if (pieces[row + 1][col - 2] == null || (pieces[row + 1][col - 2] == null && pieces[row + 1][col - 2].pieceColor != pieces[row][col].pieceColor)) // 1 down, 2 left
+                    if(testMove(row,col))
+                        ans.add(new int[]{row + 1, col - 2});
+            if (row + 2 >= 0 && col - 1 >= 0)
+                if (pieces[row + 2][col - 1] == null || (pieces[row + 2][col - 1] == null && pieces[row + 2][col - 1].pieceColor != pieces[row][col].pieceColor)) // 2 down, 1 left
+                    if(testMove(row,col))
+                        ans.add(new int[]{row + 2, col - 1});
+            if (row - 2 >= 0 && col + 1 >= 0)
+                if (pieces[row - 2][col + 1] == null || (pieces[row - 2][col + 1] == null && pieces[row - 2][col + 1].pieceColor != pieces[row][col].pieceColor)) // 2 up, 1 right
+                    if(testMove(row,col))
+                        ans.add(new int[]{row - 2, col + 1});
+            if (row - 1 >= 0 && col + 2 >= 0)
+                if (pieces[row - 1][col + 2] == null || (pieces[row - 1][col + 2] == null && pieces[row - 1][col + 2].pieceColor != pieces[row][col].pieceColor)) // 1 up, 2 right
+                    if(testMove(row,col))
+                        ans.add(new int[]{row - 1, col + 2});
+            if (row + 1 >= 0 && col + 2 >= 0)
+                if (pieces[row + 1][col + 2] == null || (pieces[row + 1][col + 2] == null && pieces[row + 1][col + 2].pieceColor != pieces[row][col].pieceColor)) // 1 down, 2 right
+                    if(testMove(row,col))
+                        ans.add(new int[]{row + 1, col + 2});
+            if (row + 2 >= 0 && col + 1 >= 0)
+                if (pieces[row + 2][col + 1] == null || (pieces[row + 2][col + 1] == null && pieces[row + 2][col + 1].pieceColor != pieces[row][col].pieceColor)) // 2 down, 1 right
+                    if(testMove(row,col)) 
+                        ans.add(new int[]{row + 2, col + 1});
+            return ans;
+        }
+    }
+    
+    /**
+     * BISHOP:
+     * moves diagonally as long as it's not blocked by its own pieces
+     */
+    private class Bishop extends Piece {
+        //constructor
+        public Bishop(int r, int c, boolean color){
+            super(r, c, color); 
+        }
+        
+        public ArrayList<int[]> generateLegalMoves() {
+            ArrayList<int[]> ans = new ArrayList<int[]>();
+            int r = row; 
+            int c = col; 
+            
+            while(r <= 7 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r++; 
+                c++; 
+                if (testMove(r, c))
+                    ans.add(new int[] {r, c} ); 
+                
+            }
+            while(r >= 0 && c <= 7 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r--; 
+                c++; 
+                if (testMove(r, c))
+                    ans.add(new int[] {r, c} ); 
+            }
+            while(r >= 0 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r--; 
+                c--; 
+                if (testMove(r, c))
+                    ans.add(new int[] {r, c} ); 
+            }
+            while(r <= 7 && c >= 0 && (pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor)  ){
+                r++; 
+                c--; 
+                if (testMove(r, c)) 
+                    ans.add(new int[] {r, c} ); 
+            }
             return ans;
         }
     }
