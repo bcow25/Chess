@@ -1,5 +1,5 @@
 # Chess
-This is our attempt at coding chess in Java. We'll see how it go :D Will update hopefully 
+This is our attempt at coding chess in Java. We'll see how it go :D Will update hopefully. 
 
 # Rules 
 ## General Rules
