@@ -363,26 +363,28 @@ public class Board {
     private boolean inCheck() {
         King c=whitesTurn?wKing:bKing;
         for(int i=c.row;i>=0;i--) {
+            if(pieces[i][c.col]==null) continue;
             if(pieces[i][c.col].pieceColor!=whitesTurn&&(pieces[i][c.col] instanceof Queen || pieces[i][c.col] instanceof Rook))
                return true;
             if(pieces[i][c.col]!=null) break;
             
         }
         for(int i=c.row;i<8;i++) {
-            
+            if(pieces[i][c.col]==null) continue;
             if(pieces[i][c.col].pieceColor!=whitesTurn&&(pieces[i][c.col] instanceof Queen || pieces[i][c.col] instanceof Rook))
                return true;
             if(pieces[i][c.col]!=null) break;
             
         }
         for(int i=c.col;i>=0;i--) {
+            if(pieces[c.row][i]==null) continue;
             if(pieces[c.row][i].pieceColor!=whitesTurn&&(pieces[c.row][i] instanceof Queen || pieces[c.row][i] instanceof Rook))
                return true;
             if(pieces[c.row][i]!=null) break;
             
         }
         for(int i=c.col;i<8;i++) {
-            
+            if(pieces[c.row][i]==null) continue;
             if(pieces[c.row][i].pieceColor!=whitesTurn&&(pieces[c.row][i] instanceof Queen || pieces[c.row][i] instanceof Rook))
                return true;
             if(pieces[c.row][i]!=null) break;
@@ -390,31 +392,35 @@ public class Board {
         }
         int j=c.col;
         for(int i=c.row;i>=0&&j>=0;i--) {
+            if(pieces[i][j]==null) continue;
             if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
                return true;
-            if(pieces[c.row][i]!=null) break;
+            if(pieces[i][j]!=null) break;
             j--;
         }
         
         j=c.col;
         for(int i=c.row;i<8&&j>=0;i++) {
+            if(pieces[i][j]==null) continue;
             if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
                return true;
-            if(pieces[c.row][i]!=null) break;
+            if(pieces[i][j]!=null) break;
             j--;
         }
         j=c.col;
         for(int i=c.row;i>=0&&j<8;i--) {
+            if(pieces[i][j]==null) continue;
             if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
                return true;
-            if(pieces[c.row][i]!=null) break;
+            if(pieces[i][j]!=null) break;
             j++;
         }
         j=c.col;
         for(int i=c.row;i<8&&j<0;i++) {
+            if(pieces[i][j]==null) continue;
             if(pieces[i][j].pieceColor!=whitesTurn&&(pieces[i][j] instanceof Queen || pieces[i][j] instanceof Bishop))
                return true;
-            if(pieces[c.row][i]!=null) break;
+            if(pieces[i][j]!=null) break;
             j++;
         }
         int[][] help={{c.row-2,c.col+1},{c.row-1,c.col+2},{c.row+1,c.col+2},{c.row+2,c.col+1},{c.row-2,c.col-1},{c.row-1,c.col-2},{c.row+1,c.col-2},{c.row+2,c.col-1}};
@@ -422,11 +428,12 @@ public class Board {
             if(i[0]<8&&i[0]>=0&&i[1]<8&&i[1]>=0) if(pieces[i[0]][i[1]] instanceof Knight && pieces[i[0]][i[1]].pieceColor!=whitesTurn) return true;
         for(int i=c.row-1;i<=c.row+1;i++)
             for(int k=c.col-1;k<=c.col+1;k++) 
-                if(i>=0&&i<8&&k>=0&&j<8&&pieces[i][k].pieceColor!=c.pieceColor&&pieces[i][k] instanceof King) 
+                if(i>=0&&i<8&&k>=0&&j<8&&pieces[i][k] instanceof King&&pieces[i][k].pieceColor!=c.pieceColor) 
                     return true;
-        if(pieces[c.row+(c.pieceColor?1:-1)][c.col-1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col-1].pieceColor!=c.pieceColor) 
+        int r=c.row+(c.pieceColor?1:-1);
+        if(r>=0&&r<8&&c.col-1>=0&&c.col-1<8&&pieces[r][c.col-1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col-1].pieceColor!=c.pieceColor) 
             return true;
-        if(pieces[c.row+(c.pieceColor?1:-1)][c.col+1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col+1].pieceColor!=c.pieceColor) 
+        if(r>=0&&r<8&&c.col+1>=0&&c.col+1<8&&pieces[r][c.col+1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col+1].pieceColor!=c.pieceColor) 
             return true;
         return false;
     }
