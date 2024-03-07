@@ -134,31 +134,35 @@ public class Board {
                 castleBlack = false;
         }
         public String getName (){ return "rook: " + pieceColor;}
-        public ArrayList<int[]> generateLegalMoves() {
+       public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
-            while (r >= 0 && (pieces[r][col] != this || pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ))) { //checking squares left of current position
-                if (testMove(r, col))
-                    ans.add(new int[] {r, col} );
+            while (r >= 1 ) { //checking squares left of current position
                 r--;
+                if(pieces[r][col] != null && pieces[r][col].pieceColor == pieceColor)break; 
+                if ((pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor )) && testMove(r, col))
+                    ans.add(new int[] {r, col} );               
             }
             r = row;
-            while (r <= 7 && (pieces[r][col] != this || pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ) )) { //checking squares right of current position
-                if (testMove(r,col))
+            while (r <= 6 ) { //checking squares right of current position
+                r++; 
+                if(pieces[r][col] != null && pieces[r][col].pieceColor == pieceColor)break; 
+                if ((pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ) ) && testMove(r,col))
                     ans.add(new int[] {r, col} );
-                r++;
             }
             int c = col;
-            while (c >= 0 && (pieces[row][c] != this || pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares above current position
-                if (testMove(row,col)) 
+            while (c >= 1) { //checking squares above current position
+                c--; 
+                if(pieces[row][c] != null && pieces[row][c].pieceColor == pieceColor)break; 
+                if ((pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor )) && testMove(row,col)) 
                     ans.add(new int[] {row, c} );
-                c--;
             }
             c = col;
-            while (c <= 7 && (pieces[row][c] != this || pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares below current position
-                if (testMove(row,col)) 
+            while (c <= 6 ) { //checking squares below current position
+                c++; 
+                if(pieces[row][c] != null && pieces[row][c].pieceColor == pieceColor)break; 
+                if ((pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor )) && testMove(row,col)) 
                     ans.add(new int[] {row, c} );
-                c++;
             }
             return ans;
         }
@@ -178,7 +182,6 @@ public class Board {
         public String getName () {return "knight: " + pieceColor;} 
         
          public ArrayList<int[]> generateLegalMoves() {
-            ArrayList<int[]> ans = new ArrayList<int[]>();
             ArrayList<int[]> ans = new ArrayList<int[]>();
             if (row - 2 >= 0 && col - 1 >= 0)
                 if (pieces[row - 2][col - 1] == null || (pieces[row - 2][col - 1] != null && pieces[row - 2][col - 1].pieceColor != pieces[row][col].pieceColor)) //2 up, 1 left
@@ -214,7 +217,6 @@ public class Board {
                         ans.add(new int[]{row + 2, col + 1});
             return ans;
         }
-        }
     }
     
     /**
@@ -235,6 +237,7 @@ public class Board {
             while(r <= 6 && c <= 6){
                 r++; 
                 c++; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor == pieceColor)break; 
                 if((pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
@@ -245,6 +248,7 @@ public class Board {
             while(r >= 1 && c <= 6 ){
                 r--; 
                 c++; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor == pieceColor)break; 
                 if((pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
@@ -254,6 +258,7 @@ public class Board {
             while(r >= 1 && c >= 1){
                 r--; 
                 c--; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor == pieceColor)break; 
                 if((pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
@@ -264,6 +269,7 @@ public class Board {
             while(r <= 6 && c >= 1){
                 r++; 
                 c--; 
+                if(pieces[r][c] != null && pieces[r][c].pieceColor == pieceColor)break; 
                 if((pieces[r][c] == null || pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c});
                 } 
@@ -271,7 +277,7 @@ public class Board {
             return ans;
         }
     }
-       private class Queen extends Piece {
+    private class Queen extends Piece {
         public Queen(int r, int c,boolean color){
             super(r,c,color); 
         }
@@ -325,23 +331,24 @@ public class Board {
         public ArrayList<int[]> generateLegalMoves() {
             boolean canMove = false; 
             ArrayList <int[]> ans = generateCaptureMoves(); //add list of capture moves to ans 
-            for(int r = row; r <= 7; r ++){
+            //System.out.print(ans.size());
+            for(int r = row+1; r <= 7; r ++){
                 if(pieces[r][col] != null && pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
                 if(canMove && pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
             }
             canMove = false; 
-            for(int r = row; r >= 0; r --){
+            for(int r = row-1; r >= 0; r --){
                 if(pieces[r][col] != null && pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
                 if(canMove && pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
             }
             
              canMove = false; 
-            for(int c = col; c >= 0; c --){
+            for(int c = col-1; c >= 0; c --){
                 if(pieces[row][c] != null && pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
                 if(canMove && pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
             }
             canMove = false; 
-            for(int c = row; c <= 7; c ++){
+            for(int c = col+1; c <= 7; c ++){
                 if(pieces[row][c] != null && pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
                 if(canMove && pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
             }
@@ -513,8 +520,8 @@ public class Board {
         t=new Piece[]{new Rook(7,0,true),new Knight(7,1,true),new Bishop(7,2,true),new Queen(7,3,true),wKing,new Bishop(7,5,true),new Knight(7,6,true),new Rook(7,7,true)};
         pieces[7]=t;
         for(int i=0;i<8;i++) {
-            //pieces[1][i]=new Pawn(1,i,false);
-            //pieces[6][i]=new Pawn(6,i,true);
+            pieces[1][i]=new Pawn(1,i,false);
+            pieces[6][i]=new Pawn(6,i,true);
         }
     }
     public Piece[][] getBoard() {return pieces;}
