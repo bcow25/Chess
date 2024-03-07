@@ -124,25 +124,25 @@ public class Board {
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
-            while (r >= 0 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ))) { //checking squares left of current position
+            while (r - 1 >= 0 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ))) { //checking squares left of current position
                 if (testMove(r, col))
                     ans.add(new int[] {r, col} );
                 r--;
             }
             r = row;
-            while (r <= 7 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ) )) { //checking squares right of current position
+            while (r + 1 <= 7 && (pieces[r][col] == null || (pieces[r][col] != null && pieces[r][col].pieceColor != pieceColor ) )) { //checking squares right of current position
                 if (testMove(r,col))
                     ans.add(new int[] {r, col} );
                 r++;
             }
             int c = col;
-            while (c >= 0 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares above current position
+            while (c - 1 >= 0 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares above current position
                 if (testMove(row,col)) 
                     ans.add(new int[] {row, c} );
                 c--;
             }
             c = col;
-            while (c <= 7 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares below current position
+            while (c + 1 <= 7 && (pieces[row][c] == null || (pieces[row][c] != null && pieces[row][c].pieceColor != pieceColor ))) { //checking squares below current position
                 if (testMove(row,col)) 
                     ans.add(new int[] {row, c} );
                 c++;
