@@ -163,7 +163,6 @@ public class Board {
         }
         
         public String getName () {return "knight: " + pieceColor;} 
-        
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             if (row - 2 >= 0 && col - 1 >= 0)
@@ -174,27 +173,27 @@ public class Board {
                 if (pieces[row - 1][col - 2] == null || (pieces[row - 1][col - 2] == null && pieces[row - 1][col - 2].pieceColor != pieces[row][col].pieceColor)) // 1 up, 2 left
                     if(testMove(row,col))
                         ans.add(new int[]{row - 1, col - 2});
-            if (row + 1 >= 0 && col - 2 >= 0)
+            if (row + 1 <= 7 && col - 2 >= 0)
                 if (pieces[row + 1][col - 2] == null || (pieces[row + 1][col - 2] == null && pieces[row + 1][col - 2].pieceColor != pieces[row][col].pieceColor)) // 1 down, 2 left
                     if(testMove(row,col))
                         ans.add(new int[]{row + 1, col - 2});
-            if (row + 2 >= 0 && col - 1 >= 0)
+            if (row + 2 <= 7 && col - 1 >= 0)
                 if (pieces[row + 2][col - 1] == null || (pieces[row + 2][col - 1] == null && pieces[row + 2][col - 1].pieceColor != pieces[row][col].pieceColor)) // 2 down, 1 left
                     if(testMove(row,col))
                         ans.add(new int[]{row + 2, col - 1});
-            if (row - 2 >= 0 && col + 1 >= 0)
+            if (row - 2 >= 0 && col + 1 <= 7)
                 if (pieces[row - 2][col + 1] == null || (pieces[row - 2][col + 1] == null && pieces[row - 2][col + 1].pieceColor != pieces[row][col].pieceColor)) // 2 up, 1 right
                     if(testMove(row,col))
                         ans.add(new int[]{row - 2, col + 1});
-            if (row - 1 >= 0 && col + 2 >= 0)
+            if (row - 1 >= 0 && col + 2 <= 7)
                 if (pieces[row - 1][col + 2] == null || (pieces[row - 1][col + 2] == null && pieces[row - 1][col + 2].pieceColor != pieces[row][col].pieceColor)) // 1 up, 2 right
                     if(testMove(row,col))
                         ans.add(new int[]{row - 1, col + 2});
-            if (row + 1 >= 0 && col + 2 >= 0)
+            if (row + 1 <= 7 && col + 2 <= 7)
                 if (pieces[row + 1][col + 2] == null || (pieces[row + 1][col + 2] == null && pieces[row + 1][col + 2].pieceColor != pieces[row][col].pieceColor)) // 1 down, 2 right
                     if(testMove(row,col))
                         ans.add(new int[]{row + 1, col + 2});
-            if (row + 2 >= 0 && col + 1 >= 0)
+            if (row + 2 <= 7 && col + 1 <= 7)
                 if (pieces[row + 2][col + 1] == null || (pieces[row + 2][col + 1] == null && pieces[row + 2][col + 1].pieceColor != pieces[row][col].pieceColor)) // 2 down, 1 right
                     if(testMove(row,col)) 
                         ans.add(new int[]{row + 2, col + 1});
