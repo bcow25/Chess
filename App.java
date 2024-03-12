@@ -1,7 +1,9 @@
 import javax.swing.*;
 
 class App {
-
+//this entire file is lowkey plagerized
+//this is just to set up stuff and stuff
+//https://learncodebygaming.com/blog/how-to-make-a-video-game-in-java-2d-basics credit!!
     private static void initWindow() {
         // create a window frame and set the title in the toolbar
         JFrame window = new JFrame("Constant W topia");
