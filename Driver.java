@@ -19,7 +19,7 @@ public class Driver{
             System.out.print(r + "\t");
             for(int c = 0; c < b.getBoard()[0].length; c++){
                 if (b.getBoard()[r][c] != null)
-                    System.out.print(b.getBoard()[r][c].getName() + "\t");
+                    System.out.print(b.getBoard()[r][c].toString() + "\t");
                 else
                     System.out.print("null \t\t");
 
@@ -33,7 +33,7 @@ public class Driver{
             for(int r = 0; r < b.getBoard().length; r++){
                 for(int c = 0; c < b.getBoard()[0].length; c++){
                     if (b.getBoard()[r][c] != null){
-                        System.out.print(b.getBoard()[r][c].getName() + ": ");
+                        System.out.print(b.getBoard()[r][c].toString() + ": ");
                         ArrayList<int[]> moves = b.getBoard()[r][c].generateLegalMoves(); 
                         for(int[] move : moves){
                             System.out.print("[R: " + move[0] + ", C:" + move[1] + "]");
