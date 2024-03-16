@@ -26,7 +26,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     // objects that appear on the game board
     private Player player;
-    private ArrayList<Coin> coins;
     private Point camera;
     public boolean up;
     public boolean down;
