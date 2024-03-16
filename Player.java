@@ -24,7 +24,7 @@ public class Player extends Character {
 
             Image killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
             while(killme==null); //most sane code written by tracy
-            Image[] suicide=new Image[0];
+            Image[] suicide=new Image[1];
             suicide[0]=killme;
             current=new Animator(suicide);
             walkD=walkL=walkR=walkU=current; //i deserve the death sentence
