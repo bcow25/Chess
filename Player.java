@@ -16,7 +16,6 @@ public class Player {
     // keep track of the player's score
     private int xvel;
     private int yvel;
-    private int coins;
     public Player(Game game) {
         this.game=game;
         // load the assets
@@ -25,7 +24,6 @@ public class Player {
         yvel=0;
         // initialize the state
         pos = new Point();
-        coins=0;
     }
 
     private void loadImage() {
