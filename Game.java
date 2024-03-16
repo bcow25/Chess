@@ -2,8 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,12 +10,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     // controls the delay between each tick in ms
     private final int DELAY = 25;
-    // controls the size of the board
-    public static final int TILE_SIZE = 50;
-    public static final int ROWS = 12;
-    public static final int COLUMNS = 18;
-    // controls how many coins appear on the board
-    public static final int NUM_COINS = 5;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
     private Image world;
@@ -81,12 +73,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to imageUpdate() events triggered by g.drawImage()
 
         // draw our graphics.
+
+        //camera stuff, maybe move to a different method because i actually believe in function oriented programming
         camera.x+=(player.getPos().x-camera.x)/10;
         camera.y+=(player.getPos().y-camera.y)/10;
         camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
         camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
+
+
         drawBackground(g);
-        player.draw(g,this);
+        player.draw(g);
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
     }
@@ -100,10 +96,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         // react to key down events
         int key = e.getKeyCode();
-        
-        // depending on which arrow key was pressed, we're going to move the player by
-        // one whole tile for this input
-            up=up||key == KeyEvent.VK_UP;
+//would i still like java if it was a worm
+        up=up||key == KeyEvent.VK_UP;
         down=down||key == KeyEvent.VK_DOWN;
         right=right||key==KeyEvent.VK_RIGHT;
         left=left||key == KeyEvent.VK_LEFT;
