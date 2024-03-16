@@ -13,7 +13,7 @@ public class Animator {
         this.speed=speed;
     }
     public Image getFrame() {
-        return frames[(int)(System.currentTimeMillis()-time)/speed];
+        return frames[((int)(System.currentTimeMillis()-time)/speed)%frames.length];
     }
     public void reset() {
         time=System.currentTimeMillis();
