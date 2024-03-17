@@ -3,11 +3,15 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 public class Player extends Character {
 
     private int xvel;
     private int yvel;
+    private int numCoins;
+    private ArrayList<Plant> inventory;
+    public PlayerNew()
     public Player(Game game) {
         this.game=game;
         // load the assets
@@ -16,7 +20,15 @@ public class Player extends Character {
         yvel=0;
         // initialize the state
         pos = new Point();
+
+        inventory = new ArrayList<Plant>();
+        numCoins = 0; 
     }
+
+    public ArrayList<Plant> getInventory(){ return inventory;}
+    public int getNumCoins() {return numCoins;}
+    public void addToInventory(Plant plant) {inventory.add(obj); }
+    public Object removeFromInventory(Plant plant){ return inventory.remove(plant); //so it compiles }
 
     //temp
     private void loadAnimations() {

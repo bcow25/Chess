@@ -1,8 +1,10 @@
 public class Shop {
-    private int[][] items;
-    public Shop()
+    private Object[] items;
+
+    public Shop(String type)
     {
-        
+     if (type == "plant"){items = {}}; //fill with plant options}   
+     else if (type = "pieces") {item = {} }; // still tring to figure out how this work }
     }
     /**
      * return price of specific piece 
