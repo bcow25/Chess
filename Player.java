@@ -10,8 +10,7 @@ public class Player extends Character {
     private int xvel;
     private int yvel;
     private int numCoins;
-    private ArrayList<Plant> inventory;
-    public PlayerNew()
+    private static  ArrayList<Plant> inventory;
     public Player(Game game) {
         this.game=game;
         // load the assets
@@ -27,8 +26,28 @@ public class Player extends Character {
 
     public ArrayList<Plant> getInventory(){ return inventory;}
     public int getNumCoins() {return numCoins;}
-    public void addToInventory(Plant plant) {inventory.add(obj); }
-    public Object removeFromInventory(Plant plant){ return inventory.remove(plant); //so it compiles }
+    public static void addToInventory(Plant plant) {inventory.add(plant); }
+    
+    //remove plant from inventory and return it if found
+    //if not print error messages
+    public static Plant removeFromInventory(Plant plant){ 
+        Plant temp = new Plant(/*fill this in with plant constructor*/); 
+        if(inventory.contains(plant)){
+            inventory.remove(plant); 
+            return temp; 
+        } else {
+            System.out.println("You don't have this plant in your inventory");
+            return null; 
+        }
+    }
+    
+    //remove plant from inventory and plant it at row r and col c
+    public void plant(Plant plant, int r, int c){
+        if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length){
+            Farm.plant(removeFromInventory(plant), r, c); 
+        } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) System.out.println("the farm isn't that big, pick somewhere else");
+        else System.out.println("You dont have this plant :'(");
+    }
 
     //temp
     private void loadAnimations() {
