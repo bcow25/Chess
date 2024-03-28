@@ -1,10 +1,10 @@
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.ArrayList;
-
 public class Player extends Character {
     private static Player p=null;
     private int xvel;
@@ -77,10 +77,10 @@ public class Player extends Character {
     public void tick() {
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
-        if(game.up) yvel=-10;
-        if(game.down) yvel=10;
-        if(game.left) xvel=-10;
-        if(game.right) xvel=10;
+        if(game.getLastKeyPressed()==KeyEvent.VK_UP) yvel=-10;
+        if(game.getLastKeyPressed()==KeyEvent.VK_DOWN) yvel=10;
+        if(game.getLastKeyPressed()==KeyEvent.VK_LEFT) xvel=-10;
+        if(game.getLastKeyPressed()==KeyEvent.VK_RIGHT) xvel=10;
 
         pos.x+=xvel;
         pos.y+=yvel;

@@ -25,7 +25,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public boolean down;
     public boolean right;
     public boolean left;
+    public int getLastKeyPressed() {
+        return lastKeyPressed;
+    }
+    private int lastKeyPressed; //key code
     public Game() {
+        lastKeyPressed=-1;
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
         loadImage();
@@ -100,19 +105,17 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to key down events
         int key = e.getKeyCode();
 //would i still like java if it was a worm
-        up=up||key == KeyEvent.VK_UP;
-        down=down||key == KeyEvent.VK_DOWN;
-        right=right||key==KeyEvent.VK_RIGHT;
-        left=left||key == KeyEvent.VK_LEFT;
+       if(key!=lastKeyPressed) /*change animation code here */;
+       lastKeyPressed=key;
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
        int key=e.getKeyCode();
-       up=up&&key!=KeyEvent.VK_UP;
-        down=down&&key!=KeyEvent.VK_DOWN;
-        right=right&&key!=KeyEvent.VK_RIGHT;
-        left=left&&key!=KeyEvent.VK_LEFT;
+       if(key==lastKeyPressed) {
+        //code the change animation heree
+        lastKeyPressed=-1;
+    }
     }
 
     private void drawBackground(Graphics g) {
