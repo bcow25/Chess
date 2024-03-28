@@ -1,9 +1,9 @@
 public class Shop {
     private Plant[] items;
-    private Player player;
+    //private Player player;
     public Shop(Game game)
     {
-        player = new Player(game);
+        //player = new Player(game);
         items = new Plant[10];
         //https://docs.oracle.com/javase/8/docs/api/java/util/Hashtable.html
         //replace with a hashtable???
@@ -37,12 +37,12 @@ public class Shop {
      */
     public void buy(Plant obj)
     {
-        if (player.getNumCoins() < getPrice(obj))
+        if (Player.get().getNumCoins() < getPrice(obj))
             System.out.print("You do not have enough coins to buy this item.");
         else
         {
-            player.addToInventory( obj);
-            player.setNumCoins(player.getNumCoins() - getPrice(obj));
+            Player.get().addToInventory( obj);
+            Player.get().setNumCoins(Player.get().getNumCoins() - getPrice(obj));
         }
     }
 }

@@ -17,7 +17,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // case we need access to it in another method
     private Timer timer;
     // objects that appear on the game board
-    private Player player;
+    //private Player player;
     private Shop shop;
     //private Farm farm;
     private Point camera;
@@ -30,7 +30,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         setPreferredSize(new Dimension(800, 600));
         loadImage();
         // initialize the game state
-        player = new Player(this);
+        Player.create(this);
         camera=new Point();
         //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
@@ -58,7 +58,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // before the graphics are redrawn.
 
         // prevent the player from disappearing off the board
-        player.tick();
+        Player.get().tick();
 
         // give the player points for collecting coins
 
@@ -78,14 +78,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // draw our graphics.
 
         //camera stuff, maybe move to a different method because i actually believe in function oriented programming
-        camera.x+=(player.getPos().x-camera.x)/10;
-        camera.y+=(player.getPos().y-camera.y)/10;
+        camera.x+=(Player.get().getPos().x-camera.x)/10;
+        camera.y+=(Player.get().getPos().y-camera.y)/10;
         camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
         camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
 
 
         drawBackground(g);
-        player.draw(g);
+        Player.get().draw(g);
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
     }

@@ -23,7 +23,7 @@ public class Farm {
     public static void removePlant (int row, int col)
     {
         if(farm[row][col] != null){
-            Player.addToInventory(farm[row][col]); 
+            Player.get().addToInventory(farm[row][col]); 
             farm[row][col] = null;
         }
 
