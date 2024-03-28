@@ -18,6 +18,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     // objects that appear on the game board
     private Player player;
+    private Shop shop;
+    //private Farm farm;
     private Point camera;
     public boolean up;
     public boolean down;
@@ -30,6 +32,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // initialize the game state
         player = new Player(this);
         camera=new Point();
+        //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
         timer.start();
@@ -120,4 +123,5 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         this);
     }
     public Point camera() {return camera;}
+    //public Farm getFarm() {return null;}
 }

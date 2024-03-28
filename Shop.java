@@ -5,6 +5,8 @@ public class Shop {
     {
         player = new Player(game);
         items = new Plant[10];
+        //https://docs.oracle.com/javase/8/docs/api/java/util/Hashtable.html
+        //replace with a hashtable???
         items[0] = new Plant("rose", 2, 2);
         items[1] = new Plant("sunflower", 3, 2);
         items[2] = new Plant("marigold", 5, 2);
@@ -20,6 +22,7 @@ public class Shop {
      * return price of specific piece 
      * return -1 if price not found
      */
+
     public int getPrice(Plant pla)
     {
         for(Plant p : items){
@@ -32,13 +35,13 @@ public class Shop {
      * put item into player's inventory
      * if unable to buy, print why not
      */
-    public void buy(Object obj)
+    public void buy(Plant obj)
     {
         if (player.getNumCoins() < getPrice(obj))
             System.out.print("You do not have enough coins to buy this item.");
         else
         {
-            player.addToInventory((Plant) obj);
+            player.addToInventory( obj);
             player.setNumCoins(player.getNumCoins() - getPrice(obj));
         }
     }

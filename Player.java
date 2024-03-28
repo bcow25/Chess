@@ -26,12 +26,13 @@ public class Player extends Character {
 
     public ArrayList<Plant> getInventory(){ return inventory;}
     public int getNumCoins() {return numCoins;}
+    public void setNumCoins(int c) {numCoins=c;}
     public static void addToInventory(Plant plant) {inventory.add(plant); }
     
     //remove plant from inventory and return it if found
     //if not print error messages
-    public static Plant removeFromInventory(Plant plant){ 
-        Plant temp = new Plant(/*fill this in with plant constructor*/); 
+    public /*static*/ Plant removeFromInventory(Plant plant){ 
+        Plant temp=null; // = new Plant(/*fill this in with plant constructor*/);  //sorry the compiler error is killing me
         if(inventory.contains(plant)){
             inventory.remove(plant); 
             return temp; 
