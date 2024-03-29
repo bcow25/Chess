@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Game extends JPanel implements ActionListener, KeyListener {
+    public static Game g=null;
 
     // controls the delay between each tick in ms
     private final int DELAY = 25;
@@ -17,19 +18,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // case we need access to it in another method
     private Timer timer;
     // objects that appear on the game board
-    //private Player player;
     private Shop shop;
-    //private Farm farm;
     private Point camera;
-    public boolean up;
-    public boolean down;
-    public boolean right;
-    public boolean left;
     public int getLastKeyPressed() {
         return lastKeyPressed;
     }
+    public static Game get() {
+        return g;
+    }
+    public static void create() {
+        g=new Game();
+    }
     private int lastKeyPressed; //key code
-    public Game() {
+    private Game() {
         lastKeyPressed=-1;
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
@@ -41,11 +42,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
         timer.start();
-        up=false;
-        down=false;
-        left=false;
-        right=false;
-
     }
     private void loadImage() {
         try {
