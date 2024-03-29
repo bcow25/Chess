@@ -11,8 +11,8 @@ public class Player extends Character {
     private int yvel;
     private int numCoins;
     private ArrayList<Plant> inventory;
-    private Player(Game game) {
-        this.game=game;
+    private Player() {
+        //this.game=game;
         // load the assets
         loadAnimations();
         xvel=0;
@@ -23,18 +23,18 @@ public class Player extends Character {
         inventory = new ArrayList<Plant>();
         numCoins = 0; 
     }
-    public static void create(Game g) {
+    public static void create() {
         if(p==null)
-        p=new Player(g);
+        p=new Player();
         else System.out.println("Warning: reinstantiating player");
     }
     public static Player get() {
         return p;
     }
 
-    public ArrayList<Plant> getInventory(){ return p.inventory;}
-    public int getNumCoins() {return p.numCoins;}
-    public void setNumCoins(int c) {p.numCoins=c;}
+    public ArrayList<Plant> getInventory(){ return inventory;}
+    public int getNumCoins() {return numCoins;}
+    public void setNumCoins(int c) {numCoins=c;}
     public void addToInventory(Plant plant) {inventory.add(plant); }
     
     //remove plant from inventory and return it if found
@@ -51,8 +51,8 @@ public class Player extends Character {
     }
     
     //remove plant from inventory and plant it at row r and col c
-    public static void plant(Plant plant, int r, int c){
-        if (p.inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length){
+    public void plant(Plant plant, int r, int c){
+        if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length){
             Farm.plant(p.removeFromInventory(plant), r, c); 
         } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) System.out.println("the farm isn't that big, pick somewhere else");
         else System.out.println("You dont have this plant :'(");
@@ -77,10 +77,10 @@ public class Player extends Character {
     public void tick() {
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
-        if(game.getLastKeyPressed()==KeyEvent.VK_UP) yvel=-10;
-        if(game.getLastKeyPressed()==KeyEvent.VK_DOWN) yvel=10;
-        if(game.getLastKeyPressed()==KeyEvent.VK_LEFT) xvel=-10;
-        if(game.getLastKeyPressed()==KeyEvent.VK_RIGHT) xvel=10;
+        if(Game.get().getLastKeyPressed()==KeyEvent.VK_UP) yvel=-10;
+        if(Game.get().getLastKeyPressed()==KeyEvent.VK_DOWN) yvel=10;
+        if(Game.get().getLastKeyPressed()==KeyEvent.VK_LEFT) xvel=-10;
+        if(Game.get().getLastKeyPressed()==KeyEvent.VK_RIGHT) xvel=10;
 
         pos.x+=xvel;
         pos.y+=yvel;

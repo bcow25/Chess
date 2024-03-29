@@ -36,7 +36,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         setPreferredSize(new Dimension(800, 600));
         loadImage();
         // initialize the game state
-        Player.create(this);
+        Player.create();
         camera=new Point();
         //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
