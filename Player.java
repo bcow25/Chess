@@ -67,7 +67,7 @@ public class Player extends Character {
             Image[] suicide=new Image[1];
             suicide[0]=killme;
             current=new Animator(suicide);
-            walkD=walkL=walkR=walkU=current; //i deserve the death sentence
+            idle=walkD=walkL=walkR=walkU=current; //i deserve the death sentence
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }

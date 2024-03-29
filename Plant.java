@@ -1,6 +1,7 @@
 public class Plant {
     private int price;
     private String name; 
+    @SuppressWarnings("unused")
     private int rarity; //0 is epic, 1 is rare, 2 is common
     
     

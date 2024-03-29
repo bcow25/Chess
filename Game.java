@@ -18,6 +18,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // case we need access to it in another method
     private Timer timer;
     // objects that appear on the game board
+    @SuppressWarnings("unused")
     private Shop shop;
     private Point camera;
     public int getLastKeyPressed() {
@@ -101,7 +102,23 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to key down events
         int key = e.getKeyCode();
 //would i still like java if it was a worm
-       if(key!=lastKeyPressed) /*change animation code here */;
+       if(key!=lastKeyPressed) {
+        //change player animation based on key
+            switch(key) {
+                case KeyEvent.VK_UP:
+                    Player.get().walkU();
+                    break;
+                case KeyEvent.VK_DOWN:
+                    Player.get().walkD();
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    Player.get().walkR();
+                    break;
+                case KeyEvent.VK_LEFT:
+                    Player.get().walkL();
+                    break;
+            }
+       }
        lastKeyPressed=key;
     }
 
@@ -109,9 +126,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {
        int key=e.getKeyCode();
        if(key==lastKeyPressed) {
-        //code the change animation heree
+        if(key==KeyEvent.VK_UP||key==KeyEvent.VK_DOWN||key==KeyEvent.VK_LEFT||key==KeyEvent.VK_RIGHT) Player.get().idle();
         lastKeyPressed=-1;
-    }
+       }
     }
 
     private void drawBackground(Graphics g) {
