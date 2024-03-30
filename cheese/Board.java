@@ -105,7 +105,21 @@ public class Board {
             pieces[6][i]=new Pawn(6,i,true);
         }
     }
-    public Piece[][] getBoard() {return pieces;}
-    public void endGame() {}
+    public static Piece[][] getBoard() {return pieces;}
+    public static boolean contains(Piece p){
+        for(Piece[] row : pieces)
+            for(Piece piece : row)
+                if (piece == p) return true; 
+        return false; 
+    }
+    
+    // 0: game continue
+    // 1: white wins (black king captured)
+    // 2: black wins (white king captured) 
+    public static int endGame() {
+        if(!contains(bKing)) return 1; 
+        if (!contains(wKing)) return 2; 
+        return 0; 
+    }
     
 }
