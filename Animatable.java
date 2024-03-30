@@ -6,4 +6,5 @@ import java.awt.Image;
 public abstract class Animatable extends Displayable {
     protected Animator current;
     protected Image getImage() {return current.getFrame();}
+    protected abstract void loadAnimations();
 }

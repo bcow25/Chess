@@ -1,4 +1,4 @@
-public class Decor extends Animatable {
+public abstract class Decor extends Animatable {
     public Decor() {
 
     }
