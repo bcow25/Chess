@@ -34,8 +34,13 @@ public class Player extends Character {
 
     public ArrayList<Plant> getInventory(){ return inventory;}
     public int getNumCoins() {return numCoins;}
-    public void setNumCoins(int c) {numCoins=c;}
-    public void addToInventory(Plant plant) {inventory.add(plant); }
+    public void changeNumCoins(int c) {numCoins+=c;}
+    public void addToInventory(Plant plant) {
+        if (inventory.size() < 9)
+            inventory.add(plant); 
+        else
+            System.out.println("inventory is full"); 
+    }
     
     //remove plant from inventory and return it if found
     //if not print error messages
@@ -52,10 +57,15 @@ public class Player extends Character {
     
     //remove plant from inventory and plant it at row r and col c
     public void plant(Plant plant, int r, int c){
-        if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length){
+        if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length && Farm.getNumPlants() < 12){
             Farm.plant(p.removeFromInventory(plant), r, c); 
-        } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) System.out.println("the farm isn't that big, pick somewhere else");
-        else System.out.println("You dont have this plant :'(");
+        } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) 
+            System.out.println("the farm isn't that big, pick somewhere else");
+        else if (Farm.getNumPlants() == 12)
+            System.out.println("farm is full :("); 
+        else if (!inventory.contains(plant))
+            System.out.println("You dont have this plant :'(");
+        else System.out.println("panic: we shouldn't be here: Player methof plant"); 
     }
 
     //temp
