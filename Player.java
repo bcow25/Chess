@@ -9,8 +9,8 @@ public class Player extends Character {
     private static Player p=null;
     private int xvel;
     private int yvel;
-    private int numCoins;
-    private ArrayList<Plant> inventory;
+    private static int numCoins;
+    private static ArrayList<Plant> inventory;
     private Player() {
         //this.game=game;
         // load the assets
@@ -32,10 +32,10 @@ public class Player extends Character {
         return p;
     }
 
-    public ArrayList<Plant> getInventory(){ return inventory;}
-    public int getNumCoins() {return numCoins;}
-    public void changeNumCoins(int c) {numCoins+=c;}
-    public void addToInventory(Plant plant) {
+    public static ArrayList<Plant> getInventory(){ return inventory;}
+    public static int getNumCoins() {return numCoins;}
+    public static void changeNumCoins(int c) {numCoins+=c;}
+    public static void addToInventory(Plant plant) {
         if (inventory.size() < 9)
             inventory.add(plant); 
         else
@@ -44,7 +44,7 @@ public class Player extends Character {
     
     //remove plant from inventory and return it if found
     //if not print error messages
-    public Plant removeFromInventory(Plant plant){ 
+    public static Plant removeFromInventory(Plant plant){ 
         Plant temp=null; // = new Plant(/*fill this in with plant constructor*/);  //sorry the compiler error is killing me
         if(inventory.contains(plant)){
             inventory.remove(plant); 
@@ -55,18 +55,6 @@ public class Player extends Character {
         }
     }
     
-    //remove plant from inventory and plant it at row r and col c
-    public void plant(Plant plant, int r, int c){
-        if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length && Farm.getNumPlants() < 12){
-            Farm.plant(Player.get().removeFromInventory(plant), r, c); 
-        } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) 
-            System.out.println("the farm isn't that big, pick somewhere else");
-        else if (Farm.getNumPlants() == 12)
-            System.out.println("farm is full :("); 
-        else if (!inventory.contains(plant))
-            System.out.println("You dont have this plant :'(");
-        else System.out.println("panic: we shouldn't be here: Player methof plant"); 
-    }
 
     //temp
     private void loadAnimations() {
