@@ -13,14 +13,14 @@ public class Farm {
     
      //remove plant from inventory and plant it at row r and col c
     public static void plant(Plant plant, int r, int c){
-        if (Player.getInventory().contains(plant) && r < farm.length && c < farm[0].length && numPlants < 12){
-            farm[r][c] = Player.removeFromInventory(plant); 
+        if (Player.get().getInventory().contains(plant) && r < farm.length && c < farm[0].length && numPlants < 12){
+            farm[r][c] = Player.get().removeFromInventory(plant); 
             numPlants ++; 
         } else if (!(r < farm.length && c <farm[0].length)) 
             System.out.println("the farm isn't that big, pick somewhere else");
         else if (numPlants == 12)
             System.out.println("farm is full :("); 
-        else if (!Player.getInventory().contains(plant))
+        else if (!Player.get().getInventory().contains(plant))
             System.out.println("You dont have this plant :'(");
         else System.out.println("panic: we shouldn't be here: Farm method plant"); 
     }
