@@ -38,11 +38,12 @@ public class Shop {
     public void buy(Plant obj)
     {
         if (Player.get().getNumCoins() < getPrice(obj))
-            System.out.print("You do not have enough coins to buy this item.");
+            System.out.println("You do not have enough coins to buy this item.");
+        else if (Player.getInventory().size() == 9) System.out.println("Your inventory is full, please plant your plants or discard them"); 
         else
         {
             Player.get().addToInventory( obj);
-            Player.get().setNumCoins(Player.get().getNumCoins() - getPrice(obj));
+            Player.get().changeNumCoins(getPrice(obj) * -1);
         }
     }
 }
