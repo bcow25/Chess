@@ -12,7 +12,7 @@ public class Farm {
     public static void changeNumPlants(int n) {numPlants += n;}
     
      //remove plant from inventory and plant it at row r and col c
-    public void plant(Plant plant, int r, int c){
+    public static void plant(Plant plant, int r, int c){
         if (Player.getInventory().contains(plant) && r < farm.length && c < farm[0].length && numPlants < 12){
             farm[r][c] = Player.removeFromInventory(plant); 
             numPlants ++; 

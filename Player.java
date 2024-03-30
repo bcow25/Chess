@@ -58,7 +58,7 @@ public class Player extends Character {
     //remove plant from inventory and plant it at row r and col c
     public void plant(Plant plant, int r, int c){
         if (inventory.contains(plant) && r < Farm.getFarm().length && c < Farm.getFarm()[0].length && Farm.getNumPlants() < 12){
-            Farm.plant(p.removeFromInventory(plant), r, c); 
+            Farm.plant(Player.get().removeFromInventory(plant), r, c); 
         } else if (!(r < Farm.getFarm().length && c < Farm.getFarm()[0].length)) 
             System.out.println("the farm isn't that big, pick somewhere else");
         else if (Farm.getNumPlants() == 12)
