@@ -7,22 +7,24 @@ public class Farm {
         numPlants = 0; 
     }
     
-    /**
-     * plants plant at row, col
-     */
-    public static void plant (Plant plant, int row, int col)
-    {
-        farm[row][col] = plant;
-        if(farm[row][col]!=null) 
-            numPlants++;
-        else System.out.println("Warning: attempt to replant in non-empty slot");
-        
-    }
-    
-    
     public static Plant[][] getFarm(){ return farm;} 
     public static int getNumPlants(){return numPlants;}
     public static void changeNumPlants(int n) {numPlants += n;}
+    
+     //remove plant from inventory and plant it at row r and col c
+    public void plant(Plant plant, int r, int c){
+        if (Player.getInventory().contains(plant) && r < farm.length && c < farm[0].length && numPlants < 12){
+            farm[r][c] = Player.removeFromInventory(plant); 
+            numPlants ++; 
+        } else if (!(r < farm.length && c <farm[0].length)) 
+            System.out.println("the farm isn't that big, pick somewhere else");
+        else if (numPlants == 12)
+            System.out.println("farm is full :("); 
+        else if (!Player.getInventory().contains(plant))
+            System.out.println("You dont have this plant :'(");
+        else System.out.println("panic: we shouldn't be here: Farm method plant"); 
+    }
+    
     
     /**
      * remove plant at row, col
@@ -33,7 +35,8 @@ public class Farm {
         if(farm[row][col] != null){
             Player.get().addToInventory(farm[row][col]); 
             farm[row][col] = null;
-            numPlants--;
+            numPlants --; 
+            
         } else System.out.println("there's no plant here");
     }
 }
