@@ -22,7 +22,7 @@ public class Player extends Character {
         inventory = new ArrayList<Plant>();
         numCoins = 0;
     }
-    public void create() {
+    public static void create() {
         if(p==null)
         p=new Player();
         else System.out.println("Warning: reinstantiating player");
