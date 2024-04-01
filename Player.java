@@ -7,18 +7,20 @@ import javax.imageio.ImageIO;
 import java.util.ArrayList;
 public class Player extends Character {
     private static Player p=null;
+    @SuppressWarnings("unused")
+    private Collider collider;
     private int xvel;
     private int yvel;
     private int numCoins;
     private ArrayList<Plant> inventory;
-    public Player() {
+    private Player() {
         // load the assets
         loadAnimations();
         xvel = 0;
         yvel = 0;
         // initialize the state
         pos = new Point();
-
+        collider=new Collider(pos,50,50);
         inventory = new ArrayList<Plant>();
         numCoins = 0;
     }
