@@ -28,21 +28,31 @@ public class ChessGame{
     // object[2]: the col player want to move piece to
     public Object[] selectPiece(){
         Object[] ans = new Object [3]; 
+        Piece chosen = Board.getBoard()[0][0]; //player click on the piece
          do{
-             Piece chosen = Board.getBoard()[0][0]; //player click on the piece
+             
              ArrayList<int[]> legalMoves = chosen.generateLegalMoves(); 
              for(int[] item : legalMoves){
                  //insert fancy code to color the square on the board a different color
             }
             
-            if(true){// if player select one of the legal moves
-                ans[0] = new Object(); //set ans[0] to the piece chosen
-                ans[1] = legalMoves.get(0)[0]; // set ans[1] to the row
-                ans[2] = legalMoves.get(0)[1]; //set ans[2] to the col
+            int[] playerSelection = new int[] {}; // player select a square on the board
+            while(true){
+                if(legalMoves.contains(playerSelection)){// if player select one of the legal moves
+                    ans[0] = new Object(); //set ans[0] to the piece chosen
+                    ans[1] = legalMoves.get(0)[0]; // set ans[1] to the row
+                    ans[2] = legalMoves.get(0)[1]; //set ans[2] to the col
+                    break; 
+                } else if (Board.getBoard()[playerSelection[0]][playerSelection[1]].pieceColor){ // else if player selected another piece they own on the board
+                    chosen = Board.getBoard()[playerSelection[0]][playerSelection[1]]; // set chosen to the piece they selected and loop again 
+                    break; 
+                } else{ //player select a square that is not legal move or opponent piece 
+                    playerSelection = new int[] {}; // player select a square on the board
+                }
             }
-            //else player didn't choose a legal move and chose to click on another piece, idk im running out of brain juice
-            } while (ans[0] == null) ; 
-            return ans;          
+                
+        } while (ans[0] == null) ; 
+        return ans;          
     }
     
     
