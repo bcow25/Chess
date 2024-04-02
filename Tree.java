@@ -15,7 +15,7 @@ public class Tree extends Animatable {
         suicide[0] = ImageIO.read(new File("images/Trees-a.png"));
         suicide[1] = ImageIO.read(new File("images/Trees-b.png"));
         while(suicide[0]==null||suicide[1]==null); //most sane code written by tracy
-        current=new Animator(suicide);
+        current=new Animator(suicide,200);
     } catch (Exception e) {System.out.println(e);}
     }
     public void tick() {
