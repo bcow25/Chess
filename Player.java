@@ -11,7 +11,7 @@ public class Player extends Character {
     private Collider collider;
     private int xvel;
     private int yvel;
-    private int numCoins;
+    private static int numCoins;
     private ArrayList<Plant> inventory;
     private Player() {
         // load the assets
@@ -34,8 +34,8 @@ public class Player extends Character {
     }
 
     public ArrayList<Plant> getInventory(){ return inventory;}
-    public int getNumCoins() {return numCoins;}
-    public void changeNumCoins(int c) {numCoins+=c;}
+    public static int getNumCoins() {return numCoins;}
+    public static void changeNumCoins(int c) {numCoins+=c;}
     public void addToInventory(Plant plant) {
         if (inventory.size() < 9)
             inventory.add(plant); 
