@@ -9,8 +9,8 @@ public class Player extends Character {
     private static Player p=null;
     @SuppressWarnings("unused")
     private Collider collider;
-    private int xvel;
-    private int yvel;
+    public int xvel;
+    public int yvel;
     private static int numCoins;
     private ArrayList<Plant> inventory;
         private Player() {
@@ -32,7 +32,7 @@ public class Player extends Character {
     public static Player get() {
         return p;
     }
-    
+    public Collider getCollider() {return collider;}
     public ArrayList<Plant> getInventory(){ return inventory;}
     public static int getNumCoins() {return numCoins;}
     public static void changeNumCoins(int c) {numCoins+=c;}
@@ -85,5 +85,5 @@ public class Player extends Character {
         xvel *= 0.9;
         yvel *= 0.9;
     }
-
+    public Point getPos() {return pos;}
 }
