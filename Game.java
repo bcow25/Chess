@@ -21,6 +21,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @SuppressWarnings("unused")
     private Shop shop;
     private Point camera;
+    private Tree tree;
     public int getLastKeyPressed() {
         return lastKeyPressed;
     }
@@ -39,6 +40,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // initialize the game state
         Player.create();
         camera=new Point();
+        tree=new Tree(new Point(200,200));
         //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
@@ -61,7 +63,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // prevent the player from disappearing off the board
         Player.get().tick();
-
+        tree.tick();
+        
         // give the player points for collecting coins
 
         // calling repaint() will trigger paintComponent() to run again,
@@ -84,9 +87,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         camera.y+=(Player.get().getPos().y-camera.y)/10;
         camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
         camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
-
+        
 
         drawBackground(g);
+        tree.draw(g);
         Player.get().draw(g);
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
