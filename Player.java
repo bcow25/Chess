@@ -73,13 +73,35 @@ public class Player extends Character {
     }
 
     public void tick() {
+        ArrayList<Point> footprintSpots = new ArrayList<Point>();
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
-        if(Game.get().getLastKeyPressed()==KeyEvent.VK_UP) yvel=-10;
-        if(Game.get().getLastKeyPressed()==KeyEvent.VK_DOWN) yvel=10;
-        if(Game.get().getLastKeyPressed()==KeyEvent.VK_LEFT) xvel=-10;
-        if(Game.get().getLastKeyPressed()==KeyEvent.VK_RIGHT) xvel=10;
-
+        
+        if (Game.get().getLastKeyPressed()== KeyEvent.VK_UP) 
+        {
+            yvel=-10;
+            footprintSpots.add(pos);
+            //***TO DO: REVEAL FOOTPRINT AT THIS POSITION & REDUCE FOOTPRINT OPACITY OF PREVIOUS FOOTPRINTS IN ARRAYLIST
+        }
+        if (Game.get().getLastKeyPressed()== KeyEvent.VK_DOWN) 
+        {
+            yvel=10;
+            footprintSpots.add(pos);
+             //***TO DO: REVEAL FOOTPRINT AT THIS POSITION & REDUCE FOOTPRINT OPACITY OF PREVIOUS FOOTPRINTS IN ARRAYLIST
+        }
+        if (Game.get().getLastKeyPressed()== KeyEvent.VK_LEFT) 
+        {
+            xvel=-10;
+            footprintSpots.add(pos);
+            //***TO DO: REVEAL FOOTPRINT AT THIS POSITION & REDUCE FOOTPRINT OPACITY OF PREVIOUS FOOTPRINTS IN ARRAYLIST
+        }
+        if (Game.get().getLastKeyPressed()== KeyEvent.VK_RIGHT) 
+        {
+            xvel=10;
+            footprintSpots.add(pos);
+            //***TO DO: REVEAL FOOTPRINT AT THIS POSITION & REDUCE FOOTPRINT OPACITY OF PREVIOUS FOOTPRINTS IN ARRAYLIST
+        }
+        
         pos.x += xvel;
         pos.y += yvel;
         xvel *= 0.9;
