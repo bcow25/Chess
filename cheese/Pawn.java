@@ -50,12 +50,10 @@ public class Pawn extends Piece {
                  if(row != 0 && Board.pieces[row-1][col] == null) // if not on top row and space ahead is unoccupied, add to moves
                     if(testMove(row-1,col)){
                         moves.add( new int[] {row - 1, col} );
-                        System.out.print("hi"); 
                     } 
              } else { //color is black 
                  if(row != 7 && Board.pieces[row+1][col] == null) // if not on botton row and space ahead is unoccupied, add to moves
                     if(testMove(row+1,col)){
-                        System.out.print("hi"); 
                         moves.add( new int[] {row + 1, col} );
                     } 
              }
@@ -78,12 +76,14 @@ public class Pawn extends Piece {
                  if(col != 7 && Board.pieces[row][col + 1] instanceof Pawn ){ // check right
                      Pawn pwn = (Pawn)  Board.pieces[row][col + 1]; 
                      if(pwn.getCanGetFrenched()) 
-                         if(testMove(row,col)) moves.add(new int[] {row, col + 1});                      
+                         if(testMove(row,col+1)) moves.add(new int[] {row, col + 1});                      
                  } 
                  if (col != 0 && Board.pieces[row][col - 1] instanceof Pawn){ // check left
                      Pawn pwn = (Pawn)  Board.pieces[row][col - 1]; 
                      if(pwn.getCanGetFrenched())
-                        if(testMove(row,col)) moves.add(new int[] {row, col - 1}); 
+                        if(testMove(row,col-1)) {
+                            moves.add(new int[] {row, col - 1});
+                        } 
                  }
                  
              }             
