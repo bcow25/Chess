@@ -2,7 +2,13 @@ import java.awt.Point;
 public class Collider {
     private Point pos;
     private int w;
+    public int getW() {
+        return w;
+    }
     private int h;
+    public int getH() {
+        return h;
+    }
     public Collider(Point pos,int w,int h) {
         this.pos=pos;
         this.w=w;

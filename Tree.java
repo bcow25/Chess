@@ -7,7 +7,7 @@ public class Tree extends Animatable {
     public Tree(Point pos) {
         loadAnimations();
         this.pos=pos;
-        collider=new Collider(pos,20,70);
+        collider=new Collider(pos,150,350);
     }
     protected void loadAnimations() {
         try {
@@ -20,8 +20,14 @@ public class Tree extends Animatable {
     }
     public void tick() {
         if(Player.get().getCollider().isColliding(collider)) {
-            Player.get().xvel*=-1;
-            Player.get().yvel*=-1;
+            if(Math.abs(Player.get().xvel)>Math.abs(Player.get().yvel)){
+            if(Player.get().xvel!=0) Player.get().getPos().x=pos.x-Math.abs(Player.get().xvel)/Player.get().xvel*(collider.getW()+Player.get().getCollider().getW()+5)/2;
+            Player.get().xvel=0;
+            } else {
+            if(Player.get().yvel!=0) Player.get().getPos().y=pos.y-Math.abs(Player.get().yvel)/Player.get().yvel*(collider.getH()+Player.get().getCollider().getH()+5)/2; 
+                Player.get().yvel=0;
+        }
+            
         }
     }
 }
