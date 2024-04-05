@@ -45,8 +45,8 @@ public class Player extends Character {
     }
     public Collider getCollider() {return collider;}
     public ArrayList<Plant> getInventory(){ return inventory;}
-    public static int getNumCoins() {return numCoins;}
-    public static void changeNumCoins(int c) {numCoins += c;}
+    public int getNumCoins() {return numCoins;}
+    public void changeNumCoins(int c) {numCoins += c;}
     public void addToInventory(Plant plant) {
         if (inventory.size() < 9)
             inventory.add(plant); 

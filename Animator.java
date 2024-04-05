@@ -1,8 +1,8 @@
 import java.awt.Image;
 public class Animator {
-    private Image[] frames;
-    private int speed; //time before new frame i guess
-    private long time;
+    protected Image[] frames;
+    protected int speed; //time before new frame i guess
+    protected long time;
     public Animator(Image[] frames) {
         this.frames=frames;
         speed=100;

@@ -22,6 +22,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Shop shop;
     private Point camera;
     private Tree tree;
+    @SuppressWarnings("unused")
     private int scene; //0 is default (open world), 1 is garden/farm, 2 is 
     public int getLastKeyPressed() {
         return lastKeyPressed;
