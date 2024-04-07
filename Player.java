@@ -28,7 +28,7 @@ public class Player extends Character {
         numCoins = 0;
         
         try {
-            fp = ImageIO.read(new File("images/shoeprint.jpg")).getScaledInstance(1,1,Image.SCALE_DEFAULT);
+            fp = ImageIO.read(new File("images/shoeprint.png")).getScaledInstance(1,1,Image.SCALE_DEFAULT);
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }

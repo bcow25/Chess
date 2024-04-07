@@ -23,4 +23,10 @@ public class NPC extends Character {
         pusher=new Collider(pos,50,50);
         talk=new Collider(pos,70,70);        
     }
+    public void tick() {
+        pusher.pushPlayer();
+        if(talk.isColliding(Player.get().getCollider())) {
+            //to do talking stuff
+        }
+    }
 }

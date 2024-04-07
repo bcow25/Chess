@@ -19,15 +19,6 @@ public class Tree extends Animatable {
     } catch (Exception e) {System.out.println(e);}
     }
     public void tick() {
-        if(Player.get().getCollider().isColliding(collider)) {
-            if(Math.abs(Player.get().xvel)>Math.abs(Player.get().yvel)){
-            if(Player.get().xvel!=0) Player.get().getPos().x=pos.x-Math.abs(Player.get().xvel)/Player.get().xvel*(collider.getW()+Player.get().getCollider().getW()+5)/2;
-            Player.get().xvel=0;
-            } else {
-            if(Player.get().yvel!=0) Player.get().getPos().y=pos.y-Math.abs(Player.get().yvel)/Player.get().yvel*(collider.getH()+Player.get().getCollider().getH()+5)/2; 
-                Player.get().yvel=0;
-        }
-            
-        }
+        collider.pushPlayer();
     }
 }
