@@ -4,6 +4,7 @@ _(insert lore here)_
 You can earn coins by playing _(insert name that is not chess)_. Each time you win, you get 3 coins. With these coins you can buy plants at the _(insert shop name)_. _(insert some more lore)_
 
 # How to play _(very orginal game thats not chess)_
+To play, download everything and run main method of the App.java file.
 ## How to move the pieces
  ### not King
  The king is the most important piece, but is one of the weakest. The king can only move one square in any direction - up, down, to the sides, and diagonally.
