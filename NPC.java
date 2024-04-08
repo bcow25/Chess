@@ -20,6 +20,7 @@ public class NPC extends Character {
     public NPC(String name, Point pos) {
         loadAnimations();
         this.pos=pos;
+        this.name=name;
         pusher=new Collider(pos,50,50);
         talk=new Collider(pos,70,70);        
     }
