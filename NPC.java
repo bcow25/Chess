@@ -5,6 +5,9 @@ import java.awt.Point;
 public class NPC extends Character {
     private String name;
     private Dialogue dialogue;
+    public Dialogue getDialogue() {
+        return dialogue;
+    }
     private Collider pusher;
     private Collider talk;
     protected void loadAnimations() {
@@ -29,5 +32,8 @@ public class NPC extends Character {
         if(talk.isColliding(Player.get().getCollider())) {
             //to do talking stuff
         }
+    }
+    public String getName() {
+        return name;
     }
 }
