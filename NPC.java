@@ -1,8 +1,12 @@
-import java.awt.Image;
+igitmport java.awt.Image;
 import javax.imageio.ImageIO;
+import javax.swing.text.JTextComponent.KeyBinding;
+
 import java.io.File;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 public class NPC extends Character {
+    private static Dialogue speaking=null;
     private String name;
     private Dialogue dialogue;
     public Dialogue getDialogue() {
@@ -30,7 +34,9 @@ public class NPC extends Character {
     public void tick() {
         pusher.pushPlayer();
         if(talk.isColliding(Player.get().getCollider())) {
-            //to do talking stuff
+            if(Game.get().getLastKeyPressed()==KeyEvent.VK_E) {
+                if(speaking==null) speaking=dialogue;
+            }
         }
     }
     public String getName() {

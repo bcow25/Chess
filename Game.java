@@ -34,6 +34,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         g=new Game();
     }
     private int lastKeyPressed; //key code
+    public void setLastKeyPressed(int lastKeyPressed) {
+        this.lastKeyPressed = lastKeyPressed;
+    }
     private Game() {
         lastKeyPressed=-1;
         // set the game board size
@@ -71,6 +74,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
+        if(lastKeyPressed==KeyEvent.VK_E) lastKeyPressed=-1; //im just a girl
         repaint();
     }
 
