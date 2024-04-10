@@ -1,6 +1,5 @@
-igitmport java.awt.Image;
+import java.awt.Image;
 import javax.imageio.ImageIO;
-import javax.swing.text.JTextComponent.KeyBinding;
 
 import java.io.File;
 import java.awt.Point;
