@@ -16,17 +16,21 @@ public class Pawn extends Piece {
         public boolean getFirstMove(){ return firstMove;  }
         public boolean getCanGetFrenched(){ return canGetFrenched; }
         
-        public void move(int r, int c){
-            if(r == row + 2 || r == row - 2){
-                canGetFrenched = true; 
-            }else{
-                canGetFrenched = false; 
+        public void move(int r, int c, boolean test){
+            if(test){
+                super.move(r, c, false); 
+            } else{ 
+                if(r == row + 2 || r == row - 2){
+                    canGetFrenched = true; 
+                }else{
+                    canGetFrenched = false; 
+                }
+                Board.pieces[r][c]=this;
+                Board.pieces[row][col]=null;
+                firstMove = false; 
+                row=r;
+                col=c;
             }
-            Board.pieces[r][c]=this;
-            Board.pieces[row][col]=null;
-            firstMove = false; 
-            row=r;
-            col=c;
         }
         
         public ArrayList<int[]> generateLegalMoves() {
