@@ -16,6 +16,7 @@ public class Player extends Character {
     private ArrayList<Plant> inventory;
     private ArrayList<ArrayList<Object>> footprintSpots; //position, direction (N, S, E, W), opacity (1-100%)
     private Image fp;
+    private int numTicks;
     private Player() {
         // load the assets
         loadAnimations();
@@ -82,59 +83,80 @@ public class Player extends Character {
             System.out.println("Error opening image file: " + exc.getMessage());
         }
     }
-
     public void tick() {
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
-        ArrayList<Object> temp = new ArrayList<Object>();
+        numTicks++;
         if (Game.get().getLastKeyPressed()== KeyEvent.VK_UP) 
         {
             yvel=-10;
-            temp.add(pos);
-            temp.add("N");
-            temp.add(100);
-            footprintSpots.add(temp);
-             //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
         }
         if (Game.get().getLastKeyPressed()== KeyEvent.VK_DOWN) 
         {
             yvel=10;
-            temp.add(pos);
-            temp.add("S");
-            temp.add(100);
-            footprintSpots.add(temp);
-             //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
         }
         if (Game.get().getLastKeyPressed()== KeyEvent.VK_LEFT) 
         {
             xvel=-10;
-            temp.add(pos);
-            temp.add("E");
-            temp.add(100);
-            footprintSpots.add(temp);
-            //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
         }
         if (Game.get().getLastKeyPressed()== KeyEvent.VK_RIGHT) 
         {
             xvel=10;
-            temp.add(pos);
-            temp.add("W");
-            temp.add(100);
-            footprintSpots.add(temp);
-            //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
         }
         
-        for (int i = 0; i < footprintSpots.size(); i++)
-        {
-            footprintSpots.get(i).set(2, (int)footprintSpots.get(i).get(2) - 10);
-            if ((int)footprintSpots.get(i).get(2) == 0)
-                footprintSpots.remove(i);
-        }
-        
+        createFootprint();
         pos.x += xvel;
         pos.y += yvel;
         xvel *= 0.9;
         yvel *= 0.9;
+    }
+    public void createFootprint()
+    {
+        ArrayList<Object> temp = new ArrayList<Object>();
+        if (numTicks % 60 == 0) // increments footprints by 1.5 sec
+        {
+            if (yvel > 1 || xvel > 1) 
+            {
+                if (Game.get().getLastKeyPressed()== KeyEvent.VK_UP) 
+                {
+                    temp.add(pos);
+                    temp.add("N");
+                    temp.add(100);
+                    footprintSpots.add(temp);
+                     //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
+                }
+                if (Game.get().getLastKeyPressed()== KeyEvent.VK_DOWN) 
+                {
+                    temp.add(pos);
+                    temp.add("S");
+                    temp.add(100);
+                    footprintSpots.add(temp);
+                     //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
+                }
+                if (Game.get().getLastKeyPressed()== KeyEvent.VK_LEFT) 
+                {
+                    temp.add(pos);
+                    temp.add("E");
+                    temp.add(100);
+                    footprintSpots.add(temp);
+                    //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
+                }
+                if (Game.get().getLastKeyPressed()== KeyEvent.VK_RIGHT) 
+                {
+                    temp.add(pos);
+                    temp.add("W");
+                    temp.add(100);
+                    footprintSpots.add(temp);
+                    //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
+                }
+            }
+            for (int i = 0; i < footprintSpots.size(); i++)
+            {
+                footprintSpots.get(i).set(2, (int)footprintSpots.get(i).get(2) - 10);
+                if ((int)footprintSpots.get(i).get(2) == 0)
+                    footprintSpots.remove(i);
+            }
+        }
     }
     public Point getPos() {return pos;}
 }
