@@ -6,12 +6,16 @@ public class King extends Piece {
         }
        
        public String toString (){ return "king:" + pieceColor; }
-        public void move(int r,int c) {
-            if(c-col==2) Board.pieces[r][7].move(r,5);
-            if(c-col==-2) Board.pieces[r][0].move(r, 3);
-            super.move(r, c);
-            if(pieceColor) Board.castleWhite=false;
-            else Board.castleBlack=false;
+        public void move(int r,int c, boolean test) {
+            if(test){
+                super.move(r, c, false);
+            } else{
+                if(c-col==2) Board.pieces[r][7].move(r,5, false);
+                if(c-col==-2) Board.pieces[r][0].move(r, 3, false);
+                super.move(r, c, false);
+                if(pieceColor) Board.castleWhite=false;
+                else Board.castleBlack=false;
+            }
         }
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> a=new ArrayList<>();
