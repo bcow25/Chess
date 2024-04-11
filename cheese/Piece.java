@@ -9,7 +9,7 @@ public abstract class Piece {
         protected boolean pieceColor; //true means white
         protected int row;
         protected int col;
-        public void move(int r,int c) {
+        public void move(int r,int c, boolean test) {
             Board.pieces[r][c]=this;
             Board.pieces[row][col]=null;
             row=r;
@@ -19,13 +19,20 @@ public abstract class Piece {
         //true means is a valid move
         protected boolean testMove(int r,int c) {
             if(r<0||r>7||c<0||c>7) return false;
-            if(Board.pieces[r][c]!= null && Board.pieces[r][c].pieceColor==this.pieceColor) return false;
+            if(Board.pieces[r][c]!= null ){
+                if (Board.pieces[r][c].pieceColor==this.pieceColor){
+                    return false;
+                }
+                
+            }
             Piece t=Board.pieces[r][c];
             int tr=row;
             int tc=col;
-            move(r,c);
+            
+            move(r,c, true);
             boolean a=Board.inCheck();
-            move(tr,tc);
+            System.out.println("" + r + ", " + c + ": " + a);
+            move(tr,tc, true);
             Board.pieces[r][c]=t;
             return !a;
         }
