@@ -12,7 +12,7 @@ public class ChessGame{
             Piece moving = (Piece)move[0]; // player select which piece they want to move
             int row = (int)move[1]; //player choose where to move piece
             int col = (int)move[2]; //player choose where to move piece
-            moving.move(row, col); 
+            moving.move(row, col, false); 
         } 
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
@@ -57,37 +57,5 @@ public class ChessGame{
     
     
     
-    //tester method for board #1
-    public void printBoard( Board b){
-        System.out.println("Row\\Col: 0 \t\t 1\t\t 2\t\t 3\t\t 4\t\t 5\t\t 6\t\t 7");
-        for(int r = 0; r < b.getBoard().length; r++){
-            System.out.print(r + "\t");
-            for(int c = 0; c < b.getBoard()[0].length; c++){
-                if (b.getBoard()[r][c] != null)
-                    System.out.print(b.getBoard()[r][c].toString() + "\t");
-                else
-                    System.out.print("null \t\t");
-
-            
-            }
-            System.out.println();
-        }
-    }
-    //tester method for board #2
-    public void printAllLegalMoves( Board b){
-            for(int r = 0; r < b.getBoard().length; r++){
-                for(int c = 0; c < b.getBoard()[0].length; c++){
-                    if (b.getBoard()[r][c] != null){
-                        System.out.print(b.getBoard()[r][c].toString() + ": ");
-                        ArrayList<int[]> moves = b.getBoard()[r][c].generateLegalMoves(); 
-                        for(int[] move : moves){
-                            System.out.print("[R: " + move[0] + ", C:" + move[1] + "]");
-                        }
-                        System.out.println(moves.size());
-                    }
-
-                }
-            }
-        
-    }
+    
 }
