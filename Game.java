@@ -22,6 +22,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Shop shop;
     private Point camera;
     private Tree tree;
+    private NPC susan;
     @SuppressWarnings("unused")
     private int scene; //0 is default (open world), 1 is garden/farm, 2 is 
     public int getLastKeyPressed() {
@@ -46,6 +47,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Player.create();
         camera=new Point();
         tree=new Tree(new Point(200,200));
+        susan=new NPC("Susan",new Point(-200,-200),new Dialogue("i love apcsa :D",null,null));
         //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
@@ -69,7 +71,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // prevent the player from disappearing off the board
         Player.get().tick();
         tree.tick();
-        
+        susan.tick();
         // give the player points for collecting coins
 
         // calling repaint() will trigger paintComponent() to run again,
@@ -97,6 +99,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         drawBackground(g);
         tree.draw(g);
+        susan.draw(g);
         Player.get().draw(g);
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
