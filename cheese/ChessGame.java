@@ -6,13 +6,13 @@ public class ChessGame{
     public void playChess(){
         Board b = new Board(); 
         boolean giveUp = false; //idk player can click a button and give up
-        boolean turn = true; //white: true, black: false
         while (!giveUp && Board.endGame() == 0){ 
             Object[] move = selectPiece(); 
             Piece moving = (Piece)move[0]; // player select which piece they want to move
             int row = (int)move[1]; //player choose where to move piece
             int col = (int)move[2]; //player choose where to move piece
             moving.move(row, col, false); 
+            b.setWhitesTurn(!b.getWhitesTurn()); 
         } 
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
@@ -53,9 +53,5 @@ public class ChessGame{
                 
         } while (ans[0] == null) ; 
         return ans;          
-    }
-    
-    
-    
-    
+    }   
 }
