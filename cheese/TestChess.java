@@ -71,18 +71,18 @@ public class EnPassant {
     
     public static void testEnPassantBlack(){
         Board test = new Board(); 
-        test.getBoard()[6][4].move(4, 4);
+        test.getBoard()[6][4].move(4, 4, true);
         Pawn pW = (Pawn) test.getBoard()[4][4];  
         pW.row = 4; 
         pW.setCanGetFrenched(true); 
         
-        test.getBoard()[6][2].move(4, 2);
+        test.getBoard()[6][2].move(4, 2,true);
         Pawn pW2 = (Pawn) test.getBoard()[4][2];  
         pW2.row = 4; 
         pW2.setCanGetFrenched(true); 
         
         
-        test.getBoard()[1][3].move(4, 3);
+        test.getBoard()[1][3].move(4, 3,true);
         Pawn pB = (Pawn) test.getBoard()[4][3];  
         pB.row = 4; 
         pB.setCanGetFrenched(true); 
