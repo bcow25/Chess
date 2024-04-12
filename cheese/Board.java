@@ -124,6 +124,8 @@ public class Board {
         }
     }
     public static Piece[][] getBoard() {return pieces;}
+    public static boolean getWhitesTurn(){ return whitesTurn; }
+    public static void setWhitesTurn(boolean boo){ whitesTurn = boo;}
     public static boolean contains(Piece p){
         for(Piece[] row : pieces)
             for(Piece piece : row)
