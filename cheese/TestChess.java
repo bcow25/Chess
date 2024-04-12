@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 /*
@@ -10,11 +9,42 @@ import java.util.ArrayList;
  *
  * @author 800024313
  */
-public class TestChess {
+public class EnPassant {
 
     public static void main(String[] args){
-        testEnPassantBlack(); 
+        testCastle(); 
+        
 
+    }
+    
+    public static void testCastle(){
+        Board b = new Board(); 
+        Piece[][] p = b.getBoard(); 
+        p[0][1] = null;
+        p[0][2] = null;
+        p[0][3] = null;
+        p[1][0] = null; 
+
+                
+        printBoard(b);
+        printLegalMoves(p[0][4]); 
+        printLegalMoves(p[0][0]); 
+    }
+    
+    public static void testQueenInCheck(){
+        Board test = new Board();
+        Piece[][] p = test.getBoard(); 
+        printBoard(test);
+        System.out.println(test.inCheck());
+        Piece temp = p[0][3]; 
+        p[0][3] = p[7][3];
+        p[0][5] = null; 
+        p[7][3] =  temp; 
+        p[7][5] = null; 
+        printBoard(test); 
+        System.out.println(test.inCheck());
+
+       
     }
     public static void testEnPassantWhite(){
         Board test = new Board(); 
@@ -63,7 +93,7 @@ public class TestChess {
     
     
     public static void printLegalMoves(Piece p){
-        System.out.println(p.toString()); 
+        System.out.println(p.toString() + ": "); 
         ArrayList <int[]> moves = p.generateLegalMoves(); 
         for(int[] i : moves){
             System.out.println(i[0] + ", " + i[1]);
@@ -88,20 +118,13 @@ public class TestChess {
         }
     }
     //tester method for board #2
-    public void printAllLegalMoves( Board b){
-            for(int r = 0; r < b.getBoard().length; r++){
-                for(int c = 0; c < b.getBoard()[0].length; c++){
-                    if (b.getBoard()[r][c] != null){
-                        System.out.print(b.getBoard()[r][c].toString() + ": ");
-                        ArrayList<int[]> moves = b.getBoard()[r][c].generateLegalMoves(); 
-                        for(int[] move : moves){
-                            System.out.print("[R: " + move[0] + ", C:" + move[1] + "]");
-                        }
-                        System.out.println(moves.size());
-                    }
-
+    public static void printAllLegalMoves( Board b){
+        for(int r = 0; r < b.getBoard().length; r++){
+            for(int c = 0; c < b.getBoard()[0].length; c++){
+                if (b.getBoard()[r][c] != null){
+                   printLegalMoves(b.getBoard()[r][c]); 
                 }
             }
-        
+        }       
     }
 }
