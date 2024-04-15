@@ -13,7 +13,7 @@ public class Player extends Character {
     public int xvel;
     public int yvel;
     private static int numCoins;
-    private ArrayList<Plant> inventory;
+    private static ArrayList<Plant> inventory;
     private ArrayList<ArrayList<Object>> footprintSpots; //position, direction (N, S, E, W), opacity (1-100%)
     private Image fp;
     private int numTicks;
@@ -46,9 +46,9 @@ public class Player extends Character {
     }
     public Collider getCollider() {return collider;}
     public ArrayList<Plant> getInventory(){ return inventory;}
-    public int getNumCoins() {return numCoins;}
-    public void changeNumCoins(int c) {numCoins += c;}
-    public void addToInventory(Plant plant) {
+    public static int getNumCoins() {return numCoins;}
+    public static void changeNumCoins(int c) {numCoins += c;}
+    public static void addToInventory(Plant plant) {
         if (inventory.size() < 9)
             inventory.add(plant); 
         else
