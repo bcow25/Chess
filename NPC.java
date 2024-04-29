@@ -33,9 +33,10 @@ public class NPC extends Character {
     public void tick() {
         pusher.pushPlayer();
         if(talk.isColliding(Player.get().getCollider())) {
+            /*
             if(Game.get().getLastKeyPressed()==KeyEvent.VK_E) {
                 if(speaking==null) speaking=dialogue;
-            }
+            }*/
         }
     }
     public String getName() {
