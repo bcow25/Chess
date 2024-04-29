@@ -36,6 +36,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public static void create() {
         g=new Game();
     }
+    public boolean getE() {
+        return fireE;
+    }
     private int directionKey; //key code
     private Game() {
         directionKey=-1;
