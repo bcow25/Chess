@@ -23,6 +23,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Point camera;
     private Tree tree;
     private NPC susan;
+    private boolean e; //keep track of e pressed or not
+    private boolean fireE; //fire for one frame
     @SuppressWarnings("unused")
     private int scene; //0 is default (open world), 1 is garden/farm, 2 is 
     public int getDirectionKey() {
@@ -69,8 +71,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Player.get().tick();
         tree.tick();
         susan.tick();
-        // give the player points for collecting coins
-
+        
+        fireE=false;
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
        
@@ -133,6 +135,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                     break;
             }
        }
+       if(key==KeyEvent.VK_E) {
+           if(!this.e) 
+                fireE=true;
+        this.e=true;
+        }
     }
 
     @Override
@@ -142,6 +149,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         if(key==KeyEvent.VK_UP||key==KeyEvent.VK_DOWN||key==KeyEvent.VK_LEFT||key==KeyEvent.VK_RIGHT) Player.get().idle();
         directionKey=-1;
        }
+       if(key==KeyEvent.VK_E) this.e=false;
     }
 
     private void drawBackground(Graphics g) {
