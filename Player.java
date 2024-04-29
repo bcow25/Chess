@@ -87,19 +87,19 @@ public class Player extends Character {
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
         numTicks++;
-        if (Game.get().getLastKeyPressed()== KeyEvent.VK_UP) 
+        if (Game.get().getDirectionKey()== KeyEvent.VK_UP) 
         {
             yvel=-10;
         }
-        if (Game.get().getLastKeyPressed()== KeyEvent.VK_DOWN) 
+        if (Game.get().getDirectionKey()== KeyEvent.VK_DOWN) 
         {
             yvel=10;
         }
-        if (Game.get().getLastKeyPressed()== KeyEvent.VK_LEFT) 
+        if (Game.get().getDirectionKey()== KeyEvent.VK_LEFT) 
         {
             xvel=-10;
         }
-        if (Game.get().getLastKeyPressed()== KeyEvent.VK_RIGHT) 
+        if (Game.get().getDirectionKey()== KeyEvent.VK_RIGHT) 
         {
             xvel=10;
         }
@@ -117,7 +117,7 @@ public class Player extends Character {
         {
             if (yvel > 1 || xvel > 1) 
             {
-                if (Game.get().getLastKeyPressed()== KeyEvent.VK_UP) 
+                if (Game.get().getDirectionKey()== KeyEvent.VK_UP) 
                 {
                     temp.add(pos);
                     temp.add("N");
@@ -125,7 +125,7 @@ public class Player extends Character {
                     footprintSpots.add(temp);
                      //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
                 }
-                if (Game.get().getLastKeyPressed()== KeyEvent.VK_DOWN) 
+                if (Game.get().getDirectionKey()== KeyEvent.VK_DOWN) 
                 {
                     temp.add(pos);
                     temp.add("S");
@@ -133,7 +133,7 @@ public class Player extends Character {
                     footprintSpots.add(temp);
                      //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
                 }
-                if (Game.get().getLastKeyPressed()== KeyEvent.VK_LEFT) 
+                if (Game.get().getDirectionKey()== KeyEvent.VK_LEFT) 
                 {
                     temp.add(pos);
                     temp.add("E");
@@ -141,7 +141,7 @@ public class Player extends Character {
                     footprintSpots.add(temp);
                     //***TO DO: REVEAL FOOTPRINT AT THIS POSITION
                 }
-                if (Game.get().getLastKeyPressed()== KeyEvent.VK_RIGHT) 
+                if (Game.get().getDirectionKey()== KeyEvent.VK_RIGHT) 
                 {
                     temp.add(pos);
                     temp.add("W");
