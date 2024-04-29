@@ -7,10 +7,21 @@ public class ChessGame{
         Board b = new Board(); 
         boolean giveUp = false; //idk player can click a button and give up
         while (!giveUp && Board.endGame() == 0){ 
-            Object[] move = selectPiece(); 
-            Piece moving = (Piece)move[0]; // player select which piece they want to move
-            int row = (int)move[1]; //player choose where to move piece
-            int col = (int)move[2]; //player choose where to move piece
+            Object[] move; 
+            Piece moving; 
+            int row; 
+            int col; 
+            if (b.getWhitesTurn()){ // white's turn 
+                move = selectPiece();
+                moving = (Piece)move[0]; // piece of where player want to move piece to
+                row = (int)move[1]; //row of where piece move to 
+                col = (int)move[2]; //col of where piece move to 
+            } else {
+                moving = getRandomBlackPiece(b); 
+                int[] temp = moving.generateRandomMoves(); 
+                row = temp[0]; 
+                col = temp[1]; 
+            }
             moving.move(row, col, false); 
             b.setWhitesTurn(!b.getWhitesTurn()); 
         } 
@@ -21,6 +32,24 @@ public class ChessGame{
         }
         
     }
+    
+         //return number of black pieces on board that can move 
+    public Piece getRandomBlackPiece(Board b){
+        ArrayList<Piece> movables = new ArrayList<Piece>(); //all black pieces on board that can move
+        
+        // populate moveables 
+        for(Piece[] r : b.pieces){
+            for(Piece p: r){
+                if (!p.pieceColor && p.generateLegalMoves() != null){
+                    movables.add(p);  
+                }
+            }
+        }        
+        //randomly choose a piece from moveables and return        
+        return movables.get((int)(Math.random()*movables.size()));
+    }
+    
+    
     
     //returns a Object [] of 3 objects
     // object[0]: the piece the player want to move
