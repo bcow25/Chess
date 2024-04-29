@@ -25,8 +25,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private NPC susan;
     @SuppressWarnings("unused")
     private int scene; //0 is default (open world), 1 is garden/farm, 2 is 
-    public int getLastKeyPressed() {
-        return lastKeyPressed;
+    public int getDirectionKey() {
+        return directionKey;
     }
     public static Game get() {
         return g;
@@ -34,12 +34,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public static void create() {
         g=new Game();
     }
-    private int lastKeyPressed; //key code
-    public void setLastKeyPressed(int lastKeyPressed) {
-        this.lastKeyPressed = lastKeyPressed;
-    }
+    private int directionKey; //key code
     private Game() {
-        lastKeyPressed=-1;
+        directionKey=-1;
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
         loadImage();
@@ -76,7 +73,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
-        if(lastKeyPressed==KeyEvent.VK_E) lastKeyPressed=-1; //im just a girl
+       
         repaint();
     }
 
@@ -115,24 +112,24 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to key down events
         int key = e.getKeyCode();
 //would i still like java if it was a worm
-       if(key!=lastKeyPressed) {
+       if(key!=directionKey) {
         //change player animation based on key
             switch(key) {
                 case KeyEvent.VK_UP:
                     Player.get().walkU();
-                    lastKeyPressed=key;
+                    directionKey=key;
                     break;
                 case KeyEvent.VK_DOWN:
                     Player.get().walkD();
-                    lastKeyPressed=key;
+                    directionKey=key;
                     break;
                 case KeyEvent.VK_RIGHT:
                     Player.get().walkR();
-                    lastKeyPressed=key;
+                    directionKey=key;
                     break;
                 case KeyEvent.VK_LEFT:
                     Player.get().walkL();
-                    lastKeyPressed=key;
+                    directionKey=key;
                     break;
             }
        }
@@ -141,9 +138,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
        int key=e.getKeyCode();
-       if(key==lastKeyPressed) {
+       if(key==directionKey) {
         if(key==KeyEvent.VK_UP||key==KeyEvent.VK_DOWN||key==KeyEvent.VK_LEFT||key==KeyEvent.VK_RIGHT) Player.get().idle();
-        lastKeyPressed=-1;
+        directionKey=-1;
        }
     }
 
