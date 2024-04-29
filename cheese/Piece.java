@@ -36,6 +36,11 @@ public abstract class Piece {
             Board.pieces[r][c]=t;
             return !a;
         }
+        public int[] generateRandomMoves(){
+            
+            ArrayList<int[]> possibleMoves = generateLegalMoves();
+            return possibleMoves.get((int)(Math.random()*possibleMoves.size())); 
+        }
         public abstract ArrayList<int[]> generateLegalMoves();
         public abstract String toString(); 
 
