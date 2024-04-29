@@ -120,19 +120,22 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             switch(key) {
                 case KeyEvent.VK_UP:
                     Player.get().walkU();
+                    lastKeyPressed=key;
                     break;
                 case KeyEvent.VK_DOWN:
                     Player.get().walkD();
+                    lastKeyPressed=key;
                     break;
                 case KeyEvent.VK_RIGHT:
                     Player.get().walkR();
+                    lastKeyPressed=key;
                     break;
                 case KeyEvent.VK_LEFT:
                     Player.get().walkL();
+                    lastKeyPressed=key;
                     break;
             }
        }
-       lastKeyPressed=key;
     }
 
     @Override
