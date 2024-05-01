@@ -1,9 +1,20 @@
-import java.util.Map;
+import java.util.List;
 public class Dialogue  {
-    public Map<String, Dialogue> getOptions() {
+    public class Option {
+        private String str;
+        private Dialogue dialogue;
+        public Option(String str, Dialogue dialogue) {
+            this.str=str;
+            this.dialogue=dialogue;
+        }
+        public Dialogue get() {
+            return dialogue;
+        }
+    }
+    public List<Option> getOptions() {
         return options;
     }
-    private Map<String, Dialogue> options;
+    private List<Option> options;
     public String getText() {
         return text;
     }
@@ -12,7 +23,7 @@ public class Dialogue  {
         return speaker;
     }
     private Character speaker;
-    public Dialogue(String text,Character speaker,Map<String,Dialogue>options) {
+    public Dialogue(String text,Character speaker,List<Option> options) {
         this.text=text;
         this.speaker=speaker;
         this.options=options;
