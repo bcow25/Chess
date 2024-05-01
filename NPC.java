@@ -33,11 +33,31 @@ public class NPC extends Character {
     public void tick() {
         pusher.pushPlayer();
         if(talk.isColliding(Player.get().getCollider())) {
-            /*
-            if(Game.get().getLastKeyPressed()==KeyEvent.VK_E) {
+            if(Game.get().getE()) {
+                //System.out.println("e fired");
                 if(speaking==null) speaking=dialogue;
-            }*/
+            }
         }
+    }
+    public static void dialogueHandler() {
+        if(speaking==null) return;
+        //display the dialogue
+        //listen for player option selection
+        if(playerOption()!=-1) {
+            if(speaking.getOptions()!=null)
+            speaking=speaking.getOptions().get(playerOption()).get();
+            else speaking=null;
+        }
+    }
+    /**
+     * precondition: speaking isnt null
+       */
+    //unfinished helper method will do one day :)
+    //returns the index of the option that the player chose when talking
+    //your mom
+    //returns -1 if player has not selected anything yet
+    public static int playerOption() {
+        return -1;
     }
     public String getName() {
         return name;
