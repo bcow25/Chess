@@ -22,13 +22,19 @@ public class NPC extends Character {
         walkU=walkD=walkR=walkL=idle=current=new Animator(suicide,200);
         } catch (Exception e) {System.out.println(e);}
     }
-    public NPC(String name, Point pos, Dialogue dialogue) {
+    public NPC(String name, Point pos) {
         loadAnimations();
         this.pos=pos;
         this.name=name;
         pusher=new Collider(pos,50,50);
-        talk=new Collider(pos,70,70);  
-        this.dialogue=dialogue;      
+        talk=new Collider(pos,70,70);      
+    }
+    public NPC(String name, Point pos, Dialogue dialogue) {
+        this(name,pos);
+        setDialogue(dialogue);
+    }
+    public void setDialogue(Dialogue dialogue) {
+        this.dialogue=dialogue;
     }
     public void tick() {
         pusher.pushPlayer();
