@@ -49,7 +49,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Player.create();
         camera=new Point();
         tree=new Tree(new Point(200,200));
-        susan=new NPC("Susan",new Point(-200,-200),new Dialogue("i love apcsa :D",null,null));
+        susan=new NPC("Susan",new Point(-200,-200),null);
         //farm=new Farm(1,1);
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
