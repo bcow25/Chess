@@ -70,19 +70,19 @@ public class Board {
         int row = c.row; 
         int col = c.col; 
         if(row < 7 && row > 0){
-            if (pieces[row + 1][col] instanceof Queen && pieces[row+1][col].pieceColor != whitesTurn && pieces[row - 1][col] == null) return true; 
-            if (pieces[row - 1][col] instanceof Queen && pieces[row-1][col].pieceColor != whitesTurn && pieces[row + 1][col] == null) return true; 
+            if (pieces[row + 1][col]!= null && pieces[row + 1][col] instanceof Queen && pieces[row+1][col].pieceColor != whitesTurn && pieces[row - 1][col] == null) return true; 
+            if (pieces[row + 1][col] != null && pieces[row - 1][col] instanceof Queen && pieces[row-1][col].pieceColor != whitesTurn && pieces[row + 1][col] == null) return true; 
         }
         if (col < 7 && col > 0){
-            if (pieces[row][col-1] instanceof Queen && pieces[row][col-1].pieceColor !=whitesTurn && pieces[row][col+1] == null) return true; 
-            if (pieces[row][col+1] instanceof Queen && pieces[row][col+1].pieceColor !=whitesTurn && pieces[row][col-1] == null) return true; 
+            if (pieces[row][col+1] != null && pieces[row][col-1] instanceof Queen && pieces[row][col-1].pieceColor !=whitesTurn && pieces[row][col+1] == null) return true; 
+            if (pieces[row][col+1] != null && pieces[row][col+1] instanceof Queen && pieces[row][col+1].pieceColor !=whitesTurn && pieces[row][col-1] == null) return true; 
         }
 
         if (col < 7 && col > 0 && row < 7 && row > 0){
-            if (pieces[row - 1][col-1] instanceof Queen && pieces[row-1][col].pieceColor !=whitesTurn && pieces[row+1][col+1] == null) return true; 
-            if (pieces[row - 1][col+1] instanceof Queen && pieces[row-1][col].pieceColor !=whitesTurn && pieces[row+1][col-1] == null) return true; 
-            if (pieces[row + 1][col-1] instanceof Queen && pieces[row+1][col-1].pieceColor !=whitesTurn &&  pieces[row -1 ][col+1] == null) return true; 
-            if (pieces[row + 1][col+1] instanceof Queen && pieces[row+1][col+1].pieceColor !=whitesTurn&&  pieces[row -1][col-1] == null) return true;   
+            if (pieces[row + 1][col] != null && pieces[row - 1][col-1] instanceof Queen && pieces[row-1][col].pieceColor !=whitesTurn && pieces[row+1][col+1] == null) return true; 
+            if (pieces[row + 1][col]!= null && pieces[row - 1][col+1] instanceof Queen && pieces[row-1][col].pieceColor !=whitesTurn && pieces[row+1][col-1] == null) return true; 
+            if (pieces[row + 1][col] != null && pieces[row + 1][col-1] instanceof Queen && pieces[row+1][col-1].pieceColor !=whitesTurn &&  pieces[row -1 ][col+1] == null) return true; 
+            if (pieces[row + 1][col] != null && pieces[row + 1][col+1] instanceof Queen && pieces[row+1][col+1].pieceColor !=whitesTurn&&  pieces[row -1][col-1] == null) return true;   
         }
         
         int[][] help={{c.row-2,c.col+1},{c.row-1,c.col+2},{c.row+1,c.col+2},{c.row+2,c.col+1},{c.row-2,c.col-1},{c.row-1,c.col-2},{c.row+1,c.col-2},{c.row+2,c.col-1}};
