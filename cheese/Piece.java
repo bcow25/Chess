@@ -31,7 +31,6 @@ public abstract class Piece {
             
             move(r,c, true);
             boolean a=Board.inCheck();
-            System.out.println("" + r + ", " + c + ": " + a);
             move(tr,tc, true);
             Board.pieces[r][c]=t;
             return !a;
