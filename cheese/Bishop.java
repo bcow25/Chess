@@ -19,7 +19,7 @@ import java.util.ArrayList;
                 r++; 
                 c++; 
                 if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
@@ -34,7 +34,7 @@ import java.util.ArrayList;
                 r--; 
                 c++; 
                 if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
@@ -48,7 +48,7 @@ import java.util.ArrayList;
                 r--; 
                 c--; 
                 if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
@@ -63,7 +63,7 @@ import java.util.ArrayList;
                 r++; 
                 c--; 
                 if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
