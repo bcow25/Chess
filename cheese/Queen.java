@@ -5,8 +5,10 @@ public class Queen extends Piece { //dont question the code idk how to comment j
             super(r,c,color); 
         }
         
+        @Override
         public String toString(){ return "queen:" + pieceColor; }
         
+        @Override
         public void move(int r,int c, boolean test) {
             
             
@@ -67,32 +69,33 @@ public class Queen extends Piece { //dont question the code idk how to comment j
             return ans;
         }
         
+        @Override
         public ArrayList<int[]> generateLegalMoves() {
             boolean canMove = false; 
             ArrayList <int[]> ans = generateCaptureMoves(); //add list of capture moves to ans 
             //System.out.print(ans.size());
             for(int r = row+1; r <= 7; r ++){
                 if(Board.pieces[r][col] != null && Board.pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
-                if (Board.pieces[r][col] != null) break; 
+                if (Board.pieces[r][col] != null && Board.pieces[r][col].pieceColor != pieceColor) break; 
                 if(canMove && Board.pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
             }
             canMove = false; 
             for(int r = row-1; r >= 0; r --){
                 if(Board.pieces[r][col] != null && Board.pieces[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
-                if (Board.pieces[r][col] != null) break; 
+                if (Board.pieces[r][col] != null && Board.pieces[r][col].pieceColor != pieceColor) break; 
                 if(canMove && Board.pieces[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
             }
             
              canMove = false; 
             for(int c = col-1; c >= 0; c --){
                 if(Board.pieces[row][c] != null && Board.pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
-                if (Board.pieces[row][c] != null) break; 
+                if (Board.pieces[row][c] != null && Board.pieces[row][c].pieceColor != pieceColor) break; 
                 if(canMove && Board.pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
             }
             canMove = false; 
             for(int c = col+1; c <= 7; c ++){
                 if(Board.pieces[row][c] != null && Board.pieces[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
-                if (Board.pieces[row][c] != null) break; 
+                if (Board.pieces[row][c] != null && Board.pieces[row][c].pieceColor != pieceColor) break; 
                 if(canMove && Board.pieces[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
             }
             canMove = false; 
@@ -102,7 +105,7 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                r--; 
                c--; 
                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor) canMove = true; 
-               if (Board.pieces[r][c] != null) break; 
+               if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor) break; 
                if(canMove && Board.pieces[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
 
            }
@@ -113,7 +116,7 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                r++; 
                c--; 
                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor) canMove = true; 
-               if (Board.pieces[r][c] != null) break; 
+               if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor) break; 
                if(canMove && Board.pieces[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
 
            }
@@ -125,7 +128,7 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                r++; 
                c++; 
                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor) canMove = true; 
-               if (Board.pieces[r][c] != null) break; 
+               if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor) break; 
                if(canMove && Board.pieces[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
 
            }
@@ -136,7 +139,7 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                r--; 
                c++; 
                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor) canMove = true; 
-               if (Board.pieces[r][c] != null) break; 
+               if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor) break; 
                if(canMove && Board.pieces[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
 
            }
