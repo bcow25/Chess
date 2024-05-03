@@ -99,7 +99,7 @@ public class TestChess {
     public static void printLegalMoves(Piece p){
         System.out.println(p.toString() + ": "); 
         ArrayList <int[]> moves = p.generateLegalMoves(); 
-       if (moves.isEmpty()){ System.out.print("no possible moves");}
+       if (moves.isEmpty()){ System.out.println("no possible moves");}
         for(int[] i : moves){
             System.out.println(i[0] + ", " + i[1]);
         }
