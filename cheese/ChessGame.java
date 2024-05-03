@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ChessGame{
     
@@ -7,6 +8,10 @@ public class ChessGame{
         Board b = new Board(); 
         boolean giveUp = false; //idk player can click a button and give up
         while (!giveUp && Board.endGame() == 0){ 
+            //CLI stuff
+           TestChess.printBoard(b); 
+            
+            
             Object[] move; 
             Piece moving; 
             int row; 
@@ -40,7 +45,7 @@ public class ChessGame{
         // populate moveables 
         for(Piece[] r : b.pieces){
             for(Piece p: r){
-                if (!p.pieceColor && p.generateLegalMoves() != null){
+                if (p!= null && !p.pieceColor && !p.generateLegalMoves().isEmpty()){
                     movables.add(p);  
                 }
             }
@@ -56,31 +61,79 @@ public class ChessGame{
     // object[1]: the row player want to move piece to
     // object[2]: the col player want to move piece to
     public Object[] selectPiece(){
+        ///CLI interface, 4 testing
+        Scanner in = new Scanner(System.in);
+        System.out.print("See move of piece (row):");
+        int r = in.nextInt();
+        System.out.print("See move of piece (col):");
+        int c = in.nextInt();
+        
         Object[] ans = new Object [3]; 
-        Piece chosen = Board.getBoard()[0][0]; //player click on the piece
+        Piece chosen = Board.getBoard()[r][c]; //player click on the piece
          do{
-             
-             ArrayList<int[]> legalMoves = chosen.generateLegalMoves(); 
+             ArrayList<int[]> legalMoves = chosen.generateLegalMoves();              
+             TestChess.printLegalMoves(chosen); 
              for(int[] item : legalMoves){
                  //insert fancy code to color the square on the board a different color
+                 
             }
             
-            int[] playerSelection = new int[] {}; // player select a square on the board
+            int[] playerSelection = new int[2]; // player select a square on the board
+            
+            //CLI testing stuff 
+            System.out.print("Piece Move (row):");
+            playerSelection[0]  = in.nextInt();
+            System.out.print("Piece Move (col):");
+            playerSelection[1] = in.nextInt();
+            System.out.println("you selected: " + playerSelection[0] + ", " + playerSelection[1]);
+            
+            
             while(true){
-                if(legalMoves.contains(playerSelection)){// if player select one of the legal moves
-                    ans[0] = new Object(); //set ans[0] to the piece chosen
-                    ans[1] = legalMoves.get(0)[0]; // set ans[1] to the row
-                    ans[2] = legalMoves.get(0)[1]; //set ans[2] to the col
+                if(containIntArray(legalMoves, playerSelection)){// if player select one of the legal moves
+                    ans[0] = chosen; //set ans[0] to the piece chosen
+                    ans[1] = playerSelection[0]; // set ans[1] to the row
+                    ans[2] = playerSelection[1]; //set ans[2] to the col
+                    System.out.println("d");
                     break; 
-                } else if (Board.getBoard()[playerSelection[0]][playerSelection[1]].pieceColor){ // else if player selected another piece they own on the board
+                } else if (Board.getBoard()[playerSelection[0]][playerSelection[1]]!= null && Board.getBoard()[playerSelection[0]][playerSelection[1]].pieceColor){ 
+                    // else if player selected another piece they own on the board
                     chosen = Board.getBoard()[playerSelection[0]][playerSelection[1]]; // set chosen to the piece they selected and loop again 
                     break; 
                 } else{ //player select a square that is not legal move or opponent piece 
-                    playerSelection = new int[] {}; // player select a square on the board
+                    playerSelection = new int[2]; // player select a square on the board
+                    //CLI testing stuff 
+                    System.out.print("Piece Move 2(row):");
+                    playerSelection[0]  = in.nextInt();
+                    System.out.print("Piece Move 2(col):");
+                    playerSelection[1] = in.nextInt();
+                    System.out.print("you selected" + playerSelection[0] + ", " + playerSelection[1]);
                 }
             }
+            System.out.println("c"); 
                 
         } while (ans[0] == null) ; 
+        System.out.println("b");
         return ans;          
     }   
+    
+    //input: array list of int array and int array
+    //returns if container contains target 
+    public boolean containIntArray(ArrayList<int[]> container, int[] target){
+        for(int[] i : container){
+            if(sameIntArray(i, target)){return true; }
+        }
+        return false; 
+    }
+    
+    //takes 2 int array as input
+    //return if the two arrays are the same length and contain the same stuff in the same order. 
+    public boolean sameIntArray(int[] a, int[] b){
+        if (a.length != b.length) return false; 
+        for(int i = 0; i < a.length; i++){
+            if (a[i] != b[i]){
+                return false; 
+            }
+        }
+        return true; 
+    }
 }
