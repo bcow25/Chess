@@ -78,12 +78,22 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // this method is called by the timer every DELAY ms.
         // use this space to update the state of your game or animation
         // before the graphics are redrawn.
-
-        // prevent the player from disappearing off the board
+        
+        //camera stuff, maybe move to a different method because i actually believe in function oriented programming
+        camera.x+=(Player.get().getPos().x-camera.x)/10;
+        camera.y+=(Player.get().getPos().y-camera.y)/10;
+        //prevent cam from going out of bounds
+        camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
+        camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
+        
+        //tick tok
         Player.get().tick();
         tree.tick();
         susan.tick();
         
+        //prevent player from moving out of bounds
+        Player.get().getPos().x=Math.max(-(world.getWidth(this)/2-25),Math.min(world.getWidth(this)/2-25,Player.get().getPos().x));
+                Player.get().getPos().y=Math.max(-(world.getHeight(this)/2-25),Math.min(world.getHeight(this)/2-25,Player.get().getPos().y));
         fireE=false;
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
@@ -97,15 +107,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // because Component implements the ImageObserver interface, and JPanel 
         // extends from Component. So "this" Board instance, as a Component, can 
         // react to imageUpdate() events triggered by g.drawImage()
-
-        
-
-        //camera stuff, maybe move to a different method because i actually believe in function oriented programming
-        camera.x+=(Player.get().getPos().x-camera.x)/10;
-        camera.y+=(Player.get().getPos().y-camera.y)/10;
-        camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
-        camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
-        
         // draw our graphics.
         drawBackground(g);
         tree.draw(g);
