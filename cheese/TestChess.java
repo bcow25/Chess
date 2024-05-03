@@ -9,12 +9,16 @@ import java.util.ArrayList;
  *
  * @author 800024313
  */
-public class EnPassant {
+public class TestChess {
 
     public static void main(String[] args){
-        testCastle(); 
-        
+        ChessGame game = new ChessGame(); 
+        game.playChess(); 
 
+    }
+    
+    public static void testChess(){
+         
     }
     
     public static void testCastle(){
@@ -95,9 +99,11 @@ public class EnPassant {
     public static void printLegalMoves(Piece p){
         System.out.println(p.toString() + ": "); 
         ArrayList <int[]> moves = p.generateLegalMoves(); 
+       if (moves.isEmpty()){ System.out.print("no possible moves");}
         for(int[] i : moves){
             System.out.println(i[0] + ", " + i[1]);
         }
+
     }
     
     
