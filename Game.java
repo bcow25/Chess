@@ -7,50 +7,59 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Game extends JPanel implements ActionListener, KeyListener {
+    //singleton setup
     public static Game g=null;
-
-    // controls the delay between each tick in ms
-    private final int DELAY = 25;
-    // suppress serialization warning
-    private static final long serialVersionUID = 490905409104883233L;
-    private Image world;
-    // keep a reference to the timer object that triggers actionPerformed() in
-    // case we need access to it in another method
-    private Timer timer;
-    // objects that appear on the game board
-    @SuppressWarnings("unused")
-    private Shop shop;
-    private Point camera;
-    private Tree tree;
-    private NPC susan;
-    private boolean e; //keep track of e pressed or not
-    private boolean fireE; //fire for one frame
-    @SuppressWarnings("unused")
-    private int scene; //0 is default (open world), 1 is garden/farm, 2 is 
-    public int getDirectionKey() {
-        return directionKey;
-    }
     public static Game get() {
         return g;
     }
     public static void create() {
         g=new Game();
     }
+    
+    // controls the delay between each tick in ms
+    private final int DELAY = 25;
+    // suppress serialization warning
+    private static final long serialVersionUID = 490905409104883233L;
+    private Image world;
+    // keep a reference to the timer object that triggers actionPerformed() in case we need access to it in another method
+    private Timer timer;
+    @SuppressWarnings("unused")
+    private Shop shop;
+    private Point camera;
+    private Tree tree;
+    private NPC susan;
+
+    @SuppressWarnings("unused")
+    private int scene; //0 is default (open world), 1 is garden/farm, 2 is
+    
+    //key press tracking
+    //for moving player in directionss
+    private int directionKey; //key code
+    public int getDirectionKey() {
+        return directionKey;
+    }
+    //checking e for special interactions
+    private boolean e; //keep track of e pressed or not
+    private boolean fireE; //fire for one frame
     public boolean getE() {
         return fireE;
     }
-    private int directionKey; //key code
     private Game() {
-        directionKey=-1;
+        //jswing stuff
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
         loadImage();
+        
         // initialize the game state
+        directionKey=-1;
         Player.create();
         camera=new Point();
+        
+        //testing dummies
         tree=new Tree(new Point(200,200));
         susan=new NPC("Susan",new Point(-200,-200),null);
         //farm=new Farm(1,1);
+        //jswing stuff again
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
         timer.start();
@@ -81,7 +90,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
        
         repaint();
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -90,7 +98,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // extends from Component. So "this" Board instance, as a Component, can 
         // react to imageUpdate() events triggered by g.drawImage()
 
-        // draw our graphics.
+        
 
         //camera stuff, maybe move to a different method because i actually believe in function oriented programming
         camera.x+=(Player.get().getPos().x-camera.x)/10;
@@ -98,20 +106,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         camera.x=Math.max(-Math.abs(getWidth()-world.getWidth(this))/2,Math.min(camera.x,Math.abs(getWidth()-world.getWidth(this))/2));
         camera.y=Math.max(-Math.abs(getHeight()-world.getHeight(this))/2,Math.min(camera.y,Math.abs(getHeight()-world.getHeight(this))/2));
         
-
+        // draw our graphics.
         drawBackground(g);
         tree.draw(g);
         susan.draw(g);
         Player.get().draw(g);
+        
+        //jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
     }
-
+    //key press hell
     @Override
-    public void keyTyped(KeyEvent e) {
-        // this is not used but must be defined as part of the KeyListener interface
-    }
-
+    public void keyTyped(KeyEvent e) {/*this is not used but must be defined as part of the KeyListener interface */}
     @Override
     public void keyPressed(KeyEvent e) {
         // react to key down events
@@ -144,7 +151,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         this.e=true;
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
        int key=e.getKeyCode();
@@ -154,14 +160,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
        }
        if(key==KeyEvent.VK_E) this.e=false;
     }
-
+    //drawing
     private void drawBackground(Graphics g) {
-        //System.out.println(world.getWidth(this));
         g.drawImage(world,
         0-world.getWidth(this)/2-camera.x+getWidth()/2,
         0-world.getHeight(this)/2-camera.y+getHeight()/2,
         this);
     }
+    //random camera getter, probably useless and should be deleted soon!
     public Point camera() {return camera;}
     //public Farm getFarm() {return null;}
 }
