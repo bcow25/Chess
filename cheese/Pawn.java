@@ -9,6 +9,7 @@ public class Pawn extends Piece {
             firstMove = true; 
             canGetFrenched = false; 
         }
+        @Override
         public String toString(){return "pawn:" + pieceColor;}
         
         public void setFirstMove(boolean bool){ firstMove = bool; }
@@ -16,6 +17,7 @@ public class Pawn extends Piece {
         public boolean getFirstMove(){ return firstMove;  }
         public boolean getCanGetFrenched(){ return canGetFrenched; }
         
+        @Override
         public void move(int r, int c, boolean test){
             if(test){
                 super.move(r, c, false); 
@@ -33,6 +35,7 @@ public class Pawn extends Piece {
             }
         }
         
+        @Override
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> moves = new ArrayList<int[]>(); 
             if(firstMove){//if is Pawn's first move then can move two blocks 
