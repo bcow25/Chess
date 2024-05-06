@@ -12,13 +12,25 @@ import java.util.ArrayList;
 public class TestChess {
 
     public static void main(String[] args){
-        ChessGame game = new ChessGame(); 
-        game.playChess(); 
+        testPromotion(); 
 
     }
     
+    public static void testPromotion(){
+        Board b = new Board();
+        for(int i = 0; i <= 7; i++){
+            b.pieces[1][i] = null; 
+            if(i != 4){
+                b.pieces[0][i] = null; 
+            }
+        }
+        ChessGame game = new ChessGame(); 
+        game.playChess(b); 
+    }
+    
     public static void testChess(){
-         
+        ChessGame game = new ChessGame(); 
+        game.playChess(); 
     }
     
     public static void testCastle(){
