@@ -32,6 +32,11 @@ public class Pawn extends Piece {
                 firstMove = false; 
                 row=r;
                 col=c;
+                if(pieceColor && row == 0){ // if is white and reach end 
+                    Board.pieces[row][col]= new Queen(row, col, pieceColor);                     
+                } else if(!pieceColor && row == 7){ // if is white and reach end 
+                    Board.pieces[row][col]= new Queen(row, col, pieceColor);                     
+                }
             }
         }
         
