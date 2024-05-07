@@ -16,7 +16,7 @@ public class ChessGame{
             Piece moving; 
             int row; 
             int col; 
-            if (b.getWhitesTurn()){ // white's turn 
+            if (Board.getWhitesTurn()){ // white's turn 
                 move = selectPiece();
                 moving = (Piece)move[0]; // piece of where player want to move piece to
                 row = (int)move[1]; //row of where piece move to 
@@ -28,7 +28,42 @@ public class ChessGame{
                 col = temp[1]; 
             }
             moving.move(row, col, false); 
-            b.setWhitesTurn(!b.getWhitesTurn()); 
+            Board.setWhitesTurn(!Board.getWhitesTurn()); 
+        } 
+        if (Board.endGame() == 1){ // if white (player) wins
+            Player.changeNumCoins(3); 
+            System.out.println("You won! You earned 3 coins");
+        } else if (Board.endGame() == 2 || giveUp){ // if player lost or give up 
+            System.out.println("Tough Luck"); 
+        }
+        
+    }
+    
+    
+     public void playChess(Board b){
+        boolean giveUp = false; //idk player can click a button and give up
+        while (!giveUp && Board.endGame() == 0){ 
+            //CLI stuff
+           TestChess.printBoard(b); 
+            
+            
+            Object[] move; 
+            Piece moving; 
+            int row; 
+            int col; 
+            if (Board.getWhitesTurn()){ // white's turn 
+                move = selectPiece();
+                moving = (Piece)move[0]; // piece of where player want to move piece to
+                row = (int)move[1]; //row of where piece move to 
+                col = (int)move[2]; //col of where piece move to 
+            } else {
+                moving = getRandomBlackPiece(b); 
+                int[] temp = moving.generateRandomMoves(); 
+                row = temp[0]; 
+                col = temp[1]; 
+            }
+            moving.move(row, col, false); 
+            Board.setWhitesTurn(!Board.getWhitesTurn()); 
         } 
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
@@ -44,7 +79,7 @@ public class ChessGame{
         ArrayList<Piece> movables = new ArrayList<Piece>(); //all black pieces on board that can move
         
         // populate moveables 
-        for(Piece[] r : b.pieces){
+        for(Piece[] r : Board.getBoard()){
             for(Piece p: r){
                 if (p!= null && !p.pieceColor && !p.generateLegalMoves().isEmpty()){
                     movables.add(p);  
