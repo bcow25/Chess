@@ -19,9 +19,9 @@ public class TestChess {
     public static void testPromotion(){
         Board b = new Board();
         for(int i = 0; i <= 7; i++){
-            b.pieces[1][i] = null; 
+            Board.getBoard()[1][i] = null; 
             if(i != 4){
-                b.pieces[0][i] = null; 
+                Board.getBoard()[0][i] = null; 
             }
         }
         ChessGame game = new ChessGame(); 
@@ -35,7 +35,7 @@ public class TestChess {
     
     public static void testCastle(){
         Board b = new Board(); 
-        Piece[][] p = b.getBoard(); 
+        Piece[][] p = Board.getBoard(); 
         p[0][1] = null;
         p[0][2] = null;
         p[0][3] = null;
@@ -49,57 +49,57 @@ public class TestChess {
     
     public static void testQueenInCheck(){
         Board test = new Board();
-        Piece[][] p = test.getBoard(); 
+        Piece[][] p = Board.getBoard(); 
         printBoard(test);
-        System.out.println(test.inCheck());
+        System.out.println(Board.inCheck());
         Piece temp = p[0][3]; 
         p[0][3] = p[7][3];
         p[0][5] = null; 
         p[7][3] =  temp; 
         p[7][5] = null; 
         printBoard(test); 
-        System.out.println(test.inCheck());
+        System.out.println(Board.inCheck());
 
        
     }
     public static void testEnPassantWhite(){
         Board test = new Board(); 
-        test.getBoard()[3][0] = test.getBoard()[1][0]; 
-        test.getBoard()[1][0] = null; 
-        Pawn pB = (Pawn) test.getBoard()[3][0];  
+        Board.getBoard()[3][0] = Board.getBoard()[1][0]; 
+        Board.getBoard()[1][0] = null; 
+        Pawn pB = (Pawn) Board.getBoard()[3][0];  
         pB.row = 3; 
         pB.setCanGetFrenched(true); 
         
-        test.getBoard()[3][2] = test.getBoard()[1][2]; 
-        test.getBoard()[1][2] = null; 
-        Pawn pB1 = (Pawn) test.getBoard()[3][2];  
+        Board.getBoard()[3][2] = Board.getBoard()[1][2]; 
+        Board.getBoard()[1][2] = null; 
+        Pawn pB1 = (Pawn) Board.getBoard()[3][2];  
         pB1.row = 3; 
         pB1.setCanGetFrenched(true); 
         
         
-        test.getBoard()[3][1] =  test.getBoard()[6][1]; 
-        test.getBoard()[6][1] = null; 
+        Board.getBoard()[3][1] =  Board.getBoard()[6][1]; 
+        Board.getBoard()[6][1] = null; 
         printBoard(test); 
-        Pawn pW = (Pawn) test.getBoard()[3][1]; 
+        Pawn pW = (Pawn) Board.getBoard()[3][1]; 
         pW.row = 3; 
         printLegalMoves(pW); 
     }
     
     public static void testEnPassantBlack(){
         Board test = new Board(); 
-        test.getBoard()[6][4].move(4, 4, true);
-        Pawn pW = (Pawn) test.getBoard()[4][4];  
+        Board.getBoard()[6][4].move(4, 4, true);
+        Pawn pW = (Pawn) Board.getBoard()[4][4];  
         pW.row = 4; 
         pW.setCanGetFrenched(true); 
         
-        test.getBoard()[6][2].move(4, 2,true);
-        Pawn pW2 = (Pawn) test.getBoard()[4][2];  
+        Board.getBoard()[6][2].move(4, 2,true);
+        Pawn pW2 = (Pawn) Board.getBoard()[4][2];  
         pW2.row = 4; 
         pW2.setCanGetFrenched(true); 
         
         
-        test.getBoard()[1][3].move(4, 3,true);
-        Pawn pB = (Pawn) test.getBoard()[4][3];  
+        Board.getBoard()[1][3].move(4, 3,true);
+        Pawn pB = (Pawn) Board.getBoard()[4][3];  
         pB.row = 4; 
         pB.setCanGetFrenched(true); 
         
@@ -122,11 +122,11 @@ public class TestChess {
     //tester method for board #1
     public static void printBoard( Board b){
         System.out.println("Row\\Col: 0 \t\t 1\t\t 2\t\t 3\t\t 4\t\t 5\t\t 6\t\t 7");
-        for(int r = 0; r < b.getBoard().length; r++){
+        for(int r = 0; r < Board.getBoard().length; r++){
             System.out.print(r + "\t");
-            for(int c = 0; c < b.getBoard()[0].length; c++){
-                if (b.getBoard()[r][c] != null)
-                    System.out.print(b.getBoard()[r][c].toString() + "\t");
+            for(int c = 0; c < Board.getBoard()[0].length; c++){
+                if (Board.getBoard()[r][c] != null)
+                    System.out.print(Board.getBoard()[r][c].toString() + "\t");
                 else
                     System.out.print("null \t\t");
 
@@ -137,10 +137,10 @@ public class TestChess {
     }
     //tester method for board #2
     public static void printAllLegalMoves( Board b){
-        for(int r = 0; r < b.getBoard().length; r++){
-            for(int c = 0; c < b.getBoard()[0].length; c++){
-                if (b.getBoard()[r][c] != null){
-                   printLegalMoves(b.getBoard()[r][c]); 
+        for (Piece[] board : Board.getBoard()) {
+            for (Piece p : board) {
+                if (p != null) {
+                    printLegalMoves(p); 
                 }
             }
         }       
