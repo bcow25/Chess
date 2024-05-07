@@ -10,8 +10,8 @@ public abstract class Piece {
         protected int row;
         protected int col;
         public void move(int r,int c, boolean test) {
-            Board.pieces[r][c]=this;
-            Board.pieces[row][col]=null;
+            Board.getBoard()[r][c]=this;
+            Board.getBoard()[row][col]=null;
             row=r;
             col=c;
         }
@@ -19,20 +19,20 @@ public abstract class Piece {
         //true means is a valid move
         protected boolean testMove(int r,int c) {
             if(r<0||r>7||c<0||c>7) return false;
-            if(Board.pieces[r][c]!= null ){
-                if (Board.pieces[r][c].pieceColor==this.pieceColor){
+            if(Board.getBoard()[r][c]!= null ){
+                if (Board.getBoard()[r][c].pieceColor==this.pieceColor){
                     return false;
                 }
                 
             }
-            Piece t=Board.pieces[r][c];
+            Piece t=Board.getBoard()[r][c];
             int tr=row;
             int tc=col;
             
             move(r,c, true);
             boolean a=Board.inCheck();
             move(tr,tc, true);
-            Board.pieces[r][c]=t;
+            Board.getBoard()[r][c]=t;
             return !a;
         }
         public int[] generateRandomMoves(){
@@ -41,6 +41,7 @@ public abstract class Piece {
             return possibleMoves.get((int)(Math.random()*possibleMoves.size())); 
         }
         public abstract ArrayList<int[]> generateLegalMoves();
+        @Override
         public abstract String toString(); 
 
     }
