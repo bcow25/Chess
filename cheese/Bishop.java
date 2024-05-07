@@ -9,7 +9,9 @@ import java.util.ArrayList;
         public Bishop(int r, int c,boolean color){
             super(r,c,color); 
         }
+        @Override
         public String toString (){return "bishop:" + pieceColor;}
+        @Override
         public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row; 
@@ -18,12 +20,12 @@ import java.util.ArrayList;
             while(r <= 6 && c <= 6){
                 r++; 
                 c++; 
-                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor)break; 
+                if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
-                if(Board.pieces[r][c] == null && testMove(r,c)){
+                if(Board.getBoard()[r][c] == null && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
                 
@@ -33,12 +35,12 @@ import java.util.ArrayList;
             while(r >= 1 && c <= 6 ){
                 r--; 
                 c++; 
-                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor)break; 
+                if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
-                if((Board.pieces[r][c] == null || Board.pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
+                if((Board.getBoard()[r][c] == null || Board.getBoard()[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
             }
@@ -47,12 +49,12 @@ import java.util.ArrayList;
             while(r >= 1 && c >= 1){
                 r--; 
                 c--; 
-                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor)break; 
+                if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
-                if((Board.pieces[r][c] == null || Board.pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
+                if((Board.getBoard()[r][c] == null || Board.getBoard()[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c}); 
                 }
                 
@@ -62,12 +64,12 @@ import java.util.ArrayList;
             while(r <= 6 && c >= 1){
                 r++; 
                 c--; 
-                if(Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor == pieceColor)break; 
-                if (Board.pieces[r][c] != null && Board.pieces[r][c].pieceColor != pieceColor && testMove(r, c)){
+                if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor)break; 
+                if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor && testMove(r, c)){
                     ans.add(new int[]{r,c});
                     break; 
                 }
-                if((Board.pieces[r][c] == null || Board.pieces[r][c].pieceColor != pieceColor) && testMove(r,c)){
+                if((Board.getBoard()[r][c] == null || Board.getBoard()[r][c].pieceColor != pieceColor) && testMove(r,c)){
                     ans.add(new int[]{r,c});
                 } 
             }
