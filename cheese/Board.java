@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 // hi
 public class Board {
-    public static Piece[][] pieces;
+    private static Piece[][] pieces;
+    public static void setPiece(int r, int c, Piece p){
+        pieces[r][c] = p; 
+    }
     public static boolean inCheck() {
         King c=whitesTurn?wKing:bKing;
         for(int i=c.row;i>=0;i--) {
@@ -95,22 +98,33 @@ public class Board {
         int r=c.row+(c.pieceColor?1:-1);
         if(r>=0&&r<8&&c.col-1>=0&&c.col-1<8&&pieces[r][c.col-1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col-1].pieceColor!=c.pieceColor) 
             return true;
-        if(r>=0&&r<8&&c.col+1>=0&&c.col+1<8&&pieces[r][c.col+1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col+1].pieceColor!=c.pieceColor) 
-            return true;
-        return false;
+        return r>=0&&r<8&&c.col+1>=0&&c.col+1<8&&pieces[r][c.col+1] instanceof Pawn&&pieces[c.row+(c.pieceColor?1:-1)][c.col+1].pieceColor!=c.pieceColor;
     }
     private static boolean whitesTurn;
-    public static boolean castleWhite;
-    public static boolean castleBlack;
+    private static boolean castleWhite;
+    public static void setCastleWhite(boolean b){
+        castleWhite = b; 
+    }
+    public static boolean getCastleWhite(){
+        return castleWhite; 
+    }
+    private static boolean castleBlack;
+    public static void setcastleBlack(boolean b){castleBlack = b;}
+    public static void setCastleBlack(boolean b){
+        castleBlack = b; 
+    }
+    public static boolean getCastleBlack(){
+        return castleBlack; 
+    }
     private static King bKing;
     private static King wKing;
-    private ArrayList<Integer> repeatedPositions;
+//    private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
         whitesTurn=true;
         castleWhite=true;
         castleBlack=true;
-        repeatedPositions=new ArrayList<Integer>();
+        //repeatedPositions=new ArrayList<Integer>();
         bKing=new King(0,4,false);
         wKing=new King(7,4,true);
         pieces=new Piece[8][8];
