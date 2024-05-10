@@ -10,15 +10,16 @@ public class TextAnimator {
         time=0;
     }
     public TextAnimator(String text) {
-        this(text,1000);
+        this(text,50);
     }
     public String getFrame() {
         if(animatedText.length()==text.length()) return text;
         long t=System.currentTimeMillis();
-        for(int i=0;i<(t-time)/speed;i++) {
+        if (t-time>speed) {
+            //System.out.println("pain pain pain");
             animatedText+=text.charAt(animatedText.length());
+            time=t;
         }
-        time=t;
         return animatedText;
     }
     public void reset() {

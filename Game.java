@@ -31,6 +31,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Point camera;
     private Tree tree;
     private NPC susan;
+    //private TextAnimator text;
 
     @SuppressWarnings("unused")
     private int scene; // 0 is default (open world), 1 is garden/farm, 2 is
@@ -65,6 +66,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // testing dummies
         tree = new Tree(new Point(200, 200));
         susan = new NPC("Susan", new Point(-200, -200), null);
+       // text = new TextAnimator("i love ap csa :)");
         // farm=new Farm(1,1);
         // jswing stuff again
         // this timer will call the actionPerformed() method every DELAY ms
@@ -107,7 +109,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 Math.min(world.getWidth(this) / 2 - 25, Player.get().getPos().x));
         Player.get().getPos().y = Math.max(-(world.getHeight(this) / 2 - 25),
                 Math.min(world.getHeight(this) / 2 - 25, Player.get().getPos().y));
-        
+        //System.out.println(text.getFrame());
         //make sure e stuff only happens once        
         fireE = false;
 
