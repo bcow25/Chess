@@ -13,7 +13,7 @@ public class TextAnimator {
         this(text,50);
     }
     public String getFrame() {
-        if(animatedText.length()==text.length()) return text;
+        if(done()) return text;
         long t=System.currentTimeMillis();
         if (t-time>speed) {
             //System.out.println("pain pain pain");
@@ -25,5 +25,8 @@ public class TextAnimator {
     public void reset() {
         animatedText="";
         time=System.currentTimeMillis();
+    }
+    private boolean done() {
+        return animatedText.length()==text.length();
     }
 }
