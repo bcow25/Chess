@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.Stack;
 import java.awt.*;
 public class TextDisplayer {
-    private static Stack<TextDisplayer> displayers;
+    private static Stack<TextDisplayer> displayers=new Stack<TextDisplayer>();
     private Point pos;
     private String text;
     private int height;
@@ -38,12 +38,18 @@ public class TextDisplayer {
         g2d.setFont(new Font("Lato", Font.BOLD, 25));
      g2d.drawString(text, pos.x, pos.y);
         }
-    public static void draw() {
+    private void draw(Graphics g) {
+            draw(g, pos);
+        }
+    public static void drawAll(Graphics g) {
         for(TextDisplayer t:displayers)
-            t.draw();
+            t.draw(g);
     }
     public static void tick() {
-        if(Game.get().getE()&&!displayers.empty()) displayers.pop();
+        if(Game.get().getE()&&!displayers.empty()) {
+            displayers.pop();
+            Game.get().setE();
+        }
     }
 }
 
