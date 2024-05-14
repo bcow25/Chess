@@ -1,9 +1,10 @@
 import java.awt.Image;
 import javax.imageio.ImageIO;
-
 import java.io.File;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.util.List;
 public class NPC extends Character {
     private static Dialogue speaking=null;
     private String name;
@@ -41,7 +42,10 @@ public class NPC extends Character {
         if(talk.isColliding(Player.get().getCollider())) {
             if(Game.get().getE()) {
                 //System.out.println("e fired");
-                if(speaking==null) speaking=dialogue;
+                if(speaking==null) {speaking=dialogue;
+                    Game.get().setE();
+                    System.out.println("speaking,,, hello???");
+                }
             }
         }
     }
@@ -49,9 +53,10 @@ public class NPC extends Character {
         if(speaking==null) return;
         //display the dialogue
         //listen for player option selection
+        System.out.println("speaking isnt null!!");
         if(playerOption()!=-1) {
             if(speaking.getOptions()!=null)
-            speaking=speaking.getOptions().get(playerOption()).get();
+            speaking=speaking.getOptions().get(playerOption()).getDialogue();
             else speaking=null;
         }
     }
@@ -64,6 +69,32 @@ public class NPC extends Character {
     //returns -1 if player has not selected anything yet
     public static int playerOption() {
         return -1;
+    }
+    public static void displayDialogue(Graphics g) {
+        if(speaking==null) return;
+        Point pos=new Point(0,500);
+        g.setColor(new Color(214, 214, 214));
+        g.fillRect( pos.x, 
+                        pos.y, 
+                      300, 100);
+                      Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(
+            RenderingHints.KEY_TEXT_ANTIALIASING,
+            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2d.setRenderingHint(
+            RenderingHints.KEY_RENDERING,
+            RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(
+            RenderingHints.KEY_FRACTIONALMETRICS,
+            RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        // set the text color and font
+        g2d.setColor(new Color(30, 201, 139));
+        g2d.setFont(new Font("Lato", Font.BOLD, 25));
+     g2d.drawString(speaking.getText(), pos.x, pos.y);
+     List<Option> options=speaking.getOptions();
+     if(options==null) return;
+     for(Option option:options)
+         g2d.drawString(option.getString(), 300, pos.y=pos.y-50);
     }
     public String getName() {
         return name;
