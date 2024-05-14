@@ -1,47 +1,148 @@
-import java.util.*;
+import java.util.ArrayList;
 
-public abstract class Piece {
-        public Piece (int r, int c,boolean color){
-            row = r; 
-            col = c;
-            pieceColor=color;
+public class Queen extends Piece { //dont question the code idk how to comment just trust 
+        public Queen(int r, int c,boolean color){
+            super(r,c,color); 
         }
-        protected boolean pieceColor; //true means white
-        protected int row;
-        protected int col;
-        public void move(int r,int c, boolean test) {
-            Board.getBoard()[r][c]=this;
-            Board.getBoard()[row][col]=null;
-            row=r;
-            col=c;
-        }
-         //test if a move will put your king in check,out of bounds, or collides with your own piece
-        //true means is a valid move
-        protected boolean testMove(int r,int c) {
-            if(r<0||r>7||c<0||c>7) return false;
-            if(Board.getBoard()[r][c]!= null ){
-                if (Board.getBoard()[r][c].pieceColor==this.pieceColor){
-                    return false;
-                }
-                
-            }
-            Piece t=Board.getBoard()[r][c];
-            int tr=row;
-            int tc=col;
-            
-            move(r,c, true);
-            boolean a=Board.inCheck();
-            move(tr,tc, true);
-            Board.getBoard()[r][c]=t;
-            return !a;
-        }
-        public int[] generateRandomMoves(){
-            
-            ArrayList<int[]> possibleMoves = generateLegalMoves();
-            return possibleMoves.get((int)(Math.random()*possibleMoves.size())); 
-        }
-        public abstract ArrayList<int[]> generateLegalMoves();
+        
         @Override
-        public abstract String toString(); 
+        public String toString(){ return "queen:" + pieceColor; }
+        
+        @Override
+        public void move(int r,int c, boolean test) {
+            
+            
+            if(test){
+                super.move(r, c, false);
+            } else{
+            
+                //if queen is capturing
+                if((r + 2 == row || r - 2 == row || r == row) && (c + 2 == col || c - 2 == col || c == col)){
+                    if(r == row){
+                        if (c + 2== col && c > 0 && Board.getBoard()[r][c-1] != null && Board.getBoard()[r][c-1].pieceColor != pieceColor){
+                            Board.getBoard()[r][c-1] = null; 
+                        } else if (c < 7 && Board.getBoard()[r][c+1] != null && Board.getBoard()[r][c+1].pieceColor != pieceColor){
+                            Board.getBoard()[r][c+1] = null; 
+                        }
+                    } else if (c == col){
+                        if( r + 2 == row && r > 0 && Board.getBoard()[r-1][c] != null && Board.getBoard()[r-1][c].pieceColor != pieceColor){
+                            Board.getBoard()[r-1][c] = null; 
+                        } else if(r < 7 && Board.getBoard()[r+1][c] != null && Board.getBoard()[r+1][c].pieceColor != pieceColor){
+                            Board.getBoard()[r+1][c] = null; 
+                        }
+                    } else if (r + 2 == row && c + 2 == col && r > 0 && c > 0 && Board.getBoard()[r-1][c-1] != null && Board.getBoard()[r-1][c-1].pieceColor != pieceColor){
+                        Board.getBoard()[r-1][c-1] = null; 
+                    } else if (r - 2 == row && c + 2 == col && r < 7 && c > 0 && Board.getBoard()[r+1][c-1] != null && Board.getBoard()[r+1][c-1].pieceColor != pieceColor){
+                        Board.getBoard()[r+1][c-1] = null; 
+                    } else if (r + 2 == row && c - 2 == col && r > 0 && c < 7 && Board.getBoard()[r-1][c+1] != null && Board.getBoard()[r-1][c+1].pieceColor != pieceColor){
+                        Board.getBoard()[r-1][c+1] = null; 
+                    } else if(r - 2 == row && c - 2 == col && r < 7 && c < 7 && Board.getBoard()[r+1][c+1] != null && Board.getBoard()[r+1][c+1].pieceColor != pieceColor){
+                        Board.getBoard()[r+1][c+1] = null; 
+                    }
+                }
+                Board.getBoard()[r][c]=this;
+                Board.getBoard()[row][col]=null;
+                row=r;
+                col=c;
+            }
+        }
+        
+        // returns an arrayList of possible capture moves to male generate legal move more readable 
+        // see how queen capture in README
+         public ArrayList<int[]> generateCaptureMoves() {
+            ArrayList <int[]> ans = new ArrayList<>(); 
+            if(row > 1){
+                if (Board.getBoard()[row-1][col] != null && Board.getBoard()[row-1][col].pieceColor != pieceColor && Board.getBoard()[row-2][col] == null && testMove(row-2, col)) ans.add(new int[]{row-2, col}); 
+                if(col > 1 && Board.getBoard()[row-1][col-1] != null && Board.getBoard()[row-1][col-1].pieceColor != pieceColor && Board.getBoard()[row-2][col-2] == null && testMove(row-2, col-2)) ans.add(new int[]{row-2, col-2}); 
+                if(col < 6 && Board.getBoard()[row-1][col+1] != null && Board.getBoard()[row-1][col+1].pieceColor != pieceColor && Board.getBoard()[row-2][col+2] == null && testMove(row-2, col+2)) ans.add(new int[]{row-2, col+2}); 
+            }
+            
+            if(row < 6){
+                if (Board.getBoard()[row+1][col] != null && Board.getBoard()[row+1][col].pieceColor != pieceColor && Board.getBoard()[row+2][col] == null && testMove(row+2, col)) ans.add(new int[]{row+2, col}); 
+                if(col > 1 && Board.getBoard()[row+1][col-1] != null && Board.getBoard()[row+1][col-1].pieceColor != pieceColor && Board.getBoard()[row+2][col-2] == null && testMove(row+2, col-2)) ans.add(new int[]{row+2, col-2}); 
+                if(col < 6 && Board.getBoard()[row+1 ][col+1] != null && Board.getBoard()[row+1 ][col+1].pieceColor != pieceColor && Board.getBoard()[row+2][col+2] == null && testMove(row+1, col+1)) ans.add(new int[]{row+2, col+2}); 
+            }
+            
+            if (col != 0 && Board.getBoard()[row][col-1] != null && Board.getBoard()[row][col-1].pieceColor != pieceColor && Board.getBoard()[row][col-2] == null && testMove(row, col-2)) ans.add(new int[]{row, col-2}); 
+            if (col != 7 && Board.getBoard()[row][col+1] != null && Board.getBoard()[row][col+1].pieceColor != pieceColor && Board.getBoard()[row][col + 2] == null && testMove(row, col+1)) ans.add(new int[]{row, col+2}); 
+            
+            return ans;
+        }
+        
+        @Override
+        public ArrayList<int[]> generateLegalMoves() {
+            boolean canMove = false; 
+            ArrayList <int[]> ans = generateCaptureMoves(); //add list of capture moves to ans 
+            //System.out.print(ans.size());
+            for(int r = row+1; r <= 7; r ++){
+                if(Board.getBoard()[r][col] != null && Board.getBoard()[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if (Board.getBoard()[r][col] != null && Board.getBoard()[r][col].pieceColor != pieceColor) break; 
+                if(canMove && Board.getBoard()[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
+            }
+            canMove = false; 
+            for(int r = row-1; r >= 0; r --){
+                if(Board.getBoard()[r][col] != null && Board.getBoard()[r][col].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if (Board.getBoard()[r][col] != null && Board.getBoard()[r][col].pieceColor != pieceColor) break; 
+                if(canMove && Board.getBoard()[r][col] == null && testMove(r, col)) ans.add(new int[]{r, col});                     
+            }
+            
+             canMove = false; 
+            for(int c = col-1; c >= 0; c --){
+                if(Board.getBoard()[row][c] != null && Board.getBoard()[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if (Board.getBoard()[row][c] != null && Board.getBoard()[row][c].pieceColor != pieceColor) break; 
+                if(canMove && Board.getBoard()[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
+            }
+            canMove = false; 
+            for(int c = col+1; c <= 7; c ++){
+                if(Board.getBoard()[row][c] != null && Board.getBoard()[row][c].pieceColor == pieceColor) canMove = true; // if has piece of same color on row. then can move
+                if (Board.getBoard()[row][c] != null && Board.getBoard()[row][c].pieceColor != pieceColor) break; 
+                if(canMove && Board.getBoard()[row][c] == null && testMove(row, c)) ans.add(new int[]{row, c});                     
+            }
+            canMove = false; 
+            int r = row; 
+            int c = col; 
+           while( r >= 1 && c >= 1){
+               r--; 
+               c--; 
+               if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor) canMove = true; 
+               if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor) break; 
+               if(canMove && Board.getBoard()[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
 
+           }
+           r = row; 
+           c = col; 
+           canMove = false; 
+           while( r <= 6 && c >= 1){
+               r++; 
+               c--; 
+               if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor) canMove = true; 
+               if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor) break; 
+               if(canMove && Board.getBoard()[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
+
+           }
+           
+           canMove = false; 
+           r = row; 
+           c = col; 
+           while( r <= 6 && c <= 6){
+               r++; 
+               c++; 
+               if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor) canMove = true; 
+               if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor) break; 
+               if(canMove && Board.getBoard()[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
+
+           }
+           canMove = false; 
+           r = row; 
+           c = col; 
+           while( r >= 1 && c <= 6){
+               r--; 
+               c++; 
+               if(Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor == pieceColor) canMove = true; 
+               if (Board.getBoard()[r][c] != null && Board.getBoard()[r][c].pieceColor != pieceColor) break; 
+               if(canMove && Board.getBoard()[r][c] == null && testMove(r,c)) ans.add(new int[] {r,c});
+
+           }
+           return ans; 
+        }
     }
