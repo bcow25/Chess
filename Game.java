@@ -51,7 +51,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public boolean getE() {
         return fireE;
     }
-
+    public void setE() {
+        fireE=false;
+    }
+    
     private Game() {
         // jswing stuff
         // set the game board size
