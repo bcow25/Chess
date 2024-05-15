@@ -1,9 +1,9 @@
-import java.util.List;
+import java.util.ArrayList;
 public class Dialogue  {
-    public List<Option> getOptions() {
+    public ArrayList<Option> getOptions() {
         return options;
     }
-    private List<Option> options;
+    private ArrayList<Option> options;
     public String getText() {
         return text;
     }
@@ -12,7 +12,8 @@ public class Dialogue  {
         return speaker;
     }
     private Character speaker;
-    public Dialogue(String text,List<Option> options) {
+    public Dialogue(String text,ArrayList<Option> options) {
+        //System.out.println("im so happy to be here");
         this.text=text;
         this.options=options;
     }
