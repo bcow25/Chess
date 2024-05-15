@@ -32,6 +32,7 @@ public class NPC extends Character {
     }
     public NPC(String name, Point pos, Dialogue dialogue) {
         this(name,pos);
+        System.out.println(dialogue);
         setDialogue(dialogue);
     }
     public void setDialogue(Dialogue dialogue) {
@@ -53,10 +54,11 @@ public class NPC extends Character {
         if(speaking==null) return;
         //display the dialogue
         //listen for player option selection
-        System.out.println("speaking isnt null!!");
-        if(playerOption()!=-1) {
+        //System.out.println("speaking isnt null!!");
+        int playerOption=playerOption();
+        if(playerOption!=-1) {
             if(speaking.getOptions()!=null)
-            speaking=speaking.getOptions().get(playerOption()).getDialogue();
+            speaking=speaking.getOptions().get(playerOption).getDialogue();
             else speaking=null;
         }
     }
@@ -68,6 +70,10 @@ public class NPC extends Character {
     //your mom
     //returns -1 if player has not selected anything yet
     public static int playerOption() {
+        if(Game.get().getE()) {
+            Game.get().setE();
+            return 0;
+        }
         return -1;
     }
     public static void displayDialogue(Graphics g) {
@@ -92,6 +98,7 @@ public class NPC extends Character {
         g2d.setFont(new Font("Lato", Font.BOLD, 25));
      g2d.drawString(speaking.getText(), pos.x, pos.y);
      List<Option> options=speaking.getOptions();
+     System.out.println(options);
      if(options==null) return;
      for(Option option:options)
          g2d.drawString(option.getString(), 300, pos.y=pos.y-50);
