@@ -1,13 +1,35 @@
 import java.util.ArrayList;
-
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Point;
 public class Knight extends Piece {
+    private Image killme;
+        protected Image getImage(){
+            return killme; 
+        }
+        protected void loadImage() {
+            try {
+    
+                killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                while (killme == null); //most sane code written by tracy
+                } catch (IOException exc) {
+                System.out.println("Error opening image file: " + exc.getMessage());
+            }
+        }
       //constructor
       public Knight(int r, int c,boolean color){
           super(r,c,color); 
+          pos=new Point(0,0); 
       }
       
       @Override
-      public String toString () {return "knight: " + pieceColor;} 
+      public String toString (){  
+           if(pieceColor){
+                return("White Knight at " + row + ", " + col); 
+            } else {return("Black Knight at " + row + ", " + col); }
+        }
         
       @Override
       public ArrayList<int[]> generateLegalMoves() {
