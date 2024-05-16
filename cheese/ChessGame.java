@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit; 
 
 public class ChessGame{
     
@@ -9,7 +10,7 @@ public class ChessGame{
         boolean giveUp = false; //idk player can click a button and give up
         while (!giveUp && Board.endGame() == 0){ 
             //CLI stuff
-           TestChess.printBoard(b); 
+           //TestChess.printBoard(b); 
             
             
             Object[] move; 
@@ -32,6 +33,7 @@ public class ChessGame{
         } 
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
+            System.out.print('\u000C');
             System.out.println("You won! You earned 3 coins");
         } else if (Board.endGame() == 2 || giveUp){ // if player lost or give up 
             System.out.println("Tough Luck"); 
@@ -44,7 +46,7 @@ public class ChessGame{
         boolean giveUp = false; //idk player can click a button and give up
         while (!giveUp && Board.endGame() == 0){ 
             //CLI stuff
-           TestChess.printBoard(b); 
+           //TestChess.printBoard(b); 
             
             
             Object[] move; 
@@ -90,24 +92,46 @@ public class ChessGame{
         return movables.get((int)(Math.random()*movables.size()));
     }
     
+    //pause terminal for i secs
+    public void pause(double i){
+        try{
+                TimeUnit.SECONDS.sleep((long)i);
+            } catch(Exception exception) {}
+    }
     
     
     //returns a Object [] of 3 objects
     // object[0]: the piece the player want to move
     // object[1]: the row player want to move piece to
     // object[2]: the col player want to move piece to
+    
     public Object[] selectPiece(){
         ///CLI interface, 4 testing
         Scanner in = new Scanner(System.in);
         int r; 
         int c; 
-        do{
+        System.out.print("See move of piece (row):");
+        r = in.nextInt();
+        System.out.print("See move of piece (col):");
+        c = in.nextInt();
+        pause(1); 
+        while ((r > 7 || r < 0 || c > 7 || c < 0) || Board.getBoard()[r][c] == null){
+            System.out.print('\u000C');
+            if (r > 7 || r < 0 || c > 7 || c < 0){
+                System.out.println("There are the rows and columns goes from 0 to 7, choose a new location on the board"); 
+            } else {
+                System.out.println("The location you chose is empty. Please choose a new location."); 
+            }
+            
+            pause(1); 
             System.out.print("See move of piece (row):");
             r = in.nextInt();
             System.out.print("See move of piece (col):");
             c = in.nextInt();
-        } while (Board.getBoard()[r][c] == null);
-        
+            
+            pause(1); 
+        }
+        System.out.print('\u000C');
         
         
         Object[] ans = new Object [3]; 
@@ -115,14 +139,11 @@ public class ChessGame{
          do{
              ArrayList<int[]> legalMoves = chosen.generateLegalMoves();              
              TestChess.printLegalMoves(chosen); 
-             for(int[] item : legalMoves){
-                 //insert fancy code to color the square on the board a different color
-                 
-            }
             
             int[] playerSelection = new int[2]; // player select a square on the board
             
             //CLI testing stuff 
+            System.out.print("Select where you want to move your piece to. If you want to move another piece of your own color, enter its location here ");
             System.out.print("Piece Move (row):");
             playerSelection[0]  = in.nextInt();
             System.out.print("Piece Move (col):");
@@ -142,10 +163,11 @@ public class ChessGame{
                     break; 
                 } else{ //player select a square that is not legal move or opponent piece 
                     playerSelection = new int[2]; // player select a square on the board
-                    //CLI testing stuff 
-                    System.out.print("Piece Move 2(row):");
+                    System.out.print('\u000C');
+                    System.out.print("You did not choose a valid move. Choose again. ");
+                    System.out.print("Piece Move (row):");
                     playerSelection[0]  = in.nextInt();
-                    System.out.print("Piece Move 2(col):");
+                    System.out.print("Piece Move (col):");
                     playerSelection[1] = in.nextInt();
                     System.out.print("you selected" + playerSelection[0] + ", " + playerSelection[1]);
                 }
