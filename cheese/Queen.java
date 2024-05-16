@@ -1,12 +1,37 @@
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Point;
 
 public class Queen extends Piece { //dont question the code idk how to comment just trust 
+       private Image killme;
+        protected Image getImage(){
+            return killme; 
+        }
+        protected void loadImage() {
+            try {
+    
+                killme = ImageIO.read(new File("images/player.jpg"));
+                while (killme == null); //most sane code written by tracy
+                } catch (IOException exc) {
+                System.out.println("Error opening image file: " + exc.getMessage());
+            }
+        }
         public Queen(int r, int c,boolean color){
             super(r,c,color); 
+            loadImage(); 
+            pos=new Point(600,450); 
+            
         }
         
         @Override
-        public String toString(){ return "queen:" + pieceColor; }
+        public String toString(){ 
+            if(pieceColor){
+                return("White Queen at " + row + ", " + col); 
+            } else {return("Black Queen at " + row + ", " + col); }
+        }
         
         @Override
         public void move(int r,int c, boolean test) {
@@ -42,8 +67,27 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                 }
                 Board.getBoard()[r][c]=this;
                 Board.getBoard()[row][col]=null;
+                if(row < r){
+                    for(int i = row; i < r; i++){
+                        pos.y += Board.getSquareSize(); 
+                    }
+                } else{
+                    for(int i = r; i < row; i++){
+                        pos.y -= Board.getSquareSize(); 
+                    }
+                }
+                if(col < c){
+                    for(int i = col; i < c; i++){
+                        pos.x += Board.getSquareSize(); 
+                    }
+                } else{
+                    for(int i = c; i < col; i++){
+                        pos.x -= Board.getSquareSize(); 
+                    }
+                }
                 row=r;
                 col=c;
+
             }
         }
         
