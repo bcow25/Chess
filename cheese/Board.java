@@ -118,6 +118,8 @@ public class Board {
     }
     private static King bKing;
     private static King wKing;
+    private static int squareSize; 
+    public static int getSquareSize(){ return squareSize;} 
 //    private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
@@ -132,10 +134,15 @@ public class Board {
         pieces[0]=t;
         t=new Piece[]{new Rook(7,0,true),new Knight(7,1,true),new Bishop(7,2,true),new Queen(7,3,true),wKing,new Bishop(7,5,true),new Knight(7,6,true),new Rook(7,7,true)};
         pieces[7]=t;
+        
+        
+        
         for(int i=0;i<8;i++) {
             pieces[1][i]=new Pawn(1,i,false);
             pieces[6][i]=new Pawn(6,i,true);
         }
+        
+        
     }
     public static Piece[][] getBoard() {return pieces;}
     public static boolean getWhitesTurn(){ return whitesTurn; }
@@ -146,6 +153,8 @@ public class Board {
                 if (piece == p) return true; 
         return false; 
     }
+    
+    
     
     // 0: game continue
     // 1: white wins (black king captured)
