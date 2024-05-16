@@ -1,12 +1,35 @@
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Point;
 
 public class King extends Piece {
+        private Image killme;
+        protected Image getImage(){
+            return killme; 
+        }
+        protected void loadImage() {
+            try {
+    
+                killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                while (killme == null); //most sane code written by tracy
+                } catch (IOException exc) {
+                System.out.println("Error opening image file: " + exc.getMessage());
+            }
+        }
        public King(int r, int c,boolean color){
             super(r,c,color); 
+            pos=new Point(0,0); 
         }
        
        @Override
-       public String toString (){ return "king:" + pieceColor; }
+       public String toString (){  
+           if(pieceColor){
+                return("White King at " + row + ", " + col); 
+            } else {return("Black King at " + row + ", " + col); }
+        }
        @Override
         public void move(int r,int c, boolean test) {
             if(test){
