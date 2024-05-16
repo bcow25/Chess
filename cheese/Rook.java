@@ -1,13 +1,32 @@
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.awt.Point;
 
 /**
      * ROOK:
      * can move vertically or horizontally as long as it's not blocked by other pieces
      */
     public class Rook extends Piece {
+        private Image killme;
+        protected Image getImage(){
+            return killme; 
+        }
+        protected void loadImage() {
+            try {
+    
+                killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                while (killme == null); //most sane code written by tracy
+                } catch (IOException exc) {
+                System.out.println("Error opening image file: " + exc.getMessage());
+            }
+        }
         //constructor
         public Rook(int r, int c, boolean color){
             super(r, c, color); 
+            pos=new Point(0,0); 
         }
         
         //moves to pieces[r][c]
@@ -22,7 +41,11 @@ import java.util.ArrayList;
                     Board.setCastleBlack (false);
             }
         }
-        public String toString (){ return "rook: " + pieceColor;}
+        public String toString (){  
+           if(pieceColor){
+                return("White Rook at " + row + ", " + col); 
+            } else {return("Black Rook at " + row + ", " + col); }
+        }
        public ArrayList<int[]> generateLegalMoves() {
             ArrayList<int[]> ans = new ArrayList<int[]>();
             int r = row;
