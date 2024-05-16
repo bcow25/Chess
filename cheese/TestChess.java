@@ -1,4 +1,13 @@
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import java.awt.Dimension;
+import javax.swing.JPanel;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.*;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -9,12 +18,41 @@ import java.util.ArrayList;
  *
  * @author 800024313
  */
-public class TestChess {
+public class TestChess extends JPanel {
+    private Image world;
 
     public static void main(String[] args){
-        testPromotion(); 
+        TestChess y = new TestChess(); 
+        y.initWindow(); 
+        testChess(); 
 
     }
+    
+    private static void initWindow() {
+        // create a window frame and set the title in the toolbar
+        JFrame window = new JFrame("Constant W topia");
+        // when we close the window, stop the app
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // create the jpanel to draw on.
+        // this also initializes the game loop
+        ChessBoard.create();
+        ChessBoard board = ChessBoard.get();
+        // add the jpanel to the window
+        window.add(board);
+        // pass keyboard inputs to the jpanel
+        
+        // don't allow the user to resize the window
+        window.setResizable(false);
+        // fit the window size around the components (just our jpanel).
+        // pack() should be called after setResizable() to avoid issues on some platforms
+        window.pack();
+        // open window in the center of the screen
+        window.setLocationRelativeTo(null);
+        // display the window
+        window.setVisible(true);
+    }
+
     
     public static void testPromotion(){
         Board b = new Board();
@@ -29,6 +67,7 @@ public class TestChess {
     }
     
     public static void testChess(){
+        System.out.print('\u000C');
         ChessGame game = new ChessGame(); 
         game.playChess(); 
     }
@@ -109,7 +148,7 @@ public class TestChess {
     
     
     public static void printLegalMoves(Piece p){
-        System.out.println(p.toString() + ": "); 
+        System.out.println("Possible Legal Moves of " + p.toString() + ": "); 
         ArrayList <int[]> moves = p.generateLegalMoves(); 
        if (moves.isEmpty()){ System.out.println("no possible moves");}
         for(int[] i : moves){
