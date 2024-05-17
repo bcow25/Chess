@@ -23,6 +23,8 @@ public class TestChess extends JPanel {
 
     public static void main(String[] args){
         TestChess y = new TestChess(); 
+        
+        
         y.initWindow(); 
         testChess(); 
 
