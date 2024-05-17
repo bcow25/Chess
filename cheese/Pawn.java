@@ -26,7 +26,7 @@ public class Pawn extends Piece {
             super(r,c, color); 
             firstMove = true; 
             canGetFrenched = false; 
-            pos=new Point(0,0); 
+            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
         }
         @Override
         public String toString (){  
@@ -51,20 +51,20 @@ public class Pawn extends Piece {
                 firstMove = false; 
                 if(row < r){
                     for(int i = row; i < r; i++){
-                        pos.y += Board.getSquareSize(); 
+                        pos.y += Board.squareSize; 
                     }
                 } else{
                     for(int i = r; i < row; i++){
-                        pos.y -= Board.getSquareSize(); 
+                        pos.y -= Board.squareSize; 
                     }
                 }
                 if(col < c){
                     for(int i = col; i < c; i++){
-                        pos.x += Board.getSquareSize(); 
+                        pos.x += Board.squareSize; 
                     }
                 } else{
                     for(int i = c; i < col; i++){
-                        pos.x -= Board.getSquareSize(); 
+                        pos.x -= Board.squareSize; 
                     }
                 }
                 row=r;
