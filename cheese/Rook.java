@@ -26,7 +26,7 @@ import java.awt.Point;
         //constructor
         public Rook(int r, int c, boolean color){
             super(r, c, color); 
-            pos=new Point(0,0); 
+            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
         }
         
         //moves to pieces[r][c]
