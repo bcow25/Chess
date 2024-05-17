@@ -21,7 +21,7 @@ public class King extends Piece {
         }
        public King(int r, int c,boolean color){
             super(r,c,color); 
-            pos=new Point(0,0); 
+            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
         }
        
        @Override
