@@ -12,8 +12,8 @@ public class Queen extends Piece { //dont question the code idk how to comment j
         }
         protected void loadImage() {
             try {
-    
-                killme = ImageIO.read(new File("images/player.jpg"));
+ 
+                killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
                 while (killme == null); //most sane code written by tracy
                 } catch (IOException exc) {
                 System.out.println("Error opening image file: " + exc.getMessage());
@@ -21,9 +21,7 @@ public class Queen extends Piece { //dont question the code idk how to comment j
         }
         public Queen(int r, int c,boolean color){
             super(r,c,color); 
-            loadImage(); 
-            pos=new Point(600,450); 
-            
+            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
         }
         
         @Override
@@ -69,20 +67,20 @@ public class Queen extends Piece { //dont question the code idk how to comment j
                 Board.getBoard()[row][col]=null;
                 if(row < r){
                     for(int i = row; i < r; i++){
-                        pos.y += Board.getSquareSize(); 
+                        pos.y += Board.squareSize; 
                     }
                 } else{
                     for(int i = r; i < row; i++){
-                        pos.y -= Board.getSquareSize(); 
+                        pos.y -= Board.squareSize; 
                     }
                 }
                 if(col < c){
                     for(int i = col; i < c; i++){
-                        pos.x += Board.getSquareSize(); 
+                        pos.x += Board.squareSize; 
                     }
                 } else{
                     for(int i = c; i < col; i++){
-                        pos.x -= Board.getSquareSize(); 
+                        pos.x -= Board.squareSize; 
                     }
                 }
                 row=r;
