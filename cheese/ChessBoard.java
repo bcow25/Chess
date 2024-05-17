@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class ChessBoard extends JPanel implements ActionListener{
     public static ChessBoard g=null;
-
+    
     // controls the delay between each tick in ms
     private final int DELAY = 25;
     // suppress serialization warning
