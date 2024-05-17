@@ -2,6 +2,8 @@ import java.util.ArrayList;
 // hi
 public class Board {
     private static Piece[][] pieces;
+    protected static int borderSizeH = 30;
+    protected static int borderSizeW = 50;
     public static void setPiece(int r, int c, Piece p){
         pieces[r][c] = p; 
     }
@@ -118,8 +120,7 @@ public class Board {
     }
     private static King bKing;
     private static King wKing;
-    private static int squareSize; 
-    public static int getSquareSize(){ return squareSize;} 
+    protected static int squareSize; 
 //    private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
