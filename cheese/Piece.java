@@ -6,7 +6,8 @@ import java.io.IOException;
 
 
 public abstract class Piece extends Displayable{
-        protected abstract void loadImage(); 
+         
+    protected abstract void loadImage(); 
     
         public Piece (int r, int c,boolean color){
             row = r; 
@@ -23,20 +24,20 @@ public abstract class Piece extends Displayable{
             Board.getBoard()[row][col]=null;
             if(row < r){
                 for(int i = row; i < r; i++){
-                    pos.y += Board.getSquareSize(); 
+                    pos.y += Board.squareSize; 
                 }
             } else{
                 for(int i = r; i < row; i++){
-                    pos.y -= Board.getSquareSize(); 
+                    pos.y -= Board.squareSize; 
                 }
             }
             if(col < c){
                 for(int i = col; i < c; i++){
-                    pos.x += Board.getSquareSize(); 
+                    pos.x += Board.squareSize; 
                 }
             } else{
                 for(int i = c; i < col; i++){
-                    pos.x -= Board.getSquareSize(); 
+                    pos.x -= Board.squareSize; 
                 }
             }
             row=r;
