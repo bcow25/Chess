@@ -1,27 +1,78 @@
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public abstract class Character extends Animatable {
     protected Animator walkL;
     protected Animator walkU;
     protected Animator walkD;
     protected Animator walkR;
     protected Animator idle;
+    protected String name;
+
+    protected Character(String name) {
+        this.name = name;
+        loadAnimations();
+    }
+
     public void idle() {
         idle.reset();
-        current=idle;
+        current = idle;
     }
+
     public void walkL() {
         walkL.reset();
-        current=walkL;
+        current = walkL;
     }
+
     public void walkU() {
         walkU.reset();
-        current=walkU;
+        current = walkU;
     }
+
     public void walkD() {
         walkD.reset();
-        current=walkD;
+        current = walkD;
     }
+
     public void walkR() {
         walkR.reset();
-        current=walkR;
+        current = walkR;
+    }
+    protected void loadAnimations() {
+        String[] load = { "Front", "Back", "Left", "Right" };
+        Animator[] animate = new Animator[4];
+        
+        for (int i = 0; i < 4; i++) {
+            try {
+                String template="images/" + name + " Sprites/"+load[i]+"/" + name + "_" + load[i];
+                Image s = ImageIO.read(new File(template+"_S.png"));
+
+                Image w1 = ImageIO.read(new File(template+"_W1.png"));
+                Image w2 = ImageIO.read(new File(template+"_W2.png"));
+                Image[] img = new Image[4];
+                img[0] = s;
+                img[1] = w1;
+                img[2] = s;
+                img[3] = w2;
+                animate[i] = new Animator(img);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        walkD=animate[0];
+        walkU=animate[1];
+        walkL=animate[2];
+        walkR=animate[3];
+        try {
+            idle=current=new Animator(new Image[]{ImageIO.read(new File("images/" + name + " Sprites/Front/"+ name + "_Front_S.png"))});
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

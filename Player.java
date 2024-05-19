@@ -67,8 +67,7 @@ public class Player extends Character {
     }
 
     private Player() {
-        // load the assets
-        loadAnimations();
+        super("Riley");
         xvel = 0;
         yvel = 0;
         // initialize the state
@@ -124,22 +123,6 @@ public class Player extends Character {
         }
     }
 
-    // temp
-    protected void loadAnimations() {
-        try {
-
-            Image killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50, 50, Image.SCALE_DEFAULT);
-            while (killme == null)
-                ; // most sane code written by tracy
-            Image[] suicide = new Image[1];
-            suicide[0] = killme;
-            current = new Animator(suicide);
-            idle = walkD = walkL = walkR = walkU = current; // i deserve the death sentence
-        } catch (IOException exc) {
-            System.out.println("Error opening image file: " + exc.getMessage());
-        }
-    }
-
     public void tick() {
         // this gets called once every tick, before the repainting process happens.
         // so we can do anything needed in here to update the state of the player.
@@ -158,6 +141,7 @@ public class Player extends Character {
         pos.y += yvel;
         xvel *= 0.9;
         yvel *= 0.9;
+        if(xvel==0&&yvel==0&&current!=idle) idle();
     }
 
     public void createFootprint() {

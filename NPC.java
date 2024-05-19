@@ -2,12 +2,10 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
 import java.awt.*;
 import java.util.List;
 public class NPC extends Character {
     private static Dialogue speaking=null;
-    private String name;
     private Dialogue dialogue;
     public Dialogue getDialogue() {
         return dialogue;
@@ -24,9 +22,9 @@ public class NPC extends Character {
         } catch (Exception e) {System.out.println(e);}
     }
     public NPC(String name, Point pos) {
+        super(name);
         loadAnimations();
         this.pos=pos;
-        this.name=name;
         pusher=new Collider(pos,50,50);
         talk=new Collider(pos,70,70);      
     }

@@ -189,7 +189,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         int key = e.getKeyCode();
         if (key == directionKey) {
             if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN || key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT)
-                Player.get().idle();
+                //Player.get().idle();
             directionKey = -1;
         }
         if (key == KeyEvent.VK_E)
