@@ -136,11 +136,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to imageUpdate() events triggered by g.drawImage()
         // draw our graphics.
         drawBackground(g);
-        tree.draw(g);
-        susan.draw(g);
-        Player.get().draw(g);
-        NPC.displayDialogue(g);
-
+        Displayable.drawAll(g);
         // jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
