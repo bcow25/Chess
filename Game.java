@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -68,7 +69,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // testing dummies
         tree = new Tree(new Point(200, 200));
-        susan = new NPC("Susan", new Point(-200, -200), null);
+        ArrayList<Option> opt=new ArrayList<Option>();
+        opt.add(new Option("option 1",new Dialogue("i hope i get a 5!!!",null)));
+        opt.add(new Option("option 2",new Dialogue("i hope i get an A",null)));
+
+        susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
        // text = new TextAnimator("i love ap csa :)");
         // farm=new Farm(1,1);
         // jswing stuff again
@@ -106,6 +111,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Player.get().tick();
         tree.tick();
         susan.tick();
+        NPC.dialogueHandler();
 
         // prevent player from moving out of bounds
         Player.get().getPos().x = Math.max(-(world.getWidth(this) / 2 - 25),
@@ -133,6 +139,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         tree.draw(g);
         susan.draw(g);
         Player.get().draw(g);
+        NPC.displayDialogue(g);
 
         // jswing stuff
         // this smooths out animations on some systems

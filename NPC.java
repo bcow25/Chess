@@ -32,7 +32,7 @@ public class NPC extends Character {
     }
     public NPC(String name, Point pos, Dialogue dialogue) {
         this(name,pos);
-        System.out.println(dialogue);
+        //System.out.println(dialogue);
         setDialogue(dialogue);
     }
     public void setDialogue(Dialogue dialogue) {
@@ -45,7 +45,7 @@ public class NPC extends Character {
                 //System.out.println("e fired");
                 if(speaking==null) {speaking=dialogue;
                     Game.get().setE();
-                    System.out.println("speaking,,, hello???");
+                    //System.out.println("speaking,,, hello???");
                 }
             }
         }
@@ -72,7 +72,10 @@ public class NPC extends Character {
     public static int playerOption() {
         if(Game.get().getE()) {
             Game.get().setE();
-            return 0;
+            //System.out.println("huh?");
+            int a=(int)(Math.random()*2);
+            System.out.println(a);
+            return a;
         }
         return -1;
     }
@@ -98,7 +101,7 @@ public class NPC extends Character {
         g2d.setFont(new Font("Lato", Font.BOLD, 25));
      g2d.drawString(speaking.getText(), pos.x, pos.y);
      List<Option> options=speaking.getOptions();
-     System.out.println(options);
+     //System.out.println(options);
      if(options==null) return;
      for(Option option:options)
          g2d.drawString(option.getString(), 300, pos.y=pos.y-50);
