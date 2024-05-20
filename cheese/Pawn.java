@@ -3,13 +3,9 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Point;
 
 public class Pawn extends Piece {
-    private Image killme;
-        protected Image getImage(){
-            return killme; 
-        }
+        
         protected void loadImage() {
             try {
     
@@ -26,7 +22,6 @@ public class Pawn extends Piece {
             super(r,c, color); 
             firstMove = true; 
             canGetFrenched = false; 
-            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
         }
         @Override
         public String toString (){  
