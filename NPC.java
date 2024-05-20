@@ -80,7 +80,7 @@ public class NPC extends Character {
     public static void displayDialogue(Graphics g) {
         if(speaking==null) return;
         Point pos=new Point(0,500);
-        g.setColor(new Color(214, 214, 214));
+        g.setColor(new Color(55, 55, 55));
         g.fillRect( pos.x, 
                         pos.y, 
                       300, 100);
@@ -96,8 +96,8 @@ public class NPC extends Character {
             RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         // set the text color and font
         g2d.setColor(new Color(30, 201, 139));
-        g2d.setFont(new Font("Lato", Font.BOLD, 25));
-     g2d.drawString(speaking.getText(), pos.x, pos.y);
+        g2d.setFont(new Font("Courier", Font.BOLD, 25));
+     g2d.drawString(speaking.getText(), pos.x, pos.y+50);
      List<Option> options=speaking.getOptions();
      //System.out.println(options);
      if(options==null) return;
