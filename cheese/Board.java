@@ -2,8 +2,9 @@ import java.util.ArrayList;
 // hi
 public class Board {
     private static Piece[][] pieces;
-    protected static int borderSizeH = 30;
-    protected static int borderSizeW = 50;
+    protected static int borderSizeH = -260;
+    protected static int squareSize = 80; 
+    protected static int borderSizeW = -280;
     public static void setPiece(int r, int c, Piece p){
         pieces[r][c] = p; 
     }
@@ -120,7 +121,6 @@ public class Board {
     }
     private static King bKing;
     private static King wKing;
-    protected static int squareSize; 
 //    private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
     public Board() {
@@ -135,7 +135,9 @@ public class Board {
         pieces[0]=t;
         t=new Piece[]{new Rook(7,0,true),new Knight(7,1,true),new Bishop(7,2,true),new Queen(7,3,true),wKing,new Bishop(7,5,true),new Knight(7,6,true),new Rook(7,7,true)};
         pieces[7]=t;
-        
+        for(int i = 2; i < 6; i++){
+            pieces[i] = new Piece[8]; 
+        }
         
         
         for(int i=0;i<8;i++) {
