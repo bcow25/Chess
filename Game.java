@@ -40,6 +40,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // key press tracking
     // for moving player in directionss
     private int directionKey; // key code
+    
 
     public int getDirectionKey() {
         return directionKey;
@@ -48,7 +49,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // checking e for special interactions
     private boolean e; // keep track of e pressed or not
     private boolean fireE; // fire for one frame
-
+    
+    //checking for options;;;;;; painnnn
+    private int optionKey; // key code
+    private boolean o1; //keep track of 1 pressed or not
+    private boolean o2; //im gonna kms
+    
+    public int getOptionKey() {
+        return optionKey;
+    }
+    
     public boolean getE() {
         return fireE;
     }
@@ -64,6 +74,11 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // initialize the game state
         directionKey = -1;
+        e=false;
+        fireE=false;
+        optionKey=0;
+        o1=false;
+        o2=false;
         Player.create();
         camera = new Point();
 
@@ -121,6 +136,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         //System.out.println(text.getFrame());
         //make sure e stuff only happens once        
         fireE = false;
+        optionKey=0;
 
         // calling repaint() will trigger paintComponent() to run again, which will refresh/redraw the graphics.
 
@@ -179,6 +195,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 fireE = true;
             this.e = true;
         }
+        if(key == KeyEvent.VK_1) {
+            if(!o1) optionKey=1;
+            o1=true;
+        }
+        if(key == KeyEvent.VK_2) {
+            if(!o2) optionKey=2;
+            o2=true;
+        }
     }
 
     @Override
@@ -191,6 +215,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         }
         if (key == KeyEvent.VK_E)
             this.e = false;
+        if (key == KeyEvent.VK_1)
+            o1=false;
+        if (key==KeyEvent.VK_2)
+            o2=false;
     }
 
     // drawing
