@@ -68,14 +68,7 @@ public class NPC extends Character {
     //your mom
     //returns -1 if player has not selected anything yet
     public static int playerOption() {
-        if(Game.get().getE()) {
-            Game.get().setE();
-            //System.out.println("huh?");
-            int a=(int)(Math.random()*2);
-            System.out.println(a);
-            return a;
-        }
-        return -1;
+        return Game.get().getOptionKey()-1;
     }
     public static void displayDialogue(Graphics g) {
         if(speaking==null) return;
