@@ -1,4 +1,5 @@
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,8 @@ public abstract class Character extends Animatable {
     protected Animator idle;
     protected String name;
 
-    protected Character(String name) {
+    protected Character(String name,Point pos, int dW,int dH,int cW,int cH) {
+        super(pos,dW,dH,cW,cH);
         this.name = name;
         loadAnimations();
     }

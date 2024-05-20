@@ -67,11 +67,11 @@ public class Player extends Character {
     }
 
     private Player() {
-        super("Riley");
+        super("Riley",new Point(),0,0,0,0);
         xvel = 0;
         yvel = 0;
         // initialize the state
-        pos = new Point();
+        
         collider = new Collider(pos, 50, 50);
         inventory = new ArrayList<Plant>();
         numCoins = 0;

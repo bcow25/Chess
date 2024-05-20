@@ -4,7 +4,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 public class Tree extends Animatable {
     private Collider collider;
-    public Tree(Point pos) {
+    public Tree(Point pos,int dW,int dH,int cW,int cH) {
+        super(pos,0,0,0,0);
         loadAnimations();
         this.pos=pos;
         collider=new Collider(pos,150,350);

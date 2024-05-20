@@ -5,9 +5,14 @@ import java.util.ArrayList;
 public abstract class Displayable implements Comparable<Displayable> {
     private static ArrayList<Displayable> displays=new ArrayList<Displayable>();
     protected Point pos;
+    protected Collider display;
+    protected Collider collider;
     abstract protected Image getImage();
-    public Displayable() {
+    public Displayable(Point pos, int dW,int dH,int cW,int cH) {
         displays.add(this);
+        this.pos=pos;
+        display=new Collider(pos,dW,dH);
+        collider=new Collider(pos,cW,cH);
     }
     public static final void drawAll(Graphics g) {
         displays.sort(null);
@@ -23,6 +28,6 @@ public abstract class Displayable implements Comparable<Displayable> {
         draw(g,pos);
     }
     public int compareTo(Displayable d) {
-        return pos.y-d.pos.y;
+        return pos.y+display.getH()/2-d.pos.y-d.display.getH()/2;
     }
 }

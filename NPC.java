@@ -22,7 +22,7 @@ public class NPC extends Character {
         } catch (Exception e) {System.out.println(e);}
     }
     public NPC(String name, Point pos) {
-        super(name);
+        super(name,pos,0,0,0,0);
         loadAnimations();
         this.pos=pos;
         pusher=new Collider(pos,50,50);

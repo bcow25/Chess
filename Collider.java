@@ -14,6 +14,9 @@ public class Collider {
         this.w=w;
         this.h=h;
     }
+    public Collider(Point pos) {
+        this(pos,0,0);
+    }
     public boolean isColliding(Collider c) {
         return Math.abs(c.pos.x-pos.x)<(w+c.w)/2&&Math.abs(c.pos.y-pos.y)<(h+c.h)/2;
     } 
