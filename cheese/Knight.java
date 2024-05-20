@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Point;
 public class Knight extends Piece {
-    private Image killme;
-        protected Image getImage(){
-            return killme; 
-        }
+
         protected void loadImage() {
             try {
     
@@ -21,7 +18,6 @@ public class Knight extends Piece {
       //constructor
       public Knight(int r, int c,boolean color){
           super(r,c,color); 
-            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
       }
       
       @Override
