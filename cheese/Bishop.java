@@ -11,10 +11,7 @@ import java.awt.Point;
      */
    
     public class Bishop extends Piece {
-        private Image killme;
-        protected Image getImage(){
-            return killme; 
-        }
+
         protected void loadImage() {
             try {
     
@@ -27,7 +24,6 @@ import java.awt.Point;
         
         public Bishop(int r, int c,boolean color){
             super(r,c,color);
-            pos=new Point(Board.squareSize*r + Board.borderSizeH,Board.squareSize*c + Board.borderSizeW); 
              
         }
         @Override
