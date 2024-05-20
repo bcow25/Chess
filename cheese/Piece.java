@@ -3,17 +3,21 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.awt.Point;
 
 
-public abstract class Piece extends Displayable{
-         
+public abstract class Piece extends ChessDisplayable{
+         protected Image killme;
     protected abstract void loadImage(); 
-    
+    protected Image getImage(){
+            return killme; 
+        }
         public Piece (int r, int c,boolean color){
             row = r; 
             col = c;
             pieceColor=color;
             loadImage(); 
+            pos=new Point(Board.squareSize*c + Board.borderSizeH,Board.squareSize*r + Board.borderSizeW); 
         }
         protected boolean pieceColor; //true means white
         protected int row;
