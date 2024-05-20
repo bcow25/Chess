@@ -63,6 +63,7 @@ public class ChessBoard extends JPanel implements ActionListener{
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
+        
         repaint();
     }
 
@@ -77,10 +78,24 @@ public class ChessBoard extends JPanel implements ActionListener{
         // draw our graphics.
 
         //camera stuff, maybe move to a different method because i actually believe in function oriented programming
- 
-        
+         drawBackground(g);
+        Piece[][] pain=Board.getBoard();
+        if(pain == null){
+            //System.out.println("ho"); 
+        } else{
+            //System.out.println("eee"); 
+            for(Piece[] row: pain){
+                for(Piece p : row){
+                    if( p!= null){
+                        p.draw(g); 
+                        
+                    }
+                }
+            }
+            
+        }
 
-        drawBackground(g);
+        
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
     }
