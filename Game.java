@@ -137,6 +137,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // draw our graphics.
         drawBackground(g);
         Displayable.drawAll(g);
+        NPC.displayDialogue(g);
         // jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();

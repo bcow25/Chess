@@ -41,7 +41,7 @@ public class NPC extends Character {
         if(talk.isColliding(Player.get().getCollider())) {
             if(Game.get().getE()) {
                 //System.out.println("e fired");
-                if(speaking==null) {speaking=dialogue;
+                if(speaking==null) {setCurrent(dialogue);
                     Game.get().setE();
                     //System.out.println("speaking,,, hello???");
                 }
@@ -56,7 +56,7 @@ public class NPC extends Character {
         int playerOption=playerOption();
         if(playerOption!=-1) {
             if(speaking.getOptions()!=null)
-            speaking=speaking.getOptions().get(playerOption).getDialogue();
+            setCurrent(speaking.getOptions().get(playerOption).getDialogue());
             else speaking=null;
         }
     }
@@ -106,5 +106,9 @@ public class NPC extends Character {
     }
     public String getName() {
         return name;
+    }
+    private static void setCurrent(Dialogue d) {
+        speaking=d;
+        d.reset();
     }
 }
