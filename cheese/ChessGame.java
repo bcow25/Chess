@@ -4,11 +4,9 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit; 
 
 public class ChessGame{
-    private boolean giveUp = false; //idk player can click a button and give up
-    public void playChess(){
-        System.out.print('\u000C');
-        Board b = new Board(); 
-        
+    private boolean giveUp = false; //idk player can click a button and give up    
+    
+     public void playChess(Board b){
         while (!giveUp && Board.endGame() == 0){ 
             Object[] move; 
             Piece moving; 
@@ -33,9 +31,10 @@ public class ChessGame{
         } 
         pause(1); 
         if (Board.endGame() == 1){ // if white (player) wins
-            Player.changeNumCoins(3); 
             System.out.print('\u000C');
-            System.out.println("You won! You earned 3 coins");
+            int ind = (int)(Math.random()* 10);
+            Game.buy(ind); 
+            System.out.println("You won! You got " + Game.getPlant(ind).getName());
             pause(2); 
             TestChess.closeWindow(); 
             System.out.print('\u000C');
@@ -50,41 +49,6 @@ public class ChessGame{
             System.out.print('\u000C');
             System.out.println("LL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLLLLLLLLLLLLLLLLLLLLL");
             }
-        
-        
-    }
-    
-    
-     public void playChess(Board b){
-        while (!giveUp && Board.endGame() == 0){      
-            Object[] move; 
-            Piece moving; 
-            int row; 
-            int col; 
-            if (Board.getWhitesTurn()){ // white's turn 
-                move = selectPiece();
-                if(giveUp){
-                    break; 
-                }
-                moving = (Piece)move[0]; // piece of where player want to move piece to
-                row = (int)move[1]; //row of where piece move to 
-                col = (int)move[2]; //col of where piece move to 
-            } else {
-                moving = getRandomBlackPiece(b); 
-                int[] temp = moving.generateRandomMoves(); 
-                row = temp[0]; 
-                col = temp[1]; 
-            }
-            moving.move(row, col, false); 
-            Board.setWhitesTurn(!Board.getWhitesTurn()); 
-        } 
-        if (Board.endGame() == 1){ // if white (player) wins
-            Player.changeNumCoins(3); 
-            System.out.println("You won! You earned 3 coins");
-            System.out.println("You currently have " + Player.getNumCoins() + " coins."); 
-        } else if (Board.endGame() == 2 || giveUp){ // if player lost or give up 
-            System.out.println("Tough Luck"); 
-        }
         
     }
     
