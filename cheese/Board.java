@@ -123,14 +123,67 @@ public class Board {
     private static King wKing;
 //    private ArrayList<Integer> repeatedPositions;
     /**Arrange pieces into the default starting position.**/
-    public Board() {
+    public Board(int difficulty) {
         whitesTurn=true;
         castleWhite=true;
         castleBlack=true;
         //repeatedPositions=new ArrayList<Integer>();
+        if(difficulty == 0){
+            boardEasy(); 
+        } else if(difficulty == 1){
+            boardMedium(); 
+        } else{
+            boardHard(); 
+        }
+        
+        
+        
+    }
+    
+    // all queens 
+    public void boardEasy(){
+        
+        pieces=new Piece[8][8];
         bKing=new King(0,4,false);
         wKing=new King(7,4,true);
+        pieces[0][4] = bKing; 
+        pieces[7][4] = wKing; 
+        for (int i = 0; i < 8; i ++){
+            pieces[1][i]=new Pawn(1,i,false);
+            pieces[6][i]=new Queen(6,i,true);
+        }
+        for (int i = 0; i < 8; i ++){
+            if(i != 4){
+                pieces[0][i]=new Pawn(0,i,false);
+                pieces[7][i]=new Queen(7,i,true);
+            }
+        }
+    }
+    
+    //queen and horses 
+    public void boardMedium(){
         pieces=new Piece[8][8];
+        bKing=new King(0,4,false);
+        wKing=new King(7,4,true);
+        pieces[0][4] = bKing; 
+        pieces[7][4] = wKing; 
+        for (int i = 0; i < 8; i ++){
+            pieces[1][i]=new Knight(1,i,false);
+            pieces[6][i]=new Knight(6,i,true);
+        }
+        for (int i = 0; i < 8; i ++){
+            if(i != 4){
+                pieces[0][i]=new Pawn(0,i,false);
+                pieces[7][i]=new Queen(7,i,true);
+            }
+        }
+    }
+    
+    //standard chess board
+    public void boardHard(){
+       pieces=new Piece[8][8];
+        bKing=new King(0,4,false);
+        wKing=new King(7,4,true);
         Piece[] t={new Rook(0,0,false),new Knight(0,1,false),new Bishop(0,2,false),new Queen(0,3,false),bKing,new Bishop(0,5,false),new Knight(0,6,false),new Rook(0,7,false)};
         pieces[0]=t;
         t=new Piece[]{new Rook(7,0,true),new Knight(7,1,true),new Bishop(7,2,true),new Queen(7,3,true),wKing,new Bishop(7,5,true),new Knight(7,6,true),new Rook(7,7,true)};
@@ -144,8 +197,6 @@ public class Board {
             pieces[1][i]=new Pawn(1,i,false);
             pieces[6][i]=new Pawn(6,i,true);
         }
-        
-        
     }
     public static Piece[][] getBoard() {return pieces;}
     public static boolean getWhitesTurn(){ return whitesTurn; }
