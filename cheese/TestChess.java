@@ -28,6 +28,7 @@ public class TestChess extends JPanel {
     private static JFrame window = new JFrame("Constant W topia");
     public static void main(String[] args){
         initWindow();
+        //you make it a thread which is magic and makes everything work :)
         TestChess kms=new TestChess();
         Misery m=kms.new Misery();
         m.start();
