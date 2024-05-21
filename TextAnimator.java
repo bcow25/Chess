@@ -26,7 +26,7 @@ public class TextAnimator {
         animatedText="";
         time=System.currentTimeMillis();
     }
-    private boolean done() {
+    public boolean done() {
         return animatedText.length()==text.length();
     }
 }

@@ -120,6 +120,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 tree=new Tree(new Point(200,200),150,150,150,150);
                 dmap.add(tree);
                 susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
+
+                NPC cheeze=new NPC("CHEEZE",new Point(400,200),new ChessDialogue("youre mom!"));
+                t.add(cheeze);
+                dmap.add(cheeze);
                 dmap.add(susan);
                 t.add(tree);
                 t.add(susan);

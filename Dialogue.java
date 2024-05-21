@@ -12,7 +12,7 @@ public class Dialogue  {
         return speaker;
     }
     private Character speaker;
-    private TextAnimator text;
+    protected TextAnimator text;
     public void reset() {
         text.reset();
     }
