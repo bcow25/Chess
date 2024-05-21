@@ -8,8 +8,12 @@ public class Knight extends Piece {
 
         protected void loadImage() {
             try {
-    
-                killme = ImageIO.read(new File("images/player.jpg")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                if(pieceColor){
+                    killme = ImageIO.read(new File("images/chess_pieces/Dark_Knight.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                } else {
+                    killme = ImageIO.read(new File("images/chess_pieces/Light_Knight.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
+                }
+                
                 while (killme == null); //most sane code written by tracy
                 } catch (IOException exc) {
                 System.out.println("Error opening image file: " + exc.getMessage());
