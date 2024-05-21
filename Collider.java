@@ -2,10 +2,16 @@ import java.awt.Point;
 public class Collider {
     private Point pos;
     private int w;
+    public void setW(int w) {
+        this.w = w;
+    }
     public int getW() {
         return w;
     }
     private int h;
+    public void setH(int h) {
+        this.h = h;
+    }
     public int getH() {
         return h;
     }

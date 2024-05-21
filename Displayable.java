@@ -13,6 +13,7 @@ public abstract class Displayable implements Comparable<Displayable> {
         this.pos=pos;
         display=new Collider(pos,dW,dH);
         collider=new Collider(pos,cW,cH);
+        System.out.println(collider);
     }
     public static final void drawAll(Graphics g) {
         displays.sort(null);

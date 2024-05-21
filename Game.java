@@ -83,7 +83,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         camera = new Point();
 
         // testing dummies
-        tree = new Tree(new Point(200, 200),0,0,0,0);
+        //tree = new Tree(new Point(200, 200),0,0,0,0);
         ArrayList<Option> opt=new ArrayList<Option>();
         opt.add(new Option("option 1",new Dialogue("i hope i get a 5!!!",null)));
         opt.add(new Option("option 2",new Dialogue("i hope i get an A",null)));
@@ -124,7 +124,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         // tick tok
         Player.get().tick();
-        tree.tick();
+        //tree.tick();
         susan.tick();
         NPC.dialogueHandler();
 

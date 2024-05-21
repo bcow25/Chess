@@ -22,7 +22,6 @@ public class Player extends Character {
     }
 
     @SuppressWarnings("unused")
-    private Collider collider;
     // note: encapsulate these later
     public int xvel;
     public int yvel;
@@ -67,12 +66,12 @@ public class Player extends Character {
     }
 
     private Player() {
-        super("Riley",new Point(),60,100,60,100);
+        super("Riley",new Point(),60,100,40,80);
         xvel = 0;
         yvel = 0;
         // initialize the state
         
-        collider = new Collider(pos, 50, 50);
+        //collider = new Collider(pos, 50, 50);
         inventory = new ArrayList<Plant>();
         numCoins = 0;
 

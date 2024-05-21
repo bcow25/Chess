@@ -71,7 +71,13 @@ public abstract class Character extends Animatable {
         walkL=animate[2];
         walkR=animate[3];
         try {
-            idle=current=new Animator(new Image[]{ImageIO.read(new File("images/" + name + " Sprites/Front/"+ name + "_Front_S.png"))});
+            Image pain= ImageIO.read(new File("images/" + name + " Sprites/Front/"+ name + "_Front_S.png"));
+            idle=current=new Animator(new Image[]{pain});
+            collider.setH(pain.getHeight(Game.get()));
+            collider.setW(pain.getWidth(Game.get()));
+            display.setW(pain.getWidth(Game.get()));
+            display.setH(pain.getHeight(Game.get()));
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
