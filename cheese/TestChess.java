@@ -17,6 +17,10 @@ import javax.imageio.ImageIO;
  * @author 800024313
  */
 public class TestChess extends JPanel {
+    private static int diffculty; 
+    public TestChess (String diff){
+        diffculty = Integer.parseInt(diff.substring(0, 1)); 
+    }
     private class Misery extends Thread {
         public void run() {
             TestChess.testChess();
@@ -29,7 +33,7 @@ public class TestChess extends JPanel {
             public void run() {
                 initWindow();
                 //you make it a thread which is magic and makes everything work :)
-                TestChess kms=new TestChess();
+                TestChess kms=new TestChess(args[0]);
                 Misery m=kms.new Misery();
                 m.start();
             }
@@ -69,7 +73,7 @@ public class TestChess extends JPanel {
 
     
     public static void testPromotion(){
-        Board b = new Board();
+        Board b = new Board(2);
         for(int i = 0; i <= 7; i++){
             Board.getBoard()[1][i] = null; 
             if(i != 4){
@@ -83,11 +87,12 @@ public class TestChess extends JPanel {
     public static void testChess(){
         System.out.print('\u000C');
         ChessGame game = new ChessGame(); 
-        game.playChess(); 
+        Board b = new Board(diffculty); 
+        game.playChess(b); 
     }
     
     public static void testCastle(){
-        Board b = new Board(); 
+        Board b = new Board(2); 
         Piece[][] p = Board.getBoard(); 
         p[0][1] = null;
         p[0][2] = null;
@@ -101,7 +106,7 @@ public class TestChess extends JPanel {
     }
     
     public static void testQueenInCheck(){
-        Board test = new Board();
+        Board test = new Board(2);
         Piece[][] p = Board.getBoard(); 
         printBoard(test);
         System.out.println(Board.inCheck());
@@ -116,7 +121,7 @@ public class TestChess extends JPanel {
        
     }
     public static void testEnPassantWhite(){
-        Board test = new Board(); 
+        Board test = new Board(2); 
         Board.getBoard()[3][0] = Board.getBoard()[1][0]; 
         Board.getBoard()[1][0] = null; 
         Pawn pB = (Pawn) Board.getBoard()[3][0];  
@@ -139,7 +144,7 @@ public class TestChess extends JPanel {
     }
     
     public static void testEnPassantBlack(){
-        Board test = new Board(); 
+        Board test = new Board(2); 
         Board.getBoard()[6][4].move(4, 4, true);
         Pawn pW = (Pawn) Board.getBoard()[4][4];  
         pW.row = 4; 
