@@ -1,12 +1,11 @@
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public abstract class Character extends Animatable {
+public abstract class Character extends Animatable implements Tickable {
     protected Animator walkL;
     protected Animator walkU;
     protected Animator walkD;

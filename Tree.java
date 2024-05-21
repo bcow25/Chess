@@ -2,7 +2,7 @@ import java.awt.Image;
 import java.awt.Point;
 import javax.imageio.ImageIO;
 import java.io.File;
-public class Tree extends Animatable {
+public class Tree extends Animatable implements Tickable {
     public Tree(Point pos,int dW,int dH,int cW,int cH) {
         super(pos,dW,dH,cW,cH);
         loadAnimations();

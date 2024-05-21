@@ -65,13 +65,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public void setE() {
         fireE=false;
     }
-    
+
+    //displayable
+    private ArrayList<ArrayList<Displayable>> displays;
+    private ArrayList<ArrayList<Tickable>> ticks;
     private Game() {
         // jswing stuff
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
         loadImage();
-
+        displays=new ArrayList<ArrayList<Displayable>>();
+        for(int i=0;i<5/*however many maps we have*/;i++) displays.add(null);
+        ticks=new ArrayList<ArrayList<Tickable>>();
+        for(int i=0;i<5/*however many maps we have*/;i++) ticks.add(null);
         // initialize the game state
         directionKey = -1;
         e=false;
@@ -79,16 +85,15 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         optionKey=0;
         o1=false;
         o2=false;
+
+        //player and camera
         Player.create();
         camera = new Point();
 
-        // testing dummies
-        //tree = new Tree(new Point(200, 200),0,0,0,0);
-        ArrayList<Option> opt=new ArrayList<Option>();
-        opt.add(new Option("option 1",new Dialogue("i hope i get a 5!!!",null)));
-        opt.add(new Option("option 2",new Dialogue("i hope i get an A",null)));
 
-        susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
+        // test map
+        resetMap(0);
+        scene=0;
        // text = new TextAnimator("i love ap csa :)");
         // farm=new Farm(1,1);
         // jswing stuff again
@@ -97,6 +102,28 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         timer.start();
     }
 
+    private void resetMap(int map) {
+        ArrayList<Displayable> dmap=new ArrayList<Displayable>();
+        ArrayList<Tickable> t=new ArrayList<Tickable>();
+        switch (map) {
+            case 0:
+                ArrayList<Option> opt=new ArrayList<Option>();
+                opt.add(new Option("option 1",new Dialogue("i hope i get a 5!!!",null)));
+                opt.add(new Option("option 2",new Dialogue("i hope i get an A",null)));
+                tree=new Tree(new Point(200,200),150,150,150,150);
+                dmap.add(tree);
+                susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
+                dmap.add(susan);
+                t.add(Player.get());
+                t.add(tree);
+                t.add(susan);
+                break;
+        }
+        dmap.add(Player.get());
+        displays.set(map,dmap);
+        ticks.set(map,t);
+
+    }
     private void loadImage() {
         try {
             world = ImageIO.read(new File("images/world.png")).getScaledInstance(2400, 1800, 1);
@@ -123,9 +150,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 Math.min(camera.y, Math.abs(getHeight() - world.getHeight(this)) / 2));
 
         // tick tok
-        Player.get().tick();
-        //tree.tick();
-        susan.tick();
+        ArrayList<Tickable> tick=ticks.get(scene);
+        for(Tickable t:tick) t.tick();
         NPC.dialogueHandler();
 
         // prevent player from moving out of bounds
@@ -152,7 +178,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to imageUpdate() events triggered by g.drawImage()
         // draw our graphics.
         drawBackground(g);
-        Displayable.drawAll(g);
+        Displayable.drawAll(g,displays.get(scene));
         NPC.displayDialogue(g);
         // jswing stuff
         // this smooths out animations on some systems
