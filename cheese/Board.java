@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Board {
     private static Piece[][] pieces;
     protected static int borderSizeH = -260;
-    protected static int squareSize = 80; 
+    protected static int squareSize = 79; 
     protected static int borderSizeW = -280;
     public static void setPiece(int r, int c, Piece p){
         pieces[r][c] = p; 
