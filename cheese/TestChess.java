@@ -19,14 +19,19 @@ import javax.imageio.ImageIO;
  * @author 800024313
  */
 public class TestChess extends JPanel {
+    private class Misery extends Thread {
+        public void run() {
+            TestChess.testChess();
+        }
+    }
     private Image world;
     private static JFrame window = new JFrame("Constant W topia");
     public static void main(String[] args){
-        TestChess y = new TestChess(); 
+        initWindow();
+        TestChess kms=new TestChess();
+        Misery m=kms.new Misery();
+        m.start();
         
-        
-        y.initWindow(); 
-        testChess(); 
 
     }
     public static void closeWindow(){
