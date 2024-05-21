@@ -10,7 +10,6 @@ public class NPC extends Character {
     public Dialogue getDialogue() {
         return dialogue;
     }
-    private Collider pusher;
     private Collider talk;
     protected void loadAnimations() {
         try {
@@ -22,11 +21,10 @@ public class NPC extends Character {
         } catch (Exception e) {System.out.println(e);}
     }
     public NPC(String name, Point pos) {
-        super(name,pos,0,0,0,0);
+        super(name,pos,0,0,100,100);
         loadAnimations();
         this.pos=pos;
-        pusher=new Collider(pos,50,50);
-        talk=new Collider(pos,70,70);      
+        talk=new Collider(pos,150,150);      
     }
     public NPC(String name, Point pos, Dialogue dialogue) {
         this(name,pos);
@@ -37,7 +35,7 @@ public class NPC extends Character {
         this.dialogue=dialogue;
     }
     public void tick() {
-        pusher.pushPlayer();
+        collider.pushPlayer();
         if(talk.isColliding(Player.get().getCollider())) {
             if(Game.get().getE()) {
                 //System.out.println("e fired");
