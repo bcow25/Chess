@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import javax.swing.JFrame;
 import java.awt.Dimension;
-import javax.swing.JPanel;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.*;
@@ -27,11 +25,16 @@ public class TestChess extends JPanel {
     private Image world;
     private static JFrame window = new JFrame("Constant W topia");
     public static void main(String[] args){
-        initWindow();
-        //you make it a thread which is magic and makes everything work :)
-        TestChess kms=new TestChess();
-        Misery m=kms.new Misery();
-        m.start();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                initWindow();
+                //you make it a thread which is magic and makes everything work :)
+                TestChess kms=new TestChess();
+                Misery m=kms.new Misery();
+                m.start();
+            }
+        });
+        
         
 
     }
