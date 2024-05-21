@@ -4,15 +4,12 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit; 
 
 public class ChessGame{
-    
+    private boolean giveUp = false; //idk player can click a button and give up
     public void playChess(){
+        System.out.print('\u000C');
         Board b = new Board(); 
-        boolean giveUp = false; //idk player can click a button and give up
+        
         while (!giveUp && Board.endGame() == 0){ 
-            //CLI stuff
-           //TestChess.printBoard(b); 
-            
-            
             Object[] move; 
             Piece moving; 
             int row; 
@@ -20,6 +17,9 @@ public class ChessGame{
             if (Board.getWhitesTurn()){ // white's turn 
                 move = selectPiece();
                 moving = (Piece)move[0]; // piece of where player want to move piece to
+                if(move[1] == null){
+                    break; 
+                }
                 row = (int)move[1]; //row of where piece move to 
                 col = (int)move[2]; //col of where piece move to 
             } else {
@@ -31,30 +31,41 @@ public class ChessGame{
             moving.move(row, col, false); 
             Board.setWhitesTurn(!Board.getWhitesTurn()); 
         } 
+        pause(1); 
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
             System.out.print('\u000C');
             System.out.println("You won! You earned 3 coins");
+            pause(2); 
+            TestChess.closeWindow(); 
+            System.out.print('\u000C');
         } else if (Board.endGame() == 2 || giveUp){ // if player lost or give up 
-            System.out.println("Tough Luck"); 
-        }
+            System.out.print('\u000C');
+            System.out.println("Skill issue do better" ); 
+            pause(2); 
+            TestChess.closeWindow(); 
+            for(int i = 0; i < 30; i ++){
+                System.out.println("Skill issue do better" ); 
+            }
+            System.out.print('\u000C');
+            System.out.println("LL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLL\nLLLLLLLLLLLLLLLLLLLLL");
+            }
+        
         
     }
     
     
      public void playChess(Board b){
-        boolean giveUp = false; //idk player can click a button and give up
-        while (!giveUp && Board.endGame() == 0){ 
-            //CLI stuff
-           //TestChess.printBoard(b); 
-            
-            
+        while (!giveUp && Board.endGame() == 0){      
             Object[] move; 
             Piece moving; 
             int row; 
             int col; 
             if (Board.getWhitesTurn()){ // white's turn 
                 move = selectPiece();
+                if(giveUp){
+                    break; 
+                }
                 moving = (Piece)move[0]; // piece of where player want to move piece to
                 row = (int)move[1]; //row of where piece move to 
                 col = (int)move[2]; //col of where piece move to 
@@ -70,6 +81,7 @@ public class ChessGame{
         if (Board.endGame() == 1){ // if white (player) wins
             Player.changeNumCoins(3); 
             System.out.println("You won! You earned 3 coins");
+            System.out.println("You currently have " + Player.getNumCoins() + " coins."); 
         } else if (Board.endGame() == 2 || giveUp){ // if player lost or give up 
             System.out.println("Tough Luck"); 
         }
@@ -110,8 +122,12 @@ public class ChessGame{
         Scanner in = new Scanner(System.in);
         int r; 
         int c; 
-        System.out.print("See move of piece (row): ");
+        System.out.print("Enter -1 to take the L\nSee move of piece (row): ");
         r = in.nextInt();
+        if (r == -1){
+            giveUp = true; 
+            return new Object[3]; 
+        }
         System.out.print("See move of piece (col): ");
         c = in.nextInt();
         pause(1); 
@@ -147,8 +163,12 @@ public class ChessGame{
             
             //CLI testing stuff 
             System.out.println("Select where you want to move your piece to. If you want to move another piece of your own color, enter its location here ");
-             System.out.print("Piece Move (row): ");
+             System.out.print("Enter -1 to take the L\nPiece Move (row): ");
                 playerSelection[0]  = in.nextInt();
+                if (playerSelection[0] == -1){
+                    giveUp = true; 
+                    return new Object[3]; 
+                }
                 System.out.print("Piece Move (col): ");
                 playerSelection[1] = in.nextInt();
                 System.out.println("you selected: " + playerSelection[0] + ", " + playerSelection[1]);
@@ -171,8 +191,12 @@ public class ChessGame{
                     System.out.print('\u000C');
                     System.out.println("You did not choose a valid move. Choose again. ");
                     TestChess.printLegalMoves(chosen); 
-                    System.out.print("Piece Move (row): ");
+                    System.out.print("Enter -1 to take the L\nPiece Move (row): ");
                     playerSelection[0]  = in.nextInt();
+                    if (playerSelection[0] == -1){
+                        giveUp = true;
+                        return new Object [3]; 
+                    }
                     System.out.print("Piece Move (col): ");
                     playerSelection[1] = in.nextInt();
                     System.out.print("you selected " + playerSelection[0] + ", " + playerSelection[1]);
