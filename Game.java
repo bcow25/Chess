@@ -23,7 +23,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private final int DELAY = 25;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
-    private Image world;
+    //private Image world;
     // keep a reference to the timer object that triggers actionPerformed() in case
     // we need access to it in another method
     private Timer timer;
@@ -69,15 +69,21 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     //displayable
     private ArrayList<ArrayList<Displayable>> displays;
     private ArrayList<ArrayList<Tickable>> ticks;
+    private ArrayList<Image> worlds;
     private Game() {
         // jswing stuff
         // set the game board size
         setPreferredSize(new Dimension(800, 600));
-        loadImage();
+
         displays=new ArrayList<ArrayList<Displayable>>();
         for(int i=0;i<5/*however many maps we have*/;i++) displays.add(null);
         ticks=new ArrayList<ArrayList<Tickable>>();
         for(int i=0;i<5/*however many maps we have*/;i++) ticks.add(null);
+        worlds=new ArrayList<Image>();
+        for(int i=0;i<5/*however many maps we have*/;i++) worlds.add(null);
+        
+        loadImage();
+        
         // initialize the game state
         directionKey = -1;
         e=false;
@@ -126,9 +132,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
     private void loadImage() {
         try {
-            world = ImageIO.read(new File("images/world.png")).getScaledInstance(2400, 1800, 1);
+            Image world = ImageIO.read(new File("images/world.png")).getScaledInstance(2400, 1800, 1);
             while (world == null)
                 ; // will change istg on god
+            worlds.set(0, world);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -144,10 +151,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         camera.x += (Player.get().getPos().x - camera.x) / 10;
         camera.y += (Player.get().getPos().y - camera.y) / 10;
         // prevent cam from going out of bounds
-        camera.x = Math.max(-Math.abs(getWidth() - world.getWidth(this)) / 2,
-                Math.min(camera.x, Math.abs(getWidth() - world.getWidth(this)) / 2));
-        camera.y = Math.max(-Math.abs(getHeight() - world.getHeight(this)) / 2,
-                Math.min(camera.y, Math.abs(getHeight() - world.getHeight(this)) / 2));
+        camera.x = Math.max(-Math.abs(getWidth() - worlds.get(scene).getWidth(this)) / 2,
+                Math.min(camera.x, Math.abs(getWidth() - worlds.get(scene).getWidth(this)) / 2));
+        camera.y = Math.max(-Math.abs(getHeight() - worlds.get(scene).getHeight(this)) / 2,
+                Math.min(camera.y, Math.abs(getHeight() - worlds.get(scene).getHeight(this)) / 2));
 
         // tick tok
         ArrayList<Tickable> tick=ticks.get(scene);
@@ -155,10 +162,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         NPC.dialogueHandler();
 
         // prevent player from moving out of bounds
-        Player.get().getPos().x = Math.max(-(world.getWidth(this) / 2 - 25),
-                Math.min(world.getWidth(this) / 2 - 25, Player.get().getPos().x));
-        Player.get().getPos().y = Math.max(-(world.getHeight(this) / 2 - 25),
-                Math.min(world.getHeight(this) / 2 - 25, Player.get().getPos().y));
+        Player.get().getPos().x = Math.max(-(worlds.get(scene).getWidth(this) / 2 - 25),
+                Math.min(worlds.get(scene).getWidth(this) / 2 - 25, Player.get().getPos().x));
+        Player.get().getPos().y = Math.max(-(worlds.get(scene).getHeight(this) / 2 - 25),
+                Math.min(worlds.get(scene).getHeight(this) / 2 - 25, Player.get().getPos().y));
         //System.out.println(text.getFrame());
         //make sure e stuff only happens once        
         fireE = false;
@@ -249,9 +256,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
     // drawing
     private void drawBackground(Graphics g) {
-        g.drawImage(world,
-                0 - world.getWidth(this) / 2 - camera.x + getWidth() / 2,
-                0 - world.getHeight(this) / 2 - camera.y + getHeight() / 2,
+        g.drawImage(worlds.get(scene),
+                0 - worlds.get(scene).getWidth(this) / 2 - camera.x + getWidth() / 2,
+                0 - worlds.get(scene).getHeight(this) / 2 - camera.y + getHeight() / 2,
                 this);
     }
 
