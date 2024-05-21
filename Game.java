@@ -111,6 +111,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private void resetMap(int map) {
         ArrayList<Displayable> dmap=new ArrayList<Displayable>();
         ArrayList<Tickable> t=new ArrayList<Tickable>();
+        t.add(Player.get());
         switch (map) {
             case 0:
                 ArrayList<Option> opt=new ArrayList<Option>();
@@ -120,7 +121,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 dmap.add(tree);
                 susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
                 dmap.add(susan);
-                t.add(Player.get());
                 t.add(tree);
                 t.add(susan);
                 break;
@@ -252,7 +252,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             o1=false;
         if (key==KeyEvent.VK_2)
             o2=false;
-        if(key==KeyEvent.VK_3) TestChess.main(new String[0]);
+        if(key==KeyEvent.VK_3) TestChess.main(new String[]{"0"});
     }
 
     // drawing
