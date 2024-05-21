@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
  */
 public class TestChess extends JPanel {
     private Image world;
-
+    private static JFrame window = new JFrame("Constant W topia");
     public static void main(String[] args){
         TestChess y = new TestChess(); 
         
@@ -29,10 +29,13 @@ public class TestChess extends JPanel {
         testChess(); 
 
     }
-    
+    public static void closeWindow(){
+        window.setVisible(false); //you can't see me!
+        window.dispose(); //Destroy the JFrame object
+    }
     private static void initWindow() {
         // create a window frame and set the title in the toolbar
-        JFrame window = new JFrame("Constant W topia");
+        
         // when we close the window, stop the app
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
