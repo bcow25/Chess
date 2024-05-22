@@ -123,24 +123,16 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private void resetMap(int map) {
         ArrayList<Displayable> dmap=new ArrayList<Displayable>();
         ArrayList<Tickable> t=new ArrayList<Tickable>();
-        t.add(Player.get());
+        
         switch (map) {
             case 0:
-                ArrayList<Option> opt=new ArrayList<Option>();
-                opt.add(new Option("option 1",new Dialogue("i hope i get a 5!!!",null)));
-                opt.add(new Option("option 2",new Dialogue("i hope i get an A",null)));
-                tree=new Tree(new Point(200,200),150,150,150,150);
-                dmap.add(tree);
-                susan = new NPC("Susan", new Point(-200, -200), new Dialogue("i love csa",opt));
-
-                NPC cheeze=new NPC("CHEEZE",new Point(400,200),new ChessDialogue("youre mom!"));
-                t.add(cheeze);
-                dmap.add(cheeze);
-                dmap.add(susan);
-                t.add(tree);
-                t.add(susan);
+                t.add(new Hitbox(new Point(-950,-20),200,300));
+                t.add(new Hitbox(new Point(-800,-50),400,300));
+                t.add(new Hitbox(new Point(-25,-40),340,330));
+                t.add(new Hitbox(new Point(890,-45),480,280));
                 break;
         }
+        t.add(Player.get());
         dmap.add(Player.get());
         displays.set(map,dmap);
         ticks.set(map,t);
@@ -269,6 +261,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         if (key==KeyEvent.VK_2)
             o2=false;
         if(key==KeyEvent.VK_3) TestChess.main(new String[]{"1"});
+        if(key==KeyEvent.VK_4) System.out.println(Player.get().getPos());
     }
 
     // drawing

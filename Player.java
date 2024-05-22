@@ -66,7 +66,7 @@ public class Player extends Character {
     }
 
     private Player() {
-        super("Riley",new Point(),50,90,50,90);
+        super("Riley",new Point(0,215),50,90,50,90);
         xvel = 0;
         yvel = 0;
         // initialize the state
