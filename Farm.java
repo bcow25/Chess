@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -34,4 +35,9 @@ public class Farm implements Tickable {
             plant(Player.get().getInventory().get(0));
         }
     }
+    public void draw(Graphics g) {
+        
+        //im losing it:)
+    }
+
 }
