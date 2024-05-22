@@ -1,10 +1,6 @@
 import java.util.ArrayList;
-import java.awt.Dimension;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.*;
 import java.awt.Image;
-import javax.imageio.ImageIO;
 
 
 /*
@@ -26,7 +22,6 @@ public class TestChess extends JPanel {
             TestChess.testChess();
         }
     }
-    private Image world;
     private static JFrame window = new JFrame("Constant W topia");
     public static void main(String[] args){
         SwingUtilities.invokeLater(new Runnable() {

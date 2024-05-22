@@ -3,8 +3,6 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Point;
-
 /**
      * ROOK:
      * can move vertically or horizontally as long as it's not blocked by other pieces

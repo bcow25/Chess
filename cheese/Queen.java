@@ -3,7 +3,6 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Point;
 
 public class Queen extends Piece { //dont question the code idk how to comment just trust 
 

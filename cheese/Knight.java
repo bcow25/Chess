@@ -3,7 +3,6 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Point;
 public class Knight extends Piece {
 
         protected void loadImage() {

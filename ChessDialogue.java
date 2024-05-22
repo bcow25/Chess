@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class ChessDialogue extends Dialogue {
     private boolean exe;
     private String d;
