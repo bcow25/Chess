@@ -97,7 +97,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Farm.create();
 
         //test wit two plants
-       for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
+       //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
         
         // test map
         resetMap(0);
