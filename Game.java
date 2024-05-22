@@ -100,8 +100,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
        //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
         
         // test map
-        resetMap(0);
-        scene=0;
+        resetMap(2);
+        scene=2;
        // text = new TextAnimator("i love ap csa :)");
         // farm=new Farm(1,1);
         // jswing stuff again
@@ -118,8 +118,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             ArrayList<Option> opt=new ArrayList<Option>();
             opt.add(new Option("1:",new Dialogue("okay",null)));
             opt.add(new Option("2:",new Dialogue("2k",null)));
-                NPC susan=new NPC("Susan",new Point(800,300),new Dialogue("i love csa",opt));
-                dmap.add(susan);
+                NPC dave=new NPC("Dave",new Point(-410,120),new Dialogue("i love csa",opt));
+                dmap.add(dave);
                 
                 t.add(new Hitbox(new Point(-950,-20),200,300));
                 t.add(new Hitbox(new Point(-800,-50),400,300));
@@ -129,14 +129,38 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(garden);
                 t.add(new Door(new Collider(new Point(-950,170),100,50),3));
                 t.add(new Door(new Collider(new Point(890,140),100,50),2));
-                t.add(susan);
+                t.add(dave);
                 break;
             case 1:
+                NPC starr=new NPC("Starr", new Point(200,50),new Dialogue("hi",null));
+                NPC murphy=new NPC("Murphy", new Point(-200,100),new Dialogue("hi",null));
+                NPC cherry=new NPC("Cherry", new Point(100,300),new Dialogue("hi",null));
+                NPC angela=new NPC("Angela", new Point(-100,300),new Dialogue("hi",null));
+                dmap.add(starr);
+                dmap.add(murphy);
+                dmap.add(angela);
+                dmap.add(cherry);
                 t.add(new Door(new Collider(new Point(-360,380),75,100),0));
                 t.add(Farm.get());
+                t.add(starr);
+                t.add(murphy);
+                t.add(cherry);
+                t.add(angela);
                 break;
             case 2:
+                NPC sunny=new NPC("Sunny", new Point(255,79),new Dialogue("hi",null));
+                NPC pigeon=new NPC("Pigeon", new Point(-5,-5),new Dialogue("hi",null));
+                NPC mao=new NPC("Mao", new Point(0,-170),new Dialogue("hi",null));
+                NPC jiji=new NPC("Jiji", new Point(90,-145),new Dialogue("hi",null));
                 t.add(new Door(new Collider(new Point(0,245),100,50),0));
+                dmap.add(sunny);
+                dmap.add(pigeon);
+                dmap.add(mao);
+                dmap.add(jiji);
+                t.add(sunny);
+                t.add(mao);
+                t.add(pigeon);
+                t.add(jiji);
                 break;
             case 3:
                 t.add(new Door(new Collider(new Point(-155,245),100,50),0));

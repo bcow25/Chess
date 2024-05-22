@@ -13,15 +13,15 @@ public class NPC extends Character {
     private Collider talk;
     protected void loadAnimations() {
         try {
-        Image[] suicide=new Image[2];
-        suicide[0] = ImageIO.read(new File("images/npc1.png"));
-        suicide[1] = ImageIO.read(new File("images/npc2.png"));
-        while(suicide[0]==null||suicide[1]==null); //most sane code written by tracy
-        walkU=walkD=walkR=walkL=idle=current=new Animator(suicide,200);
-        } catch (Exception e) {System.out.println(e);}
+            Image x=ImageIO.read(new File("images/NPC/"+name+".png"));
+            collider.setH(x.getHeight(Game.get()));
+            collider.setW(x.getWidth(Game.get()));
+        walkU=walkD=walkR=walkL=idle=current=new Animator(new Image[]{x},200);
+        } catch (Exception e) {e.printStackTrace();}
+        
     }
     public NPC(String name, Point pos) {
-        super(name,pos,100,100,70,70);
+        super(name,pos,0,0,0,0);
         loadAnimations();
         this.pos=pos;
         talk=new Collider(pos,150,150);      
