@@ -82,13 +82,13 @@ public class Pawn extends Piece {
             ArrayList<int[]> moves = new ArrayList<int[]>(); 
             if(firstMove){//if is Pawn's first move then can move two blocks 
                 if(pieceColor){ // if is white 
-                    if(Board.getBoard()[row-2][col] == null) // if 2 space ahead is unoccupied, add to moves
+                    if(Board.getBoard()[row-2][col] == null && Board.getBoard()[row-1][col] == null ) // if 2 space ahead is unoccupied, add to moves
                         if(testMove(row-2,col))
                         {   moves.add( new int[] {row - 2, col} );      
                         
                         }               
                 } else { //color is black 
-                    if(Board.getBoard()[row+2][col] == null) // if 2 space ahead is unoccupied, add to moves
+                    if(Board.getBoard()[row+2][col] == null && Board.getBoard()[row+1][col] == null ) // if 2 space ahead is unoccupied, add to moves
                         if(testMove(row+2,col)){
                             moves.add( new int[] {row + 2, col} );
                         } 
