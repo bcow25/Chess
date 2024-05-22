@@ -37,8 +37,8 @@ public class ChessGame{
         if (Board.endGame() == 1){ // if white (player) wins
             System.out.print('\u000C');
             int ind = (int)(Math.random()* 10);
-            Player.get().addToInventory( Game.items[ind]); 
-            System.out.println("You won! You got "+ Game.getPlant(ind).getName());
+            Player.get().addToInventory( new Plant()); 
+            System.out.println("You won! You got a seed. Plant it and see what it'll grow into!");
             pause(2); 
             TestChess.closeWindow(); 
             System.out.print('\u000C');

@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Game extends JPanel implements ActionListener, KeyListener {
     // singleton setup
     public static Game g = null;
-    protected static Plant[] items;
+    //protected static Plant[] items;
 
 
     public static Game get() {
@@ -97,7 +97,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         Farm.create();
 
         //test wit two plants
-        for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
+       //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
         
         // test map
         resetMap(0);
@@ -108,17 +108,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // this timer will call the actionPerformed() method every DELAY ms
         timer = new Timer(DELAY, this);
         timer.start();
-        items = new Plant[10];
-        //https://docs.oracle.com/javase/8/docs/api/java/util/Hashtable.html
-        //replace with a hashtable???
-        for (int i = 0; i <9; i++){
-            items[i] = new Plant(i); 
-        }
     }
     
-    public static Plant getPlant(int i){
-        return items[i]; 
-    }
     private void resetMap(int map) {
         ArrayList<Displayable> dmap=new ArrayList<Displayable>();
         ArrayList<Tickable> t=new ArrayList<Tickable>();
