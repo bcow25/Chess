@@ -15,7 +15,7 @@ public class Plant extends Displayable {
     private final static Image[] images=new Image[raritys.length];
     private static Image seedimg;
     private int id;
-    
+    private long time;
     
     public Plant(int i) {
         super(new Point(),0,0,0,0);
@@ -41,7 +41,13 @@ public class Plant extends Displayable {
     public Plant() {
         this((int)(Math.random()*types.length));
     }
-    
+    public void plot() {
+        pos.x=Farm.get().getFarm().size()%8*50-190;
+        pos.y=(Farm.get().getFarm().size()/8)*50-360;
+        time=System.currentTimeMillis();
+        //System.out.println("hello???");
+
+    }
     public String getName(){return types[id]; } 
     @Override
     protected Image getImage() {
@@ -52,6 +58,8 @@ public class Plant extends Displayable {
     public Point getPos() {
         return pos;
     }
-    
+    public void tick() {
+        if(System.currentTimeMillis()-time>5000) seed=false;
+    }
     
 }

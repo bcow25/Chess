@@ -23,10 +23,12 @@ public class Farm implements Tickable {
     public ArrayList<Plant> getFarm(){ return farm;} 
     public int getNumPlants(){return farm.size();}
     
-    public void plant(Plant plant){
-        if (Player.get().getInventory().contains(plant) && farm.size()<maxSize){
-            plant.getPos().x=farm.size()%8*50-190;
-            plant.getPos().y=(farm.size()/8)*50-360;
+    public void plant(){
+        if (farm.size()<maxSize){
+            //System.out.println("helo")
+;
+            Plant plant=Player.get().getInventory().remove(0);
+            plant.plot();
             farm.add(plant);
             Player.get().removeFromInventory(plant);
             
@@ -37,8 +39,9 @@ public class Farm implements Tickable {
         if(Game.get().getE()&&collider.isColliding(Player.get().getCollider())) {
             Game.get().setE();
             if(Player.get().getInventory().size()!=0)
-            plant(Player.get().getInventory().get(0));
+            plant();
         }
+        for(Plant p:farm) if(p!=null) p.tick();
     }
     public void draw(Graphics g) {
         for(Plant p:farm) if(p!=null) p.draw(g);
