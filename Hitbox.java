@@ -12,7 +12,9 @@ public class Hitbox implements Tickable {
                 e.printStackTrace();
             }
     }
-       
+    public Hitbox(Point pos, int w, int h) {
+        collider=new Collider(pos,w,h);
+    }   
     public void tick() {
         collider.pushPlayer();
     }
