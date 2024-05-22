@@ -73,7 +73,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Game() {
         // jswing stuff
         // set the game board size
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(720, 540));
 
         displays=new ArrayList<ArrayList<Displayable>>();
         for(int i=0;i<5/*however many maps we have*/;i++) displays.add(null);
@@ -148,7 +148,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     }
     private void loadImage() {
         try {
-            Image world = ImageIO.read(new File("images/world.png")).getScaledInstance(2400, 1800, 1);
+            Image world = ImageIO.read(new File("images/Main_Ref_Image.png"));
             while (world == null)
                 ; // will change istg on god
             worlds.set(0, world);
