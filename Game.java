@@ -12,6 +12,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     public static Game g = null;
     protected static Plant[] items;
 
+
     public static Game get() {
         return g;
     }
@@ -90,11 +91,14 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         o1=false;
         o2=false;
 
-        //player and camera
+        //player and camera and farm
         Player.create();
         camera = new Point();
+        Farm.create();
 
-
+        //test wit two plants
+        Player.get().addToInventory(new Plant());
+        Player.get().addToInventory(new Plant());
         // test map
         resetMap(0);
         scene=0;
@@ -111,7 +115,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             items[i] = new Plant(i); 
         }
     }
-   
+    
     public static Plant getPlant(int i){
         return items[i]; 
     }
@@ -131,6 +135,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 break;
             case 1:
                 t.add(new Door(new Collider(new Point(-360,380),75,100),0));
+                t.add(Farm.get());
                 break;
             case 2:
                 t.add(new Door(new Collider(new Point(0,245),100,50),0));
@@ -225,6 +230,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         drawBackground(g);
         Displayable.drawAll(g,displays.get(scene));
         NPC.displayDialogue(g);
+        //if farm draw farm
+        //kinda clunky code tbh but its 10pm so idc
+        if(scene==1) Farm.get().draw(g);
         // jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();

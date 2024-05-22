@@ -25,18 +25,22 @@ public class Farm implements Tickable {
     
     public void plant(Plant plant){
         if (Player.get().getInventory().contains(plant) && farm.size()<maxSize){
-            farm.add( Player.get().removeFromInventory(plant)); 
+            farm.add(plant);
+            Player.get().removeFromInventory(plant);
+            System.out.println(plant.getName());
+            System.out.println(farm);
         } 
     }
     @Override
     public void tick() {
         if(Game.get().getE()&&collider.isColliding(Player.get().getCollider())) {
             Game.get().setE();
+            if(Player.get().getInventory().size()!=0)
             plant(Player.get().getInventory().get(0));
         }
     }
     public void draw(Graphics g) {
-        
+        for(Plant p:farm) if(p!=null) p.draw(g);
         //im losing it:)
     }
 
