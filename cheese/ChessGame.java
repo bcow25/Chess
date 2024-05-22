@@ -22,6 +22,10 @@ public class ChessGame{
                 col = (int)move[2]; //col of where piece move to 
             } else {
                 moving = getRandomBlackPiece(b); 
+                if (moving == null){
+                    Board.win = true; 
+                    break; 
+                }
                 int[] temp = moving.generateRandomMoves(); 
                 row = temp[0]; 
                 col = temp[1]; 
@@ -64,8 +68,11 @@ public class ChessGame{
                 }
             }
         }        
-        //randomly choose a piece from moveables and return        
-        return movables.get((int)(Math.random()*movables.size()));
+        //randomly choose a piece from moveables and return
+        if (movables.size() == 0){
+            return null; 
+        } else{        return movables.get((int)(Math.random()*movables.size()));
+        }
     }
     
     //pause terminal for i secs
