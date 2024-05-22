@@ -115,6 +115,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         ArrayList<Tickable> t=new ArrayList<Tickable>();
         switch (map) {
             case 0:
+            ArrayList<Option> opt=new ArrayList<Option>();
+            opt.add(new Option("1:",new Dialogue("okay",null)));
+            opt.add(new Option("2:",new Dialogue("2k",null)));
+                NPC susan=new NPC("Susan",new Point(800,300),new Dialogue("i love csa",opt));
+                dmap.add(susan);
+                
                 t.add(new Hitbox(new Point(-950,-20),200,300));
                 t.add(new Hitbox(new Point(-800,-50),400,300));
                 t.add(new Hitbox(new Point(-25,-40),340,330));
@@ -123,6 +129,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(garden);
                 t.add(new Door(new Collider(new Point(-950,170),100,50),3));
                 t.add(new Door(new Collider(new Point(890,140),100,50),2));
+                t.add(susan);
                 break;
             case 1:
                 t.add(new Door(new Collider(new Point(-360,380),75,100),0));

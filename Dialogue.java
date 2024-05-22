@@ -1,5 +1,12 @@
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
 public class Dialogue  {
+    private static Image timg;
     public ArrayList<Option> getOptions() {
         return options;
     }
@@ -21,5 +28,15 @@ public class Dialogue  {
         //this.text=text;
         this.options=options;
         this.text=new TextAnimator(text);
+        if(timg==null) {
+            try{timg=ImageIO.read(new File("images/Talking_Board.png"));
+        }
+            catch(Exception e) {
+               // System.out.println("pain");
+                e.printStackTrace();
+        }}
+    }
+    public static Image getImage() {
+        return timg;
     }
 }

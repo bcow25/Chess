@@ -53,8 +53,10 @@ public class NPC extends Character {
         //System.out.println("speaking isnt null!!");
         int playerOption=playerOption();
         if(playerOption!=-1) {
-            if(speaking.getOptions()!=null)
-            setCurrent(speaking.getOptions().get(playerOption).getDialogue());
+            if(speaking.getOptions()!=null) {
+                playerOption=Math.min(speaking.getOptions().size()-1,playerOption);
+                setCurrent(speaking.getOptions().get(playerOption).getDialogue());
+        }
             else speaking=null;
         }
     }
@@ -70,12 +72,10 @@ public class NPC extends Character {
     }
     public static void displayDialogue(Graphics g) {
         if(speaking==null) return;
-        Point pos=new Point(0,500);
-        g.setColor(new Color(55, 55, 55));
-        g.fillRect( pos.x, 
-                        pos.y, 
-                      300, 100);
-                      Graphics2D g2d = (Graphics2D) g;
+        Point pos=new Point(0,400);
+        g.drawImage(Dialogue.getImage(), 0, 410, Game.get());
+
+        Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
             RenderingHints.KEY_TEXT_ANTIALIASING,
             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -86,14 +86,14 @@ public class NPC extends Character {
             RenderingHints.KEY_FRACTIONALMETRICS,
             RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         // set the text color and font
-        g2d.setColor(new Color(30, 201, 139));
-        g2d.setFont(new Font("Courier", Font.BOLD, 25));
-     g2d.drawString(speaking.getText(), pos.x, pos.y+50);
+        g2d.setColor(new Color(255, 255, 255));
+        g2d.setFont(new Font("Courier", Font.BOLD, 20));
+     g2d.drawString(speaking.getText(), 200, pos.y+50);
      List<Option> options=speaking.getOptions();
      //System.out.println(options);
      if(options==null) return;
      for(Option option:options)
-         g2d.drawString(option.getString(), 300, pos.y=pos.y-50);
+         g2d.drawString(option.getString(), 560, pos.y=pos.y+50);
     }
     public String getName() {
         return name;
