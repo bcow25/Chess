@@ -29,7 +29,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // we need access to it in another method
     private Timer timer;
     @SuppressWarnings("unused")
-    private Shop shop;
     private Point camera;
     private Tree tree;
     private NPC susan;
