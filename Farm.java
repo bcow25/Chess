@@ -25,10 +25,11 @@ public class Farm implements Tickable {
     
     public void plant(Plant plant){
         if (Player.get().getInventory().contains(plant) && farm.size()<maxSize){
+            plant.getPos().x=farm.size()%8*50-190;
+            plant.getPos().y=(farm.size()/8)*50-360;
             farm.add(plant);
             Player.get().removeFromInventory(plant);
-            System.out.println(plant.getName());
-            System.out.println(farm);
+            
         } 
     }
     @Override

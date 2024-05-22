@@ -37,6 +37,9 @@ public class Plant extends Displayable {
     protected Image getImage() {
         return images[id];
     }
+    public Point getPos() {
+        return pos;
+    }
     
     
 }

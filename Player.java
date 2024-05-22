@@ -11,7 +11,7 @@ public class Player extends Character {
     private static Player p = null;
 
     public static void create() {
-        if (p == null)
+        if (p == null) 
             p = new Player();
         else
             System.out.println("Warning: reinstantiating player");
@@ -101,7 +101,7 @@ public class Player extends Character {
     }
 
     public static void addToInventory(Plant plant) {
-        if (inventory.size() < 9)
+        if (inventory.size() < 64)
             inventory.add(plant);
         else
             System.out.println("inventory is full");
