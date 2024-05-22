@@ -1,11 +1,10 @@
-import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.awt.Point;
 import java.awt.*;
 import java.util.List;
 public class NPC extends Character {
     private static Dialogue speaking=null;
+    private Image big;
     private Dialogue dialogue;
     public Dialogue getDialogue() {
         return dialogue;
@@ -13,6 +12,7 @@ public class NPC extends Character {
     private Collider talk;
     protected void loadAnimations() {
         try {
+            big=ImageIO.read(new File("images/NPC/Big_"+name+".png"));
             Image x=ImageIO.read(new File("images/NPC/"+name+".png"));
             collider.setH(x.getHeight(Game.get()));
             collider.setW(x.getWidth(Game.get()));
@@ -30,6 +30,7 @@ public class NPC extends Character {
         this(name,pos);
         //System.out.println(dialogue);
         setDialogue(dialogue);
+        dialogue.setSpeaker(this);
     }
     public void setDialogue(Dialogue dialogue) {
         this.dialogue=dialogue;
@@ -72,9 +73,9 @@ public class NPC extends Character {
     }
     public static void displayDialogue(Graphics g) {
         if(speaking==null) return;
-        Point pos=new Point(0,400);
+        Point pos=new Point(0,420);
         g.drawImage(Dialogue.getImage(), 0, 410, Game.get());
-
+        g.drawImage(speaking.getSpeaker().big,-50,250,Game.get());
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
             RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -88,7 +89,15 @@ public class NPC extends Character {
         // set the text color and font
         g2d.setColor(new Color(255, 255, 255));
         g2d.setFont(new Font("Courier", Font.BOLD, 20));
-     g2d.drawString(speaking.getText(), 200, pos.y+50);
+    String text=speaking.getText();
+    int i=1;
+    for(i=1;text.length()>31;i++) {
+        g2d.drawString(text.substring(0,31), 175, pos.y+25*i);
+        text=text.substring(31);
+    }
+    System.out.println(i);
+    g2d.drawString(text, 175, pos.y+25*i);
+     
      List<Option> options=speaking.getOptions();
      //System.out.println(options);
      if(options==null) return;

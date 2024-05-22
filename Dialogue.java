@@ -15,10 +15,13 @@ public class Dialogue  {
         return text.getFrame();
     }
     //private String text;
-    public Character getSpeaker() {
+    public NPC getSpeaker() {
         return speaker;
     }
-    private Character speaker;
+    private NPC speaker;
+    public void setSpeaker(NPC speaker) {
+        this.speaker = speaker;
+    }
     protected TextAnimator text;
     public void reset() {
         text.reset();

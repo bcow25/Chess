@@ -148,7 +148,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(angela);
                 break;
             case 2:
-                NPC sunny=new NPC("Sunny", new Point(255,79),new Dialogue("hi",null));
+                NPC sunny=new NPC("Sunny", new Point(255,79),new Dialogue("",null));
                 NPC pigeon=new NPC("Pigeon", new Point(-5,-5),new Dialogue("hi",null));
                 NPC mao=new NPC("Mao", new Point(0,-170),new Dialogue("hi",null));
                 NPC jiji=new NPC("Jiji", new Point(90,-145),new Dialogue("hi",null));
