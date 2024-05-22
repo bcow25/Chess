@@ -116,9 +116,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         switch (map) {
             case 0:
             ArrayList<Option> opt=new ArrayList<Option>();
-            opt.add(new Option("1:",new Dialogue("okay",null)));
-            opt.add(new Option("2:",new Dialogue("2k",null)));
-                NPC dave=new NPC("Dave",new Point(-410,120),new Dialogue("i love csa",opt));
+            opt.add(new Option("1)The garden seems cool!",new Dialogue("Planting is fun!",null)));
+            opt.add(new Option("2)Chess seems fun!",new Dialogue("Bro thinks they're Hikaru.",null)));
+                NPC dave=new NPC("Dave",new Point(-410,120),new Dialogue("Hi there! Go to the garden to plant seeds, and the library to play chess and earn seeds!",opt));
                 dmap.add(dave);
                 
                 t.add(new Hitbox(new Point(-950,-20),200,300));
@@ -132,10 +132,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(dave);
                 break;
             case 1:
-                NPC starr=new NPC("Starr", new Point(200,50),new Dialogue("hi",null));
-                NPC murphy=new NPC("Murphy", new Point(-200,100),new Dialogue("hi",null));
-                NPC cherry=new NPC("Cherry", new Point(100,300),new Dialogue("hi",null));
-                NPC angela=new NPC("Angela", new Point(-100,300),new Dialogue("hi",null));
+                NPC starr=new NPC("Starr", new Point(200,50),new Dialogue("Isn't planting fun?",null));
+                NPC murphy=new NPC("Murphy", new Point(-200,100),new Dialogue("The bird plant is so cool!",null));
+                NPC cherry=new NPC("Cherry", new Point(100,300),new Dialogue("The hydrangea is so cool!",null));
+                NPC angela=new NPC("Angela", new Point(-100,300),new Dialogue("It's my allergy season :(",null));
                 dmap.add(starr);
                 dmap.add(murphy);
                 dmap.add(angela);
@@ -148,10 +148,31 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(angela);
                 break;
             case 2:
-                NPC sunny=new NPC("Sunny", new Point(255,79),new Dialogue("",null));
-                NPC pigeon=new NPC("Pigeon", new Point(-5,-5),new Dialogue("hi",null));
-                NPC mao=new NPC("Mao", new Point(0,-170),new Dialogue("hi",null));
-                NPC jiji=new NPC("Jiji", new Point(90,-145),new Dialogue("hi",null));
+                Dialogue sunnyEnd=new Dialogue("Of course. Catch you later!",null);
+                ArrayList<Option> difOptions= new ArrayList<Option>();
+                difOptions.add(new Option("1)Yes",new ChessDialogue("Good luck!","2")));
+                difOptions.add(new Option("2)No",sunnyEnd));
+                Dialogue dif=new Dialogue("How about the most difficult challenge?",difOptions);
+                ArrayList<Option> midOptions= new ArrayList<Option>();
+                midOptions.add(new Option("1)Yes",new ChessDialogue("Get ready!","1")));
+                midOptions.add(new Option("2)Harder!",dif));
+                Dialogue mid=new Dialogue("How about an intermediate challenge?",midOptions);
+                ArrayList<Option> easyOpt=new ArrayList<Option>();
+                easyOpt.add(new Option("1)Yes",new ChessDialogue("Be prepared!","0")));
+                easyOpt.add(new Option("2)Harder",mid));
+                Dialogue easy=new Dialogue("Do you want me to go easy?",easyOpt);
+                ArrayList<Option> normopt=new ArrayList<Option>();
+                normopt.add(new Option("1)Yes",easy));
+                normopt.add(new Option("2)No",sunnyEnd));
+                NPC sunny=new NPC("Sunny", new Point(255,79),new Dialogue("Hi, I’m Sunny! Would you like to play a game of chess?",normopt));
+
+                NPC pigeon=new NPC("Pigeon", new Point(-5,-5),new Dialogue("Want to play chess? Go talk to Sunny (the mouse!)",null));
+                Dialogue maoend=new Dialogue("I'm just Mao.",null);
+                ArrayList<Option> maoOpt=new ArrayList<Option>();
+                maoOpt.add(new Option("1)So relatable.",maoend));
+                maoOpt.add(new Option("2)Skill issue.",maoend));
+                NPC mao=new NPC("Mao", new Point(0,-170),new Dialogue("I tried to find my brain and it gave me a NullPointerException :'(",maoOpt));
+                NPC jiji=new NPC("Jiji", new Point(90,-145),new Dialogue("Help me!",null));
                 t.add(new Door(new Collider(new Point(0,245),100,50),0));
                 dmap.add(sunny);
                 dmap.add(pigeon);

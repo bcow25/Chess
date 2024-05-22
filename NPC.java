@@ -24,7 +24,7 @@ public class NPC extends Character {
         super(name,pos,0,0,0,0);
         loadAnimations();
         this.pos=pos;
-        talk=new Collider(pos,150,150);      
+        talk=new Collider(pos,90,90);      
     }
     public NPC(String name, Point pos, Dialogue dialogue) {
         this(name,pos);
@@ -95,19 +95,34 @@ public class NPC extends Character {
         g2d.drawString(text.substring(0,31), 175, pos.y+25*i);
         text=text.substring(31);
     }
-    System.out.println(i);
+    //System.out.println(i);
+    
     g2d.drawString(text, 175, pos.y+25*i);
      
+    g2d.setFont(new Font("Courier", Font.BOLD, 15));
      List<Option> options=speaking.getOptions();
      //System.out.println(options);
      if(options==null) return;
-     for(Option option:options)
-         g2d.drawString(option.getString(), 560, pos.y=pos.y+50);
+     for(Option option:options) {
+        text=option.getString();
+        i=1;
+        for(i=1;text.length()>15;i++) {
+            g2d.drawString(text.substring(0,15), 560, pos.y+15*i);
+            text=text.substring(15);
+        }
+        //System.out.println(i);
+        
+        g2d.drawString(text, 560, pos.y+15*i);
+        pos.y+=15*i;
+         
+     }
+        // g2d.drawString(option.getString(), 560, pos.y=pos.y+50);
     }
     public String getName() {
         return name;
     }
     private static void setCurrent(Dialogue d) {
+       if(speaking!=null) d.setSpeaker(speaking.getSpeaker());
         speaking=d;
         d.reset();
     }
