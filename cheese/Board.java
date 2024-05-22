@@ -127,6 +127,7 @@ public class Board {
         whitesTurn=true;
         castleWhite=true;
         castleBlack=true;
+        win = false; 
         //repeatedPositions=new ArrayList<Integer>();
         if(difficulty == 0){
             boardEasy(); 
@@ -207,14 +208,14 @@ public class Board {
                 if (piece == p) return true; 
         return false; 
     }
-    
+    protected static boolean win; 
     
     
     // 0: game continue
     // 1: white wins (black king captured)
     // 2: black wins (white king captured) 
-    public static int endGame() {
-        if(!contains(bKing)) return 1; 
+    public static int endGame( ) {
+        if(win || !contains(bKing)) return 1; 
         if (!contains(wKing)) return 2; 
         return 0; 
     }
