@@ -10,7 +10,7 @@ import javax.swing.*;
 public class Game extends JPanel implements ActionListener, KeyListener {
     // singleton setup
     public static Game g = null;
-    private static Plant[] items;
+    protected static Plant[] items;
 
     public static Game get() {
         return g;
@@ -111,10 +111,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             items[i] = new Plant(i); 
         }
     }
-    public static void buy(int i)
-    {
-        Player.get().addToInventory( items[i]);
-    }
+   
     public static Plant getPlant(int i){
         return items[i]; 
     }
