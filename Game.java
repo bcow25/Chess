@@ -1,7 +1,8 @@
+import  java.io.*;
+import javax.sound.sampled.*;
+
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -100,8 +101,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
        //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
         
         // test map
-        resetMap(2);
-        scene=2;
+        //loadAudio();
+        resetMap(0);
+        scene=3;
+        toScene(0);
        // text = new TextAnimator("i love ap csa :)");
         // farm=new Farm(1,1);
         // jswing stuff again
@@ -109,7 +112,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
-    
     private void resetMap(int map) {
         ArrayList<Displayable> dmap=new ArrayList<Displayable>();
         ArrayList<Tickable> t=new ArrayList<Tickable>();
@@ -210,6 +212,12 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         }
     }
     public void toScene(int scene) {
+        if(scene==3) {
+
+            SoundPlayer.playSound("Music/Home-Sweet-Home.wav");
+        } else {
+            if(this.scene==3) SoundPlayer.playSound("Music/Out-On-The-Town.wav");
+        }
         this.scene=scene;
         resetPlayerPos(scene);
         if(displays.get(scene)==null) resetMap(scene);
