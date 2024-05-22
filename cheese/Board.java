@@ -151,12 +151,12 @@ public class Board {
         pieces[7][4] = wKing; 
         for (int i = 0; i < 8; i ++){
             pieces[1][i]=new Pawn(1,i,false);
-            pieces[6][i]=new Queen(6,i,true);
+            pieces[6][i]=new Rook(6,i,true);
         }
         for (int i = 0; i < 8; i ++){
             if(i != 4){
                 pieces[0][i]=new Pawn(0,i,false);
-                pieces[7][i]=new Queen(7,i,true);
+                pieces[7][i]=new Rook(7,i,true);
             }
         }
     }
@@ -175,7 +175,7 @@ public class Board {
         for (int i = 0; i < 8; i ++){
             if(i != 4){
                 pieces[0][i]=new Pawn(0,i,false);
-                pieces[7][i]=new Queen(7,i,true);
+                pieces[7][i]=new Rook(7,i,true);
             }
         }
     }

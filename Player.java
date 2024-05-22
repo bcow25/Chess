@@ -25,15 +25,14 @@ public class Player extends Character {
     // note: encapsulate these later
     public int xvel;
     public int yvel;
-    // inventory stuff wth
-    private static int numCoins;
+    // inventory stuf
     private static ArrayList<Plant> inventory;
     // footprint stuff
     private ArrayList<FootPrint> footprintSpots;
     private Image fp;
     // prob should be replaced
     private int numTicks;
-
+    //we didnt draw a footprint :P
     private class FootPrint {
         private char direction;
         private int opacity;
@@ -73,7 +72,6 @@ public class Player extends Character {
         
         //collider = new Collider(pos, 50, 50);
         inventory = new ArrayList<Plant>();
-        numCoins = 0;
 
         try {
             fp = ImageIO.read(new File("images/shoeprint.png")).getScaledInstance(1, 1, Image.SCALE_DEFAULT);
@@ -92,15 +90,7 @@ public class Player extends Character {
         return inventory;
     }
 
-    public static int getNumCoins() {
-        return numCoins;
-    }
-
-    public static void changeNumCoins(int c) {
-        numCoins += c;
-    }
-
-    public static void addToInventory(Plant plant) {
+    public void addToInventory(Plant plant) {
         if (inventory.size() < 64)
             inventory.add(plant);
         else

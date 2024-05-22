@@ -45,7 +45,7 @@ public class TestChess extends JPanel {
         // create a window frame and set the title in the toolbar
         
         // when we close the window, stop the app
-       // window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // create the jpanel to draw on.
         // this also initializes the game loop
