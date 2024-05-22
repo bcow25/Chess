@@ -33,7 +33,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     //private TextAnimator text;
 
     @SuppressWarnings("unused")
-    private int scene; // 0 is default (open world), 1 is garden/farm, 2 is
+    private int scene; // 0 is default (open world), 1 is garden/farm, 2 is library
 
     // key press tracking
     // for moving player in directionss
@@ -127,6 +127,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(new Hitbox(new Point(-800,-50),400,300));
                 t.add(new Hitbox(new Point(-25,-40),340,330));
                 t.add(new Hitbox(new Point(890,-45),480,280));
+                Door garden=new Door(new Collider(new Point(-25,150),100,50),1);
+                t.add(garden);
+                break;
+            case 1:
                 break;
         }
         t.add(Player.get());
@@ -141,6 +145,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             Player.get().getPos().x=0;
             Player.get().getPos().y=215;
             break;
+            default:
+                Player.get().getPos().x=0;
+                Player.get().getPos().y=0;
+                break;
         }
     }
     public void toScene(int scene) {
@@ -151,9 +159,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private void loadImage() {
         try {
             Image world = ImageIO.read(new File("images/Main_Ref_Image.png"));
-            while (world == null)
-                ; // will change istg on god
+            Image garden=ImageIO.read(new File("images/Garden_Foreground.png"));
             worlds.set(0, world);
+            worlds.set(1,garden);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
