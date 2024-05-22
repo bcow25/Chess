@@ -34,7 +34,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     //private TextAnimator text;
 
     @SuppressWarnings("unused")
-    private int scene; // 0 is default (open world), 1 is garden/farm, 2 is library, 3 is home
+    private int scene; // 0 is default (open world), 1 is garden/farm, 2 is library, 3 is home, 4 is chess???? im in hell
 
     // key press tracking
     // for moving player in directionss
@@ -187,6 +187,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             case 3:
                 t.add(new Door(new Collider(new Point(-155,245),100,50),0));
                 break;
+            case 4:
+                break;
         }
         t.add(Player.get());
         dmap.add(Player.get());
@@ -214,8 +216,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         if(scene==3) {
 
             SoundPlayer.playSound("Music/Home-Sweet-Home.wav");
-        } else {
-            if(this.scene==3) SoundPlayer.playSound("Music/Out-On-The-Town.wav");
+        } else if(scene==4) {
+            SoundPlayer.playSound("Music/Music/Chesstopia.wav");
+        }  else {
+            if(this.scene==3||this.scene==4) SoundPlayer.playSound("Music/Out-On-The-Town.wav");
         }
         this.scene=scene;
         resetPlayerPos(scene);
@@ -229,6 +233,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             worlds.set(1,garden);
             worlds.set(2,ImageIO.read(new File("images/Library_Ref_Image.png")));
             worlds.set(3,ImageIO.read(new File("images/Home_Ref_Image.png")));
+            worlds.set(4,ImageIO.read(new File("images/Game_Board.png")));
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

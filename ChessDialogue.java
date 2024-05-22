@@ -9,7 +9,7 @@ public class ChessDialogue extends Dialogue {
     public String getText() {
         String t=super.getText();
         if(text.done()&&!exe) {
-            TestChess.main(new String[]{d});
+            Game.get().toScene(4);
             exe=true;
         }
         return t;
