@@ -217,7 +217,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
             SoundPlayer.playSound("Music/Home-Sweet-Home.wav");
         } else if(scene==4) {
-            SoundPlayer.playSound("Music/Music/Chesstopia.wav");
+            SoundPlayer.playSound("Music/Chesstopia.wav");
         }  else {
             if(this.scene==3||this.scene==4) SoundPlayer.playSound("Music/Out-On-The-Town.wav");
         }
