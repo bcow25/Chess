@@ -30,8 +30,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private Timer timer;
     @SuppressWarnings("unused")
     private Point camera;
-    private Tree tree;
-    private NPC susan;
     //private TextAnimator text;
 
     @SuppressWarnings("unused")
@@ -123,7 +121,6 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     private void resetMap(int map) {
         ArrayList<Displayable> dmap=new ArrayList<Displayable>();
         ArrayList<Tickable> t=new ArrayList<Tickable>();
-        
         switch (map) {
             case 0:
                 t.add(new Hitbox(new Point(-950,-20),200,300));
@@ -137,6 +134,19 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         displays.set(map,dmap);
         ticks.set(map,t);
 
+    }
+    private void resetPlayerPos(int map) {
+        switch(map) {
+            case 0:
+            Player.get().getPos().x=0;
+            Player.get().getPos().y=215;
+            break;
+        }
+    }
+    public void toScene(int scene) {
+        this.scene=scene;
+        resetPlayerPos(scene);
+        if(displays.get(scene)==null) resetMap(scene);
     }
     private void loadImage() {
         try {
