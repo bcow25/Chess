@@ -133,6 +133,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(new Door(new Collider(new Point(890,140),100,50),2));
                 break;
             case 1:
+                t.add(new Door(new Collider(new Point(-360,380),75,100),0));
+                break;
+            case 2:
+                t.add(new Door(new Collider(new Point(0,245),100,50),0));
+                break;
+            case 3:
+                t.add(new Door(new Collider(new Point(-155,245),100,50),0));
                 break;
         }
         t.add(Player.get());
@@ -147,6 +154,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             Player.get().getPos().x=0;
             Player.get().getPos().y=215;
             break;
+            case 2:
+                Player.get().getPos().x=0;
+                Player.get().getPos().y=230;
+                break;
             default:
                 Player.get().getPos().x=0;
                 Player.get().getPos().y=0;
