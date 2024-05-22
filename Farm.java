@@ -1,42 +1,37 @@
-public class Farm {
-    private static Plant[][] farm;
-    private static int numPlants; 
-    public Farm(int r, int c)
+import java.awt.Point;
+import java.util.ArrayList;
+
+public class Farm implements Tickable {
+    public static void create() {
+        f=new Farm();
+    }
+    public static Farm get() {
+        return f;
+    }
+    private static Farm f;
+    private ArrayList<Plant> farm;
+    private final int maxSize; 
+    private Collider collider;
+    public Farm()
     {
-        farm = new Plant[r][c];
-        numPlants = 0; 
+        maxSize=64;
+        farm=new ArrayList<Plant>(maxSize);
+        collider=new Collider(new Point(0,-250),500,500);
     }
     
-    public static Plant[][] getFarm(){ return farm;} 
-    public static int getNumPlants(){return numPlants;}
-    public static void changeNumPlants(int n) {numPlants += n;}
+    public ArrayList<Plant> getFarm(){ return farm;} 
+    public int getNumPlants(){return farm.size();}
     
-     //remove plant from inventory and plant it at row r and col c
-    public static void plant(Plant plant, int r, int c){
-        if (Player.get().getInventory().contains(plant) && r < farm.length && c < farm[0].length && numPlants < 12){
-            farm[r][c] = Player.get().removeFromInventory(plant); 
-            numPlants ++; 
-        } else if (!(r < farm.length && c <farm[0].length)) 
-            System.out.println("the farm isn't that big, pick somewhere else");
-        else if (numPlants == 12)
-            System.out.println("farm is full :("); 
-        else if (!Player.get().getInventory().contains(plant))
-            System.out.println("You dont have this plant :'(");
-        else System.out.println("panic: we shouldn't be here: Farm method plant"); 
+    public void plant(Plant plant){
+        if (Player.get().getInventory().contains(plant) && farm.size()<maxSize){
+            farm.add( Player.get().removeFromInventory(plant)); 
+        } 
     }
-    
-    
-    /**
-     * remove plant at row, col
-     * return plant to inventory
-     */
-    public static void removePlant (int row, int col)
-    {
-        if(farm[row][col] != null){
-            Player.get().addToInventory(farm[row][col]); 
-            farm[row][col] = null;
-            numPlants --; 
-            
-        } else System.out.println("there's no plant here");
+    @Override
+    public void tick() {
+        if(Game.get().getE()&&collider.isColliding(Player.get().getCollider())) {
+            Game.get().setE();
+            plant(Player.get().getInventory().get(0));
+        }
     }
 }
