@@ -94,9 +94,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         //test wit two plants
        //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
-        new Messager("im so happy");
-        new Messager(" i love java!");
-
+        new Messager("Use arrow Keys to move around!", 5000);
+        new Messager("Press E near doors to go enter.", 5000);
+        new Messager("Talk to NPCs by pressing E.", 5000);
         // test map
         //loadAudio();
         resetMap(0);
