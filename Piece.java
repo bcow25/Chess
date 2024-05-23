@@ -3,18 +3,18 @@ import java.awt.Image;
 import java.awt.Point;
 
 
-public abstract class Piece extends ChessDisplayable{
+public abstract class Piece extends Displayable{
          protected Image killme;
     protected abstract void loadImage(); 
     protected Image getImage(){
             return killme; 
         }
         public Piece (int r, int c,boolean color){
+            super(new Point(Board.squareSize*c + Board.borderSizeH,Board.squareSize*r + Board.borderSizeW),0,0,0,0);
             row = r; 
             col = c;
             pieceColor=color;
             loadImage(); 
-            pos=new Point(Board.squareSize*c + Board.borderSizeH,Board.squareSize*r + Board.borderSizeW); 
         }
         protected boolean pieceColor; //true means white
         protected int row;

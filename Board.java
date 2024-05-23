@@ -2,9 +2,9 @@
 // hi
 public class Board {
     private static Piece[][] pieces;
-    protected static int borderSizeH = -260;
-    protected static int squareSize = 79; 
-    protected static int borderSizeW = -280;
+    protected static final int borderSizeH = -200;
+    protected static final int squareSize = 50; 
+    protected static final int borderSizeW = -200;
     public static void setPiece(int r, int c, Piece p){
         pieces[r][c] = p; 
     }

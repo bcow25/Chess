@@ -147,15 +147,15 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             case 2:
                 Dialogue sunnyEnd=new Dialogue("Of course. Catch you later!",null);
                 ArrayList<Option> difOptions= new ArrayList<Option>();
-                difOptions.add(new Option("1)Yes",new ChessDialogue("Good luck!","2")));
+                difOptions.add(new Option("1)Yes",new ChessDialogue("Good luck!",2)));
                 difOptions.add(new Option("2)No",sunnyEnd));
                 Dialogue dif=new Dialogue("How about the most difficult challenge?",difOptions);
                 ArrayList<Option> midOptions= new ArrayList<Option>();
-                midOptions.add(new Option("1)Yes",new ChessDialogue("Get ready!","1")));
+                midOptions.add(new Option("1)Yes",new ChessDialogue("Get ready!",1)));
                 midOptions.add(new Option("2)Harder!",dif));
                 Dialogue mid=new Dialogue("How about an intermediate challenge?",midOptions);
                 ArrayList<Option> easyOpt=new ArrayList<Option>();
-                easyOpt.add(new Option("1)Yes",new ChessDialogue("Be prepared!","0")));
+                easyOpt.add(new Option("1)Yes",new ChessDialogue("Be prepared!",0)));
                 easyOpt.add(new Option("2)Harder",mid));
                 Dialogue easy=new Dialogue("Do you want me to go easy?",easyOpt);
                 ArrayList<Option> normopt=new ArrayList<Option>();
@@ -184,6 +184,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(new Door(new Collider(new Point(-155,245),100,50),0));
                 break;
             case 4:
+                t.add(ChessPlayer.get());
                 break;
         }
         t.add(Player.get());
@@ -286,6 +287,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         //if farm draw farm
         //kinda clunky code tbh but its 10pm so idc
         if(scene==1) Farm.get().draw(g);
+        if(scene==4) ChessPlayer.get().draw(g);
         // jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
