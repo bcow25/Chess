@@ -107,6 +107,7 @@ public class NPC extends Character {
     g2d.drawString(text, 175, pos.y+25*i);
      
     g2d.setFont(new Font("Courier", Font.BOLD, 15));
+    if(speaking==null) return;
      List<Option> options=speaking.getOptions();
      //System.out.println(options);
      if(options==null) return;
@@ -132,5 +133,8 @@ public class NPC extends Character {
        if(speaking!=null) d.setSpeaker(speaking.getSpeaker());
         speaking=d;
         d.reset();
+    }
+    public static void clearCurrent() {
+        speaking=null;
     }
 }

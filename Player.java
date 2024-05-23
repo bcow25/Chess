@@ -117,13 +117,13 @@ public class Player extends Character {
         // so we can do anything needed in here to update the state of the player.
         numTicks++;
         if (Game.get().getDirectionKey() == KeyEvent.VK_UP)
-            yvel = -10;
+            yvel = -7;
         if (Game.get().getDirectionKey() == KeyEvent.VK_DOWN)
-            yvel = 10;
+            yvel = 7;
         if (Game.get().getDirectionKey() == KeyEvent.VK_LEFT)
-            xvel = -10;
+            xvel = -7;
         if (Game.get().getDirectionKey() == KeyEvent.VK_RIGHT)
-            xvel = 10;
+            xvel = 7;
         createFootprint();
 
         pos.x += xvel;
