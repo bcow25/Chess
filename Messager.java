@@ -14,10 +14,12 @@ public class Messager {
         messagers.add(this);
         time = System.currentTimeMillis();
         this.duration = duration;
+        this.text=text;
+        this.opacity=255;
     }
 
     public Messager(String text) {
-        this(text, 3000);
+        this(text, 2000);
     }
 
     private boolean done() {
@@ -32,6 +34,7 @@ public class Messager {
         Iterator<Messager> iterator = messagers.iterator();
         while (iterator.hasNext()) {
             Messager m = iterator.next();
+            //System.out.println(m.text);
             if (m.done())
                 m.changeOpacity();
             if (m.opacity <= 0)
@@ -41,6 +44,7 @@ public class Messager {
 
     public static void drawAll(Graphics g) {
         Iterator<Messager> iterator = messagers.iterator();
+        //System.out.println(messagers.size());
         for (int y=0;iterator.hasNext();y++) {
             Messager m = iterator.next();
             g.setColor(new Color(255, 255, 255, m.opacity));
@@ -55,7 +59,8 @@ public class Messager {
                     RenderingHints.KEY_FRACTIONALMETRICS,
                     RenderingHints.VALUE_FRACTIONALMETRICS_ON);
             g2d.setFont(new Font("Lato", Font.BOLD, 20));
-            g2d.drawString(m.text, -200, 10+y*20);
+            g2d.drawString(m.text, 200, 20+y*20);
+            //System.out.println(m.text);
         }
     }
     public static void clear() {

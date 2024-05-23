@@ -10,13 +10,9 @@ import javax.swing.*;
 public class Game extends JPanel implements ActionListener, KeyListener {
     // singleton setup
     public static Game g = null;
-    //protected static Plant[] items;
-
-
     public static Game get() {
         return g;
     }
-
     public static void create() {
         g = new Game();
     }
@@ -98,7 +94,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
 
         //test wit two plants
        //for(int i=0;i<12;i++) Player.get().addToInventory(new Plant());
-        
+        new Messager("im so happy");
+        new Messager(" i love java!");
+
         // test map
         //loadAudio();
         resetMap(0);
@@ -258,12 +256,13 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         ArrayList<Tickable> tick=ticks.get(scene);
         for(Tickable t:tick) t.tick();
         NPC.dialogueHandler();
-
+        Messager.tick();
         // prevent player from moving out of bounds
         Player.get().getPos().x = Math.max(-(worlds.get(scene).getWidth(this) / 2 - 25),
                 Math.min(worlds.get(scene).getWidth(this) / 2 - 25, Player.get().getPos().x));
         Player.get().getPos().y = Math.max(-(worlds.get(scene).getHeight(this) / 2 - 25),
                 Math.min(worlds.get(scene).getHeight(this) / 2 - 25, Player.get().getPos().y));
+
         //System.out.println(text.getFrame());
         //make sure e stuff only happens once        
         fireE = false;
@@ -285,6 +284,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         drawBackground(g);
         Displayable.drawAll(g,displays.get(scene));
         NPC.displayDialogue(g);
+        Messager.drawAll(g);
         //if farm draw farm
         //kinda clunky code tbh but its 10pm so idc
         if(scene==1) Farm.get().draw(g);
