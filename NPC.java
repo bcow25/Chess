@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.List;
 public class NPC extends Character {
     private static Dialogue speaking=null;
+    private static boolean talked; //display stuff for talk;
     private Image big;
     private Dialogue dialogue;
     public Dialogue getDialogue() {
@@ -40,7 +41,13 @@ public class NPC extends Character {
         if(talk.isColliding(Player.get().getCollider())) {
             if(Game.get().getE()) {
                 //System.out.println("e fired");
-                if(speaking==null) {setCurrent(dialogue);
+                if(speaking==null) {
+                    if(!talked) {
+                        new Messager("Press 1 or 2 to select your choice.",3000);
+                        new Messager("If there are no choices, press either 1 or 2",3000);
+                        talked=true;
+                    }
+                    setCurrent(dialogue);
                     Game.get().setE();
                     //System.out.println("speaking,,, hello???");
                 }

@@ -25,11 +25,9 @@ public class Game extends JPanel implements ActionListener, KeyListener {
     // keep a reference to the timer object that triggers actionPerformed() in case
     // we need access to it in another method
     private Timer timer;
-    @SuppressWarnings("unused")
     private Point camera;
     //private TextAnimator text;
 
-    @SuppressWarnings("unused")
     private int scene; // 0 is default (open world), 1 is garden/farm, 2 is library, 3 is home, 4 is chess???? im in hell
 
     // key press tracking
@@ -233,7 +231,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             worlds.set(3,ImageIO.read(new File("images/Home_Ref_Image.png")));
             worlds.set(4,ImageIO.read(new File("images/Game_Board.png")));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+            // Auto-generated catch block
             e.printStackTrace();
         }
     }
