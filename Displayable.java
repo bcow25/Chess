@@ -33,4 +33,13 @@ public abstract class Displayable implements Comparable<Displayable> {
     public int compareTo(Displayable d) {
         return pos.y+display.getH()/2-d.pos.y-d.display.getH()/2;
     }
+    public static void draw(Image img, Graphics g, Point p) {
+        //erm what the sigma
+        Displayable d=new Displayable(p, 0, 0, 0, 0) {
+            public Image getImage() {
+                return img;
+            }
+        };
+        d.draw(g);
+    }
 }

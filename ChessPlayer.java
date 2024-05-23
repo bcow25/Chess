@@ -1,11 +1,21 @@
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 public class ChessPlayer implements Tickable {
     private static ChessPlayer c;
     private Collider collider;
+    private static Image star=null;
     public static void create(int d) {
-        System.out.println("hi");
         c=new ChessPlayer(d);
-
+        if(star==null) {
+            try {
+                star=ImageIO.read(new File("images/Star.png"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     public static ChessPlayer get() {
         return c;
@@ -16,14 +26,16 @@ public class ChessPlayer implements Tickable {
     }
     private Piece holdPiece;
     public void tick() {
-        System.out.println("hellp");
+        //System.out.println("hellp");
         if(Game.get().getE()&&collider.isColliding(Player.get().getCollider())) {
+            Piece[][] pieces=Board.getBoard();
             Game.get().setE();
             int[] pos=getPlayerCoordinate();
             System.out.println(pos[0]+", "+pos[1]);
-            if(holdPiece!=null) {
-
-            }
+            if(holdPiece==null&&pieces[pos[0]][pos[1]]!=null) {
+                holdPiece=pieces[pos[0]][pos[1]];
+                if(holdPiece.pieceColor==false) holdPiece=null;
+            } else {}
         }
 
     }
@@ -31,9 +43,19 @@ public class ChessPlayer implements Tickable {
         Piece[][] pieces=Board.getBoard();
         for(Piece[] r:pieces) 
             for(Piece c:r) 
-                if(c!=null&&c!=holdPiece) c.draw(g);    
+                if(c!=null&&c!=holdPiece) c.draw(g);
+        drawStar(g,0,0);    
+    }
+    private void drawStar(Graphics g, int r, int c) {
+        Displayable.draw(star,g,new Point(rToX(r),cToY(c)));
+    }
+    public static int rToX(int r) {
+        return r*Board.squareSize+Board.borderSizeH;
+    }
+    public static int cToY(int c) {
+        return c*Board.squareSize+Board.borderSizeW;
     }
     private int[] getPlayerCoordinate() {
-        return(new int[]{(Player.get().getPos().x-Board.borderSizeW)/Board.squareSize,(Player.get().getPos().y-Board.borderSizeH)/Board.squareSize});
+        return(new int[]{(Player.get().getPos().y+200)/Board.squareSize,(Player.get().getPos().x+200)/Board.squareSize});
     }
 }

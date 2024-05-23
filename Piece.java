@@ -10,7 +10,7 @@ public abstract class Piece extends Displayable{
             return killme; 
         }
         public Piece (int r, int c,boolean color){
-            super(new Point(Board.squareSize*c + Board.borderSizeH,Board.squareSize*r + Board.borderSizeW),0,0,0,0);
+            super(new Point(ChessPlayer.cToY(c),ChessPlayer.rToX(r)),0,0,0,0);
             row = r; 
             col = c;
             pieceColor=color;

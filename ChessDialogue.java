@@ -6,10 +6,8 @@ public class ChessDialogue extends Dialogue {
     }
     public String getText() {
         String t=super.getText();
-        System.out.println("why is life hell");
         if(text.done()) {
             ChessPlayer.create(d);
-            System.out.println("oease");
             Game.get().toScene(4);
             NPC.clearCurrent();
         }
