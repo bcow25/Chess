@@ -184,7 +184,10 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(new Door(new Collider(new Point(-155,245),100,50),0));
                 break;
             case 4:
-                t.add(ChessPlayer.get());
+                new Messager("Press E to pick up/place piece");
+                new Messager("Press 1 if you picked up the wrong piece");
+                new Messager("Press 2 to resign (give up)");
+                //t.add(ChessPlayer.get());
                 break;
         }
         t.add(Player.get());
@@ -256,6 +259,8 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         for(Tickable t:tick) t.tick();
         NPC.dialogueHandler();
         Messager.tick();
+        //terrible but idc
+        if(scene==4) ChessPlayer.get().tick();
         // prevent player from moving out of bounds
         Player.get().getPos().x = Math.max(-(worlds.get(scene).getWidth(this) / 2 - 25),
                 Math.min(worlds.get(scene).getWidth(this) / 2 - 25, Player.get().getPos().x));
@@ -281,13 +286,15 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         // react to imageUpdate() events triggered by g.drawImage()
         // draw our graphics.
         drawBackground(g);
-        Displayable.drawAll(g,displays.get(scene));
-        NPC.displayDialogue(g);
-        Messager.drawAll(g);
-        //if farm draw farm
-        //kinda clunky code tbh but its 10pm so idc
         if(scene==1) Farm.get().draw(g);
         if(scene==4) ChessPlayer.get().draw(g);
+        Displayable.drawAll(g,displays.get(scene));
+        NPC.displayDialogue(g);
+
+        //if farm draw farm
+        //kinda clunky code tbh but its 10pm so idc
+
+        Messager.drawAll(g);
         // jswing stuff
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
@@ -354,7 +361,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
         if (key==KeyEvent.VK_2)
             o2=false;
        // if(key==KeyEvent.VK_3) TestChess.main(new String[]{"1"});
-        if(key==KeyEvent.VK_4) System.out.println(Player.get().getPos());
+        //if(key==KeyEvent.VK_4) System.out.println(Player.get().getPos());
     }
 
     // drawing

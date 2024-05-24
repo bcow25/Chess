@@ -30,7 +30,7 @@ public class Farm implements Tickable {
             Plant plant=Player.get().getInventory().remove(0);
             plant.plot();
             farm.add(plant);
-            Player.get().removeFromInventory(plant);
+            //Player.get().removeFromInventory(plant);
             
         } 
     }
@@ -40,6 +40,7 @@ public class Farm implements Tickable {
             Game.get().setE();
             if(Player.get().getInventory().size()!=0)
             plant();
+            else new Messager("Your inventory is empty. Go play more chess!");
         }
         for(Plant p:farm) if(p!=null) p.tick();
     }

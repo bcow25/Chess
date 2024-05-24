@@ -29,13 +29,17 @@ public class ChessPlayer implements Tickable {
 
     private ChessPlayer(int d) {
         new Board(d);
+        holdPiece=null;
+        legalMoves=null;
         collider = new Collider(new Point(), 400, 400);
     }
 
     private Piece holdPiece;
 
     public void tick() {
-        // System.out.println("hellp");
+        if(Game.get().getOptionKey()==1) {holdPiece=null;
+        legalMoves=null;}
+        if(Game.get().getOptionKey()==2) Board.setGameState(2);
         if(Board.getGameState()!=0) {
             if(Board.getGameState()==1) {
                 new Messager("You won!");
@@ -50,7 +54,6 @@ public class ChessPlayer implements Tickable {
             Piece[][] pieces = Board.getBoard();
             Game.get().setE();
             int[] pos = getPlayerCoordinate();
-            //System.out.println(pos[0] + ", " + pos[1]);
             if (holdPiece == null) {
                 if (pieces[pos[0]][pos[1]] != null && pieces[pos[0]][pos[1]].pieceColor == true) {
                     holdPiece = pieces[pos[0]][pos[1]];
@@ -86,7 +89,6 @@ public class ChessPlayer implements Tickable {
             for (int[] p : legalMoves)
                 drawStar(g, p[0], p[1]);
         }
-        // drawStar(g,0,0);
     }
 
     private void drawStar(Graphics g, int r, int c) {
