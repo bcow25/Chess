@@ -36,11 +36,21 @@ public class ChessPlayer implements Tickable {
 
     public void tick() {
         // System.out.println("hellp");
+        if(Board.getGameState()!=0) {
+            if(Board.getGameState()==1) {
+                new Messager("You won!");
+                Player.get().addToInventory( new Plant()); 
+                new Messager("You were awarded a seed. Go plant it!");
+            } else {
+                new Messager("You lost. Skill issue bozo");
+            }
+            Game.get().toScene(0);
+        }
         if (Game.get().getE() && collider.isColliding(Player.get().getCollider())) {
             Piece[][] pieces = Board.getBoard();
             Game.get().setE();
             int[] pos = getPlayerCoordinate();
-            System.out.println(pos[0] + ", " + pos[1]);
+            //System.out.println(pos[0] + ", " + pos[1]);
             if (holdPiece == null) {
                 if (pieces[pos[0]][pos[1]] != null && pieces[pos[0]][pos[1]].pieceColor == true) {
                     holdPiece = pieces[pos[0]][pos[1]];
@@ -54,16 +64,7 @@ public class ChessPlayer implements Tickable {
                         holdPiece.move(pos[0], pos[1], false);
                         holdPiece = null;
                         //opponent move
-                        Board.setWhitesTurn(false);
-                        Piece moving = getRandomBlackPiece();
-                        if (moving == null) {
-                            new Messager("You won!");
-                            Board.win = true;
-                            return;
-                        }
-                        int[] temp = moving.generateRandomMoves();
-                        moving.move(temp[0], temp[1], false); 
-                        Board.setWhitesTurn(true);
+                        Board.playBlackMove();
                         return;
                     }
                 }
@@ -107,22 +108,5 @@ public class ChessPlayer implements Tickable {
 
     public static boolean equalCoor(int[] a, int[] b) {
         return a[0] == b[0] && b[1] == a[1];
-    }
-    private static Piece getRandomBlackPiece(){
-        ArrayList<Piece> movables = new ArrayList<Piece>(); //all black pieces on board that can move
-        
-        // populate moveables 
-        for(Piece[] r : Board.getBoard()){
-            for(Piece p: r){
-                if (p!= null && !p.pieceColor && !p.generateLegalMoves().isEmpty()){
-                    movables.add(p);  
-                }
-            }
-        }        
-        //randomly choose a piece from moveables and return
-        if (movables.size() == 0){
-            return null; 
-        } else{        return movables.get((int)(Math.random()*movables.size()));
-        }
     }
 }
