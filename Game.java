@@ -353,7 +353,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
             o1=false;
         if (key==KeyEvent.VK_2)
             o2=false;
-        if(key==KeyEvent.VK_3) TestChess.main(new String[]{"1"});
+       // if(key==KeyEvent.VK_3) TestChess.main(new String[]{"1"});
         if(key==KeyEvent.VK_4) System.out.println(Player.get().getPos());
     }
 
