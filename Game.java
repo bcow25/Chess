@@ -129,6 +129,7 @@ public class Game extends JPanel implements ActionListener, KeyListener {
                 t.add(dave);
                 break;
             case 1:
+                new Messager("Go to the garden and press E to plant!");
                 NPC starr=new NPC("Starr", new Point(200,50),new Dialogue("Isn't planting fun?",null));
                 NPC murphy=new NPC("Murphy", new Point(-200,100),new Dialogue("The bird plant is so cool!",null));
                 NPC cherry=new NPC("Cherry", new Point(100,300),new Dialogue("The hydrangea is so cool!",null));

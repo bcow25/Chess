@@ -104,8 +104,8 @@ public class ChessPlayer implements Tickable {
     }
 
     private int[] getPlayerCoordinate() {
-        return (new int[] { (Player.get().getPos().y + 200) / Board.squareSize,
-                (Player.get().getPos().x + 200) / Board.squareSize });
+        return (new int[] { (Math.max(Math.min(0,(Player.get().getPos().y + 200) / Board.squareSize),7)),
+                Math.max(7,Math.min(0,(Player.get().getPos().x + 200) / Board.squareSize ))});
     }
 
     public static boolean equalCoor(int[] a, int[] b) {
