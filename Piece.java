@@ -5,11 +5,8 @@ import java.awt.Point;
 
 
 public abstract class Piece extends Displayable{
-         protected Image killme;
     protected abstract void loadImage(); 
-    protected Image getImage(){
-            return killme; 
-        }
+    protected abstract Image getImage();
         public Piece (int r, int c,boolean color){
             super(new Point(ChessPlayer.cToY(c),ChessPlayer.rToX(r)),0,0,0,0);
             row = r; 

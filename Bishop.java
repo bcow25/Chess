@@ -1,6 +1,7 @@
 import java.util.ArrayList;
-import java.awt.Image;
 import javax.imageio.ImageIO;
+
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
@@ -10,18 +11,19 @@ import java.io.IOException;
      */
    
     public class Bishop extends Piece {
-
+        protected static Image light;
+        protected Image getImage() {
+            return pieceColor?light:dark;
+        }
+    protected static Image dark;
         protected void loadImage() {
             try {
-                if(pieceColor){
-                    killme = ImageIO.read(new File("images/chess_pieces/Dark_Bishop.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
-                } else {
-                    killme = ImageIO.read(new File("images/chess_pieces/Light_Bishop.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
-                }
-                
-                while (killme == null); //most sane code written by tracy
-                } catch (IOException exc) {
-                System.out.println("Error opening image file: " + exc.getMessage());
+                if(dark==null)
+                    dark = ImageIO.read(new File("images/chess_pieces/Dark_Bishop.png"));
+                if(light==null)
+                    light = ImageIO.read(new File("images/chess_pieces/Light_Bishop.png"));
+                } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         

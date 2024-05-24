@@ -1,22 +1,24 @@
 import java.util.ArrayList;
-import java.awt.Image;
 import javax.imageio.ImageIO;
+
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
 public class Pawn extends Piece {
-        
+    protected static Image light;
+    protected static Image dark;
+    protected Image getImage() {
+        return pieceColor?light:dark;
+    }
         protected void loadImage() {
             try {
-                if(pieceColor){
-                    killme = ImageIO.read(new File("images/chess_pieces/Dark_Pawn.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
-                } else {
-                    killme = ImageIO.read(new File("images/chess_pieces/Light_Pawn.png")).getScaledInstance(50,50,Image.SCALE_DEFAULT);
-                }
-                
-                while (killme == null); //most sane code written by tracy
-                } catch (IOException exc) {
-                System.out.println("Error opening image file: " + exc.getMessage());
+                if(dark==null)
+                    dark = ImageIO.read(new File("images/chess_pieces/Dark_Pawn.png"));
+                if(light==null)
+                    light = ImageIO.read(new File("images/chess_pieces/Light_Pawn.png"));
+                } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         private boolean firstMove;
