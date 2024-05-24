@@ -21,7 +21,6 @@ public class Player extends Character {
         return p;
     }
 
-    @SuppressWarnings("unused")
     // note: encapsulate these later
     public int xvel;
     public int yvel;
@@ -29,6 +28,7 @@ public class Player extends Character {
     private static ArrayList<Plant> inventory;
     // footprint stuff
     private ArrayList<FootPrint> footprintSpots;
+    @SuppressWarnings("unused")
     private Image fp;
     // prob should be replaced
     private int numTicks;
@@ -52,6 +52,7 @@ public class Player extends Character {
             return opacity;
         }
 
+        @SuppressWarnings("unused")
         public Point getPos() {
             return pos;
         }
