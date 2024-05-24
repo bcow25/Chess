@@ -73,5 +73,5 @@ public abstract class Piece extends Displayable{
         public abstract ArrayList<int[]> generateLegalMoves();
         @Override
         public abstract String toString(); 
-
+       
     }
