@@ -12,6 +12,7 @@ public class Plant extends Displayable {
     private boolean seed;
     private final static String[] types={"Balloon","Bird","Bush","Hydrangea","Marigold","Orchid","Peony","Rose","Sunflower"};
     private final static int[] raritys={1,0,2,0,2,2,1,2,2};
+    private static final String[] rarities={"Legendary","Rare","Common"};
     private final static Image[] images=new Image[raritys.length];
     private static Image seedimg;
     private int id;
@@ -59,7 +60,10 @@ public class Plant extends Displayable {
         return pos;
     }
     public void tick() {
-        if(System.currentTimeMillis()-time>5000) seed=false;
+        if(System.currentTimeMillis()-time>5000) {
+            if(seed) new Messager("You got a "+types[id]+" Plant ("+rarities[raritys[id]]+")!");
+            seed=false;
+        }
     }
     
 }
